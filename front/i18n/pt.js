@@ -12,7 +12,7 @@ export default {
     author: 'autor',
     secondaryAuthor: 'segundo autor',
     authorshipData: 'Dados do Autor',
-    whosName: who => `Nome do ${who}`,
+    whosName: who => `Nome completo do ${who}`,
     whosSurname: who => `Sobrenome do ${who}`,
     nameTooltip: who => `Escreva o nome do ${who} do trabalho`,
     surnameTooltip: who => `Escreva o sobrenome do ${who} do trabalho`,

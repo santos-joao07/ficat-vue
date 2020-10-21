@@ -14,7 +14,7 @@ export default {
     secondaryAuthor: 'Second author',
     lowSecondaryAuthor: 'second author',
     authorshipData: 'Authorship Data',
-    whosName: whomst => `${whomst} name`,
+    whosName: whomst => `${whomst}'s full name`,
     whosSurname: whomst => `${whomst} surname`,
     nameTooltip: whomst => `Write work's ${whomst} name`,
     surnameTooltip: whomst => `Write work's ${whomst} surname`,
