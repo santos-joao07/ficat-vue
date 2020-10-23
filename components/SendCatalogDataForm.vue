@@ -114,14 +114,19 @@ export default {
         work.numberType === 'roman'
           ? romanize(+work.totalPages)
           : work.totalPages
+
+      console.log(authors[0].authorName)
       this.$axios
         .post('/api/catalogCards', {
           keywords: keywords.map(k => k.text),
           authors: {
-            authorName: authors.authorName,
-            authorSurname: authors.authorSurname,
-            ...maybe('author2Name', authors.author2Name),
-            ...maybe('author2Surname', authors.author2Surname)
+            authorName: authors[0].authorName,
+            authorSurname: authors[0].authorSurname,
+            ...maybe('author2Name', authors[1] ? authors[1].authorName : ''),
+            ...maybe(
+              'author2Surname',
+              authors[1] ? authors[1].authorSurname : ''
+            )
           },
           work: {
             workTitle: work.workTitle,

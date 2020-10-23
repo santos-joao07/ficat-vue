@@ -1,42 +1,64 @@
 <template>
   <Card :title="$tr('layout.authorshipData')">
-    <div class="columns is-centered">
-      <div class="column is-half">
+    <div class="columns">
+      <div class="column is-centered">
         <div
           v-for="(kw, i) in $v.authors.$each.$iter"
           :key="i"
-          class="field is-grouped is-grouped"
+          class="field is-grouped input-float"
         >
-          <input-validation
-            ref="authors"
-            v-model="kw.authorName.$model"
-            :label="$tr('layout.whosName', ['author']) + ' ' + (+i + 1)"
-            :validations="$options.validations.authors.$each.authorName"
-            :v="kw"
-            :tooltip-label="
-              $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
-            "
-            field-name="authorName"
-            class="control is-expanded"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
+          <div class="app-author-input">
+            <input-validation
+              ref="authorName"
+              v-model="kw.authorName.$model"
+              :label="$tr('layout.whosName', ['author']) + ' ' + (+i + 1)"
+              :validations="$options.validations.authors.$each.authorName"
+              :v="kw"
+              :tooltip-label="
+                $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
+              "
+              field-name="authorName"
+              class="author-first-input"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+            <input-validation
+              ref="authorSurname"
+              v-model="kw.authorSurname.$model"
+              :label="$tr('layout.whosSurname', ['author']) + ' ' + (+i + 1)"
+              :validations="$options.validations.authors.$each.authorSurname"
+              :tooltip-label="
+                $tr('layout.surnameTooltip', [
+                  { pt: 'author', en: 'lowAuthor' }
+                ])
+              "
+              :v="kw"
+              field-name="authorSurname"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+          </div>
           <div class="btn-block">
-            <WithTooltip text="hey">
+            <WithTooltip :text="$tr('layout.addAuthor')">
               <b-button
                 :disabled="authors.length > 1"
-                @click="authors.push({ authorName: '' })"
+                @click="authors.push({ authorName: '', authorSurname: '' })"
                 icon-right="plus"
                 class="is-success is-round is-outlined btn"
               >
               </b-button>
             </WithTooltip>
-            <WithTooltip text="hey">
+            <WithTooltip :text="$tr('layout.removeKeyword')">
               <b-button
                 v-if="i > 0"
                 @click="authors.splice(i, 1)"
@@ -46,74 +68,8 @@
             </WithTooltip>
           </div>
         </div>
-
-        <!-- <input-validation
-            ref="authorSurname"
-            v-model="$v.authorSurname.$model"
-            :label="$tr('layout.whosSurname', ['author'])"
-            :validations="$options.validations.authorSurname"
-            :tooltip-label="
-              $tr('layout.surnameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
-            "
-            :v="$v"
-            field-name="authorSurname"
-            type="text"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation> -->
       </div>
     </div>
-    <!-- <div class="column is-half">
-        <div class="input-float">
-          <input-validation
-            ref="author2Name"
-            v-model="$v.author2Name.$model"
-            :label="$tr('layout.whosName', ['secondaryAuthor'])"
-            :validations="$options.validations.author2Name"
-            :tooltip-label="
-              $tr('layout.nameTooltip', [
-                { pt: 'secondaryAuthor', en: 'lowSecondaryAuthor' }
-              ])
-            "
-            :v="$v"
-            field-name="author2Name"
-            type="text"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
-          <input-validation
-            ref="author2Surname"
-            v-model="$v.author2Surname.$model"
-            :label="$tr('layout.whosSurname', ['secondaryAuthor'])"
-            :validations="$options.validations.author2Surname"
-            :tooltip-label="
-              $tr('layout.surnameTooltip', [
-                { pt: 'secondaryAuthor', en: 'lowSecondaryAuthor' }
-              ])
-            "
-            :v="$v"
-            field-name="author2Surname"
-            type="text"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
-        </div>
-      </div> -->
   </Card>
 </template>
 
@@ -135,7 +91,6 @@ export default {
       authors
     }
   },
-
   watch: {
     $v: {
       deep: true,
@@ -145,53 +100,39 @@ export default {
     }
   },
 
-  // beforeCreate() {
-  //   if (!recovery('form').authors)
-  //     replace('form', {
-  //       authors: {
-  //         authorName: '',
-  //         authorSurname: '',
-  //         author2Name: '',
-  //         author2Surname: ''
-  //       }
-  //     })
-  // },
+  mounted() {
+    this.$refs.authorName[0].focus()
+  },
 
   beforeCreate() {
     if (!recovery('form').authors)
       replace('form', {
-        authors: [{ authorName: '' }]
+        authors: [
+          {
+            authorName: '',
+            authorSurname: ''
+          }
+        ]
       })
   },
-
-  mounted() {
-    this.$refs.authors[0].focus()
-  },
-
   methods: {
-    onHover(evt, action) {
-      const btn = evt.target
-      console.log(btn.classList)
-      btn.classList.add('tt-btn-visible')
-    },
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },
-
     checkNext() {
-      const { authors } = this.$refs
+      const { authorName } = this.$refs
       this.$v.$touch()
-      for (const i in authors) {
-        console.log(i, this.$refs.authors[i])
+      for (const i in authorName) {
+        console.log(i, this.$refs.authorName[i])
+
         if (this.$v.authors.$each[i].$invalid) {
-          this.$refs.authors[i].focus()
+          this.$refs.authorName[i].focus()
           return false
         }
       }
       return true
     }
   },
-
   validations: {
     // authorName: {
     //   required,
@@ -207,14 +148,17 @@ export default {
     // author2Surname: {
     //   minLength: minLength(5)
     // },
-
     authors: {
       required,
       minLength: minLength(1),
       $each: {
         authorName: {
           required,
-          minLength: minLength(8)
+          minLength: minLength(3)
+        },
+        authorSurname: {
+          required,
+          minLength: minLength(3)
         }
       }
     }
@@ -224,10 +168,20 @@ export default {
 
 <style scoped>
 .input-float {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+
+  justify-content: space-between;
+}
+
+.app-author-input {
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+
+.author-first-input {
+  margin-left: 5%;
+  margin-right: 8%;
 }
 
 .btn-block {
@@ -236,9 +190,17 @@ export default {
   justify-content: space-between;
 }
 
-.btn {
-  flex: 0 1 auto;
-  margin: 0 0.3em;
-  border-radius: 50%;
+@media screen and (max-width: 900px) {
+  .input-float {
+    flex-direction: column;
+  }
+
+  .app-author-input {
+    flex-direction: column;
+  }
+
+  .author-first-input {
+    margin: 0;
+  }
 }
 </style>

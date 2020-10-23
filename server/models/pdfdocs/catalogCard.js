@@ -47,11 +47,8 @@ function catalogCard(
   Sistema de Bibliotecas da Universidade Federal do Pará.
   Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) autor(a)`
 
-  const author2 = authors[1]
-    ? `, ${authors[1].substring(
-        0,
-        authors[1].lastIndexOf(' ')
-      )} ${authors[2].split(' ').pop()}.`
+  const author2 = authors.author2Name
+    ? `, ${authors.author2Name} ${authors.author2Surname}.`
     : '.'
 
   const color = {

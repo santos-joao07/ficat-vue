@@ -79,7 +79,10 @@ function validatePayload(data, validFields = [], optional = []) {
     }
     if (!result.invalidFields && !result.missingFields) result.valid = true
     return result
-  }
+  } 
+  // tentando validar autores q agora é uma array
+
+
   return undefined
 }
 

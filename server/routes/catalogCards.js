@@ -38,11 +38,11 @@ async function create(ctx) {
   } = ctx.request.body
 
   const validations = [
-    validatePayload(
-      authors,
-      catalogFields.authors.mandatory,
-      catalogFields.authors.optional
-    ),
+    // validatePayload(
+    //   authors,
+    //   catalogFields.authors.mandatory,
+    //   catalogFields.authors.optional
+    // ),
     validatePayload(
       work,
       catalogFields.work.mandatory,
