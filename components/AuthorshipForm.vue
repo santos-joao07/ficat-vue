@@ -58,7 +58,7 @@
               >
               </b-button>
             </WithTooltip>
-            <WithTooltip :text="$tr('layout.removeKeyword')">
+            <WithTooltip :text="$tr('layout.removeAuthor')">
               <b-button
                 v-if="i > 0"
                 @click="authors.splice(i, 1)"

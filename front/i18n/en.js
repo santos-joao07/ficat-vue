@@ -69,6 +69,7 @@ export default {
     keyword: 'Keyword ',
     keywordTooltip: 'Type in a scientific work keyword',
     addKeyword: 'Add keyword',
+    removeAuthor: 'Remove co-autor',
     addAuthor: 'Add co-author',
     removeKeyword: 'Remove keyword',
     fontFamilyTooltip: "Select this card's final font family",

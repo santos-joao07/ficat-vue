@@ -69,6 +69,7 @@ export default {
     keyword: 'Palavra-chave ',
     keywordTooltip: 'Escreva uma palavra-chave científica',
     addAuthor: 'Adicionar co-autor',
+    removeAuthor: 'Remover co-autor',
     addKeyword: 'Adicionar palavra-chave',
     removeKeyword: 'Remover palavra-chave',
     fontFamilyTooltip: 'Selecione a fonte da sua ficha catalográfica',
