@@ -116,7 +116,7 @@
                 <WithTooltip
                   :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
                 >
-                  <b-checkbox v-model="kw.isFemaleCoadvisor.$model">
+                  <b-checkbox v-model="coadvisors[0].isFemaleCoadvisor">
                     {{ $tr('layout.femaleAdvisor') }}
                   </b-checkbox>
                 </WithTooltip>
