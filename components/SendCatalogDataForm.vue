@@ -138,13 +138,26 @@ export default {
           },
           advisors: {
             advisorName: advisors.advisorName,
-            advisorSurname: advisors.advisorSurname,
+            advisorSurname: advisors.advisorName,
             isFemaleAdvisor: advisors.isFemaleAdvisor,
             advisorTitle: advisors.advisorTitle,
-            ...maybe('coadvisorName', advisors.coadvisorName),
-            ...maybe('coadvisorSurname', advisors.coadvisorSurname),
-            ...maybe('isFemaleCoadvisor', advisors.isFemaleCoadvisor),
-            ...maybe('coadvisorTitle', advisors.coadvisorTitle)
+            ...maybe(
+              'coadvisorName',
+              advisors.coadvisors[0] ? advisors.coadvisors[0].coadvisorName : ''
+            ),
+            ...maybe('coadvisorSurname', ''),
+            ...maybe(
+              'isFemaleCoadvisor',
+              advisors.coadvisors[0]
+                ? advisors.coadvisors[0].isFemaleCoadvisor
+                : false
+            ),
+            ...maybe(
+              'coadvisorTitle',
+              advisors.coadvisors[0]
+                ? advisors.coadvisors[0].coadvisorTitle
+                : ''
+            )
           },
           academicDetails: {
             acdUnityId: work.selectedAcdUnity.id,

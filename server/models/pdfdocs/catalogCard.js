@@ -75,11 +75,11 @@ function catalogCard(
   const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
   const advisorHeader = `Orientador(a): ${
     title[advisors.advisorTitle][femaleAdvisor]
-  }${advisors.advisorName} ${advisors.advisorSurname}`
+  }${advisors.advisorName}` // ${advisors.advisorSurname}
   const coadvisorHeader = advisors.coadvisorName
     ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
         advisors.coadvisorName
-      } ${advisors.coadvisorSurname}`
+      }` // ${advisors.coadvisorSurname}
     : ''
 
   const fontSize = 10 // catalogFont === 'times' ? 9 : 10

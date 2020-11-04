@@ -116,7 +116,7 @@
                 <WithTooltip
                   :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
                 >
-                  <b-checkbox v-model="coadvisors.female">
+                  <b-checkbox v-model="kw.isFemaleCoadvisor.$model">
                     {{ $tr('layout.femaleAdvisor') }}
                   </b-checkbox>
                 </WithTooltip>
@@ -241,7 +241,10 @@ export default {
           return false
         }
         if (this.$v[field].$each) {
-          console.log(this.$v[field].$each[0]) // TODO: VEJA ISSO POR FAVOR
+          // se houver $each, só pode dizer q é a array adicional de coorientador
+          if (this.$v[field].$each.$invalid) {
+            return false
+          }
         }
       }
       return true
@@ -266,7 +269,7 @@ export default {
         },
         coadvisorTitle: {
           required
-        }
+        } // TODO: RESOLVER FEMALE COADVISOR
       }
     }
   }
