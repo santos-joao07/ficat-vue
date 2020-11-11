@@ -72,7 +72,7 @@
             </div>
           </div>
           <div class="btn-block">
-            <WithTooltip :text="$tr('layout.addAuthor')">
+            <WithTooltip :text="$tr('layout.addCoadvisor')">
               <b-button
                 :disabled="coadvisors.length > 1"
                 @click="
@@ -148,7 +148,7 @@
             </div>
           </div>
           <div class="btn-block">
-            <WithTooltip :text="$tr('layout.addAuthor')">
+            <WithTooltip :text="$tr('layout.addCoadvisor')">
               <b-button
                 :disabled="coadvisors.length > 0"
                 @click="
@@ -163,7 +163,7 @@
               >
               </b-button>
             </WithTooltip>
-            <WithTooltip :text="$tr('layout.removeAuthor')">
+            <WithTooltip :text="$tr('layout.removeCoadvisor')">
               <b-button
                 v-if="i >= 0"
                 @click="coadvisors.splice(i, 1)"
@@ -279,8 +279,8 @@ export default {
 <style scoped>
 .input-float {
   display: flex;
-
-  justify-content: space-evenly;
+  margin-left: 10%;
+  justify-content: flex-start;
 }
 
 .vcenter {
