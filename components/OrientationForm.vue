@@ -277,8 +277,10 @@ export default {
 </script>
 
 <style scoped>
+/* TODO: RESOLVER VISULIZAÇÃO PARA DISPOSITIVOS MOVEIS */
 .input-float {
   display: flex;
+
   margin-left: 10%;
   justify-content: flex-start;
 }

@@ -70,6 +70,7 @@ function catalogCard(
     doctor: ['Dr. ', 'Dra. ']
   }
 
+  // TODO: Usar o segundo coorientador
   console.log(advisors)
   const femaleAdvisor = +!!advisors.isFemaleAdvisor
   const femaleCoadvisor = +!!advisors.isFemaleCoadvisor

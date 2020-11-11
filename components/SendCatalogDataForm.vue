@@ -135,7 +135,7 @@ export default {
             workImagesType: work.workImagesType,
             totalPages,
             workType: work.workType
-          },
+          }, // TODO: Resolver isso aqui para que aceite um segundo coorientador
           advisors: {
             advisorName: advisors.advisorName,
             advisorSurname: advisors.advisorName,
