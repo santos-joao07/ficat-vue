@@ -276,4 +276,10 @@ export default {
   position: relative;
   top: -1rem;
 }
+
+@media screen and (max-width: 900px) {
+  .input-float {
+    flex-direction: column;
+  }
+}
 </style>
