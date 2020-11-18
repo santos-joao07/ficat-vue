@@ -70,18 +70,29 @@ function catalogCard(
     doctor: ['Dr. ', 'Dra. ']
   }
 
-  // TODO: Usar o segundo coorientador
   console.log(advisors)
   const femaleAdvisor = +!!advisors.isFemaleAdvisor
   const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
+  const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
   const advisorHeader = `Orientador(a): ${
     title[advisors.advisorTitle][femaleAdvisor]
   }${advisors.advisorName}` // ${advisors.advisorSurname}
-  const coadvisorHeader = advisors.coadvisorName
-    ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
-        advisors.coadvisorName
-      }` // ${advisors.coadvisorSurname}
-    : ''
+
+  let coadvisorHeader = ''
+
+  if (advisors.coadvisorXName) {
+    coadvisorHeader = `Coorientadores: ${
+      title[advisors.coadvisorTitle][femaleCoadvisor]
+    } ${advisors.coadvisorName},  ${
+      title[advisors.coadvisorXTitle][femaleCoadvisorX]
+    } ${advisors.coadvisorXName}` // ${advisors.coadvisorSurname}
+  } else {
+    coadvisorHeader = advisors.coadvisorName
+      ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
+          advisors.coadvisorName
+        }` // ${advisors.coadvisorSurname}
+      : ''
+  }
 
   const fontSize = 10 // catalogFont === 'times' ? 9 : 10
   const withCoadvisorHeader = coadvisorHeader

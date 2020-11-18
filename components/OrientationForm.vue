@@ -19,23 +19,6 @@
               {{ $tr('layout.minLength', [min]) }}
             </template>
           </input-validation>
-          <!-- <input-validation
-            ref="advisorSurname"
-            v-model="$v.advisorSurname.$model"
-            :validations="$options.validations.advisorSurname"
-            :v="$v"
-            :label="$tr('layout.whosSurname', ['advisor'])"
-            :tooltip-label="$tr('layout.surnameTooltip', ['lowAdvisor'])"
-            field-name="advisorSurname"
-            type="text"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation> -->
           <div class="columns vcenter">
             <div class="column is-half">
               <div class="vcenter">
@@ -116,7 +99,7 @@
                 <WithTooltip
                   :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
                 >
-                  <b-checkbox v-model="coadvisors[0].isFemaleCoadvisor">
+                  <b-checkbox v-model="coadvisors[i].isFemaleCoadvisor">
                     {{ $tr('layout.femaleAdvisor') }}
                   </b-checkbox>
                 </WithTooltip>
@@ -150,7 +133,7 @@
           <div class="btn-block">
             <WithTooltip :text="$tr('layout.addCoadvisor')">
               <b-button
-                :disabled="coadvisors.length > 0"
+                :disabled="coadvisors.length > 1"
                 @click="
                   coadvisors.push({
                     coadvisorName: '',
@@ -269,7 +252,7 @@ export default {
         },
         coadvisorTitle: {
           required
-        } // TODO: RESOLVER FEMALE COADVISOR
+        }
       }
     }
   }

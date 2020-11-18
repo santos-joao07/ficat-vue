@@ -157,6 +157,23 @@ export default {
               advisors.coadvisors[0]
                 ? advisors.coadvisors[0].coadvisorTitle
                 : ''
+            ),
+            ...maybe(
+              'coadvisorXName',
+              advisors.coadvisors[1] ? advisors.coadvisors[1].coadvisorName : ''
+            ),
+            ...maybe('coadvisorXSurname', ''),
+            ...maybe(
+              'isFemaleCoadvisorX',
+              advisors.coadvisors[1]
+                ? advisors.coadvisors[1].isFemaleCoadvisor
+                : false
+            ),
+            ...maybe(
+              'coadvisorXTitle',
+              advisors.coadvisors[1]
+                ? advisors.coadvisors[1].coadvisorTitle
+                : ''
             )
           },
           academicDetails: {

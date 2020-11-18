@@ -48,11 +48,11 @@ async function create(ctx) {
       catalogFields.work.mandatory,
       catalogFields.work.optional
     ),
-    validatePayload(
-      advisors,
-      catalogFields.advisors.mandatory,
-      catalogFields.advisors.optional
-    ),
+    // validatePayload(
+    //   advisors,
+    //   catalogFields.advisors.mandatory,
+    //   catalogFields.advisors.optional
+    // ),
     validatePayload(academicDetails, catalogFields.academicDetails)
   ]
 
