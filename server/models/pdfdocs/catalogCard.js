@@ -43,9 +43,9 @@ function catalogCard(
   { cutter, authors, work, advisors, academicDetailNames, keywords, cdd }
 ) {
   const header = `
-  Dados Internacionais de Catalogação na Publicação (CIP) de acordo com ISBD
-  Sistema de Bibliotecas da Universidade Federal do Pará.
-  Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) autor(a)`
+Dados Internacionais de Catalogação na Publicação (CIP) de acordo com ISBD
+Sistema de Bibliotecas da Universidade Federal do Pará.
+Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) autor(a)`
 
   const author2 = authors.author2Name
     ? `, ${authors.author2Name} ${authors.author2Surname}.`
