@@ -132,17 +132,17 @@ async function getPdfResult(ctx) {
   const htmlTemplate = catalogCardModel(catalogFont, pdfResult)
   const stream = await new Promise((resolve, reject) => {
     htmlPdf
-      .create(
-        htmlTemplate,
-        Object.assign(globalPdfConfig, {
-          border: {
-            top: '4.25cm',
-            right: '5cm',
-            bottom: '4.25cm',
-            left: '5cm'
-          }
-        })
-      )
+      .create(htmlTemplate, {
+        ...globalPdfConfig,
+        border: {
+          top: '4.25cm',
+          bottom: '4.25cm',
+          // Deixando que o HTML decida as margens horizontal para melhor
+          // controle da largura do `card-body`
+          right: '0',
+          left: '0'
+        }
+      })
       .toStream((err, stream) => {
         if (err) {
           stream.close()
