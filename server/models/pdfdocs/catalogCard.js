@@ -44,7 +44,7 @@ function catalogCard(
 ) {
   const header = `
 Dados Internacionais de Catalogação na Publicação (CIP) de acordo com ISBD
-Sistema de Bibliotecas da Universidade Federal do Pará.
+Sistema de Bibliotecas da Universidade Federal do Pará
 Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) autor(a)`
 
   const author2 = authors.author2Name
@@ -58,7 +58,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   }
 
   const subtitle = work.workSubtitle ? `: ${work.workSubtitle}` : ''
-  const authorHeader = `${authors.authorSurname}, ${authors.authorName}`
+  const authorHeader = `${authors.authorSurname}, ${authors.authorName}.`
   const workTitleHeader = `${work.workTitle} ${subtitle} / ${authors.authorName} ${authors.authorSurname}${author2} — ${work.presentationYear}`
   const pagesHeader = `${work.totalPages} f.${color[work.workImagesType]}`
 
@@ -106,14 +106,14 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     tccGraduation: 'TCC (Graduação)'
   }
 
-  const workHeader = `${workTypes[work.workType]} - ${
-    academicDetailNames.programName
-  }, ${academicDetailNames.acdUnityName}`
-
   const local = academicDetailNames.acdUnityName.includes('Campus')
     ? getLocal(academicDetailNames.acdUnityName)
     : 'Belém'
   const localHeader = `Universidade Federal do Pará, ${local}, 2019.`
+
+  const workHeader = `${workTypes[work.workType]} - ${
+    academicDetailNames.programName
+  }, ${academicDetailNames.acdUnityName}, ` + localHeader
 
   let kws = ''
   for (const kn in keywords) {
@@ -130,6 +130,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')
 
+
   return htmlTemplate
     .replace('__fontFamily__', fontFamily)
     .replace('__fontSize__', fontSize)
@@ -141,7 +142,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     .replace('{{advisorHeader}}', advisorHeader)
     .replace('{{coadvisorHeader}}', withCoadvisorHeader)
     .replace('{{workHeader}}', workHeader)
-    .replace('{{localHeader}}', localHeader)
+    // .replace('{{localHeader}}', localHeader)
     .replace('{{keywordHeader}}', keywordHeader)
     .replace('{{cdd}}', cdd)
 }
