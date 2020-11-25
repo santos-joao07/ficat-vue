@@ -5,29 +5,27 @@
       :animated="isAnimated"
       :rounded="isRounded"
       :has-navigation="hasNavigation"
-      :icon-prev="prevIcon"
-      :icon-next="nextIcon"
       :label-position="labelPosition"
       :mobile-mode="mobileMode"
     >
       <b-step-item icon="account">
-        <AuthorshipForm />
+        <AuthorshipForm ref="section-0" />
       </b-step-item>
 
-      <b-step-item step="2">
-        <WorkForm />
+      <b-step-item icon="book-multiple">
+        <WorkForm ref="section-1" />
       </b-step-item>
 
-      <b-step-item step="3">
-        <OrientationForm />
+      <b-step-item icon="account-multiple">
+        <OrientationForm ref="section-2" />
       </b-step-item>
 
-      <b-step-item step="4">
-        <KeywordForm />
+      <b-step-item icon="tag-multiple">
+        <KeywordForm ref="section-3" />
       </b-step-item>
 
-      <b-step-item step="5">
-        <SendCatalogDataForm />
+      <b-step-item icon="check">
+        <SendCatalogDataForm ref="section-4" />
       </b-step-item>
 
       <template
@@ -48,7 +46,7 @@
             type="is-primary"
             icon-right="arrow-right-bold-outline"
             :disabled="next.disabled"
-            @click.prevent="next.action"
+            @click.prevent="validate(next.action)"
           >
             Próximo
           </b-button>
@@ -86,12 +84,19 @@ export default {
       customNavigation: true,
       isProfileSuccess: false,
 
-      prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right',
       labelPosition: 'bottom',
       mobileMode: 'minimalist',
       position: null,
       size: null
+    }
+  },
+
+  methods: {
+    validate(nextAction) {
+      const formSectionRef = 'section-' + this.activeStep
+      if (this.$refs[formSectionRef].checkNext() === true) {
+        nextAction()
+      }
     }
   }
 }
