@@ -100,7 +100,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     : ''
 
   const workTypes = {
-    thesis: 'Tese',
+    thesis: 'Tese (Doutorado)',
     dissertation: 'Dissertação',
     tccExpert: 'TCC (Especialização)',
     tccGraduation: 'TCC (Graduação)'
@@ -109,11 +109,15 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   const local = academicDetailNames.acdUnityName.includes('Campus')
     ? getLocal(academicDetailNames.acdUnityName)
     : 'Belém'
-  const localHeader = `Universidade Federal do Pará, ${local}, 2019.`
+  const localHeader = `${local}, 2019.`
 
-  const workHeader = `${workTypes[work.workType]} - ${
+  // const workHeader = `${workTypes[work.workType]} - ${
+  //   academicDetailNames.programName
+  // }, ${academicDetailNames.acdUnityName}, ` + localHeader
+
+  const workHeader = `${workTypes[work.workType]} - Universidade Federal do Pará, ${academicDetailNames.acdUnityName}, ${
     academicDetailNames.programName
-  }, ${academicDetailNames.acdUnityName}, ` + localHeader
+  }, ` + localHeader
 
   let kws = ''
   for (const kn in keywords) {
