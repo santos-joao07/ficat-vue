@@ -36,7 +36,7 @@
         <div class="test">
           <b-button
             type="is-primary"
-            icon-left="arrow-left-bold-outline"
+            icon-left="arrow-left-thick"
             :disabled="previous.disabled"
             @click.prevent="previous.action"
           >
@@ -44,7 +44,7 @@
           </b-button>
           <b-button
             type="is-primary"
-            icon-right="arrow-right-bold-outline"
+            icon-right="arrow-right-thick"
             :disabled="next.disabled"
             @click.prevent="validate(next.action)"
           >
