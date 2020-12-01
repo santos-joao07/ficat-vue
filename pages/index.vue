@@ -16,7 +16,6 @@
 </template>
 
 <script>
-// import Slider from '~/components/Slider.js'
 import { persist } from '~/front/persistence'
 // import AuthorshipForm from '~/components/AuthorshipForm'
 // import WorkForm from '~/components/WorkForm'
@@ -28,7 +27,6 @@ import Steps from '~/components/Steps'
 export default {
   name: 'Index',
   components: {
-    // Slider,
     // AuthorshipForm,
     // WorkForm,
     // OrientationForm,
