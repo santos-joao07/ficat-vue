@@ -2,36 +2,39 @@
   <section class="section vcenter">
     <div class="columns is-centered">
       <div class="column is-10">
-        <Slider>
+        <!-- <Slider>
           <AuthorshipForm />
           <WorkForm />
           <OrientationForm />
           <KeywordForm />
           <SendCatalogDataForm />
-        </Slider>
+        </Slider> -->
+        <Steps />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import Slider from '~/components/Slider.js'
+// import Slider from '~/components/Slider.js'
 import { persist } from '~/front/persistence'
-import AuthorshipForm from '~/components/AuthorshipForm'
-import WorkForm from '~/components/WorkForm'
-import OrientationForm from '~/components/OrientationForm'
-import KeywordForm from '~/components/KeywordForm'
-import SendCatalogDataForm from '~/components/SendCatalogDataForm'
+// import AuthorshipForm from '~/components/AuthorshipForm'
+// import WorkForm from '~/components/WorkForm'
+// import OrientationForm from '~/components/OrientationForm'
+// import KeywordForm from '~/components/KeywordForm'
+// import SendCatalogDataForm from '~/components/SendCatalogDataForm'
+import Steps from '~/components/Steps'
 
 export default {
   name: 'Index',
   components: {
-    Slider,
-    AuthorshipForm,
-    WorkForm,
-    OrientationForm,
-    KeywordForm,
-    SendCatalogDataForm
+    // Slider,
+    // AuthorshipForm,
+    // WorkForm,
+    // OrientationForm,
+    // KeywordForm,
+    // SendCatalogDataForm,
+    Steps
   },
 
   created() {
@@ -52,6 +55,7 @@ export default {
 .columns {
   margin: auto;
   flex: 1 0 auto;
+  width: 100%;
 }
 
 .bodyClass,
