@@ -26,13 +26,13 @@
       <template slot="end">
         <b-navbar-item tag="div">
           <b-navbar-item>
-            <a @click="setLang('pt')" class="is-primary">
+            <a @click="setLang('pt')" :class="{ selectedClass: isSelected }">
               pt
             </a>
           </b-navbar-item>
           <div class="vl"></div>
           <b-navbar-item>
-            <a @click="setLang('en')" class="is-primary">
+            <a @click="setLang('en')" :class="{ selectedClass: !isSelected }">
               en
             </a>
           </b-navbar-item>
@@ -58,7 +58,8 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      mobileDevice: false
+      mobileDevice: false,
+      isSelected: true
     }
   },
   computed: {
@@ -111,6 +112,7 @@ export default {
   methods: {
     setLang(langKey) {
       this.$store.dispatch('lang/change', langKey)
+      this.isSelected = !this.isSelected
     }
   }
 }
@@ -120,6 +122,10 @@ export default {
 /* .test {
   color: white;
 } */
+
+.selectedClass {
+  text-decoration: underline;
+}
 
 .app-navbar {
   border-bottom: 2px solid #7957d5;
