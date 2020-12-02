@@ -48,6 +48,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  /* background: #ffecd1; */
 }
 
 .columns {

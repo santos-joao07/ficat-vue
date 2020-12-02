@@ -1,54 +1,45 @@
 <template>
   <div>
-    <nav
-      class="navbar header has-shadow is-primary"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/" aria-label="Initial Page">
-          <img src="~assets/buefy.png" alt="Buefy" height="28" />
-        </a>
+    <b-navbar class="has-background-light app-navbar">
+      <template slot="brand">
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+          <img
+            src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+            alt="Lightweight UI components for Vue.js based on Bulma"
+          />
+        </b-navbar-item>
+      </template>
 
-        <div class="navbar-burger">
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-      <div class="navbar-menu has-background-black">
-        <div class="navbar-start">
-          <a
-            v-for="(path, key) in paths"
-            :key="key"
-            :aria-roledescription="path"
-            :aria-label="path"
-            class="navbar-item"
-          >
-            <nuxt-link :to="key" exact-active-class="is-active">
-              {{ path }}
-            </nuxt-link>
-          </a>
-        </div>
-        <div class="navbar-end">
-          <a
-            @click="setLang('pt')"
-            class="navbar-item"
-            exact-active-class="is-active"
-          >
-            pt
-          </a>
-          <div class="navbar-item is-paddingless">|</div>
-          <a
-            @click="setLang('en')"
-            class="navbar-item"
-            exact-active-class="is-active"
-          >
-            en
-          </a>
-        </div>
-      </div>
-    </nav>
+      <template slot="start">
+        <b-navbar-item
+          v-for="(path, key) in paths"
+          :key="key"
+          :aria-roledescription="path"
+          :aria-label="path"
+        >
+          <b-navbar-item tag="router-link" :to="key" class="has-text-primary">
+            {{ path }}
+          </b-navbar-item>
+        </b-navbar-item>
+      </template>
+
+      <template slot="end">
+        <b-navbar-item tag="div">
+          <b-navbar-item>
+            <a @click="setLang('pt')" class="is-primary">
+              pt
+            </a>
+          </b-navbar-item>
+          <div class="vl"></div>
+          <b-navbar-item>
+            <a @click="setLang('en')" class="is-primary">
+              en
+            </a>
+          </b-navbar-item>
+        </b-navbar-item>
+      </template>
+    </b-navbar>
+
     <div class="container">
       <nuxt />
       <div
@@ -65,6 +56,11 @@
 import { mapState } from 'vuex'
 
 export default {
+  data() {
+    return {
+      mobileDevice: false
+    }
+  },
   computed: {
     ...mapState({
       lang: state => state.lang.lang
@@ -119,3 +115,26 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* .test {
+  color: white;
+} */
+
+.app-navbar {
+  border-bottom: 2px solid #7957d5;
+}
+
+.vl {
+  border-left: 2px solid lightgrey;
+  height: 1em;
+}
+
+@media screen and (max-width: 1024px) {
+  .vl {
+    border-left: 0;
+    height: 2px;
+    border-bottom: 1px solid lightgrey;
+  }
+}
+</style>
