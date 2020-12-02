@@ -40,7 +40,7 @@
       </template>
     </b-navbar>
 
-    <div class="">
+    <div class="container">
       <nuxt />
       <div
         class="fb-customerchat"
