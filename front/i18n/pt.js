@@ -19,6 +19,7 @@ export default {
     required: 'Campo obrigatório.',
     optional: 'Campo opcional',
     minLength: min => `Mínimo de ${min} caracteres.`,
+    alpha: alpha => `Por favor insira um ${alpha} válido.`,
     workData: 'Dados do Trabalho',
     workTitle: 'Título do trabalho',
     workTitleTooltip: 'Título principal do trabalho',

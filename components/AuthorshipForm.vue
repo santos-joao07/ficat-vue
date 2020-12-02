@@ -26,6 +26,9 @@
               <template #minLength="{ min }">
                 {{ $tr('layout.minLength', [min]) }}
               </template>
+              <template #alpha>
+                {{ $tr('layout.alpha', ['nome']) }}
+              </template>
             </input-validation>
             <input-validation
               ref="authorSurname"
@@ -45,6 +48,9 @@
               </template>
               <template #minLength="{ min }">
                 {{ $tr('layout.minLength', [min]) }}
+              </template>
+              <template #alpha>
+                {{ $tr('layout.alpha', ['sobrenome']) }}
               </template>
             </input-validation>
           </div>
@@ -74,7 +80,7 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, alpha } from 'vuelidate/lib/validators'
 // import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
@@ -134,31 +140,19 @@ export default {
     }
   },
   validations: {
-    // authorName: {
-    //   required,
-    //   minLength: minLength(3)
-    // },
-    // authorSurname: {
-    //   required,
-    //   minLength: minLength(5)
-    // },
-    // author2Name: {
-    //   minLength: minLength(3)
-    // },
-    // author2Surname: {
-    //   minLength: minLength(5)
-    // },
     authors: {
       required,
       minLength: minLength(1),
       $each: {
         authorName: {
           required,
-          minLength: minLength(3)
+          minLength: minLength(3),
+          alpha
         },
         authorSurname: {
           required,
-          minLength: minLength(3)
+          minLength: minLength(3),
+          alpha
         }
       }
     }

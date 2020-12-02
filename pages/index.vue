@@ -48,13 +48,16 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* background: #ffecd1; */
+  width: 100%;
 }
 
 .columns {
   margin: auto;
   flex: 1 0 auto;
-  width: 100%;
+}
+
+.column {
+  width: 70%;
 }
 
 .bodyClass,
