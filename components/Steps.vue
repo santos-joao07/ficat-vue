@@ -8,6 +8,9 @@
       :label-position="labelPosition"
       :mobile-mode="mobileMode"
     >
+      <b-step-item icon="1">
+        <CotutorshipForm ref="teste" />
+      </b-step-item>
       <b-step-item icon="account">
         <AuthorshipForm ref="section-0" />
       </b-step-item>
@@ -62,6 +65,7 @@ import WorkForm from '~/components/WorkForm'
 import OrientationForm from '~/components/OrientationForm'
 import KeywordForm from '~/components/KeywordForm'
 import SendCatalogDataForm from '~/components/SendCatalogDataForm'
+import CotutorshipForm from '~/components/CotutorshipForm'
 export default {
   name: 'Steps',
   components: {
@@ -69,7 +73,8 @@ export default {
     WorkForm,
     OrientationForm,
     KeywordForm,
-    SendCatalogDataForm
+    SendCatalogDataForm,
+    CotutorshipForm
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar class="has-background-light app-navbar">
+    <b-navbar class="has-background-dark app-navbar">
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <img

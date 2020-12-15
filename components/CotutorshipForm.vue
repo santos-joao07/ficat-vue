@@ -1,0 +1,187 @@
+<template>
+  <Card title="Cotutela">
+    <div class="columns">
+      <div class="column is-centered">
+        <div class="input-float">
+          <input-validation
+            ref="cotutorshipAdvisorName"
+            v-model="$v.cotutorshipAdvisorName.$model"
+            :validations="$options.validations.cotutorshipAdvisorName"
+            :v="$v"
+            :label="$tr('layout.whosName', ['advisor'])"
+            :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+            field-name="cotutorshipAdvisorName"
+          >
+            <template #required>
+              {{ $tr('layout.required') }}
+            </template>
+            <template #minLength="{ min }">
+              {{ $tr('layout.minLength', [min]) }}
+            </template>
+          </input-validation>
+          <div class="columns vcenter">
+            <div class="column is-half">
+              <div class="vcenter">
+                <WithTooltip
+                  :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
+                >
+                  <b-checkbox v-model="isFemaleAdvisor">
+                    {{ $tr('layout.femaleAdvisor') }}
+                  </b-checkbox>
+                </WithTooltip>
+              </div>
+            </div>
+            <div class="column is-half">
+              <input-validation
+                ref="advisorTitle"
+                v-model="$v.advisorTitle.$model"
+                :validations="$options.validations.advisorTitle"
+                :v="$v"
+                :label="$tr('layout.title')"
+                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                field-name="advisorTitle"
+                use-component="b-select"
+              >
+                <template #component>
+                  <option value="graduate">{{ $tr('layout.graduate') }}</option>
+                  <option value="expert">{{ $tr('layout.expert') }}</option>
+                  <option value="master">{{ $tr('layout.master') }}</option>
+                  <option value="doctor">{{ $tr('layout.doctor') }}</option>
+                </template>
+                <template #required>
+                  {{ $tr('layout.required') }}
+                </template>
+              </input-validation>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Card>
+</template>
+
+<script>
+import { required, minLength } from 'vuelidate/lib/validators'
+import { recovery, replace } from '~/front/persistence'
+import Card from '~/components/Card'
+import InputValidation from '~/components/InputValidation.js'
+import WithTooltip from '~/components/WithTooltip'
+
+export default {
+  name: 'CotutorshipForm',
+  components: { Card, InputValidation, WithTooltip },
+  // mixins: [helper],
+  data() {
+    const { cotutorship } = recovery('form') // serasi funciona?
+    return {
+      cotutorshipAdvisorName: cotutorship.advisor.advisorName,
+      isFemaleAdvisor: cotutorship.advisor.isFemaleAdvisor,
+      advisorTitle: cotutorship.advisor.advisorTitle,
+      cotutorshipInstitution: cotutorship.institutionName,
+      cotutorshipProgram: cotutorship.program,
+      initialRef: 'cotutorshipAdvisorName'
+    }
+  },
+
+  watch: {
+    $v: {
+      deep: true,
+      handler($v) {
+        replace('form', { cotutorship: this.$data })
+      }
+    }
+  },
+  //   ,
+
+  //   mounted() {
+  //     this.$refs.advisorName.focus()
+  //   },
+
+  beforeCreate() {
+    if (!recovery('form').advisors)
+      replace('form', {
+        cotutorship: {
+          advisor: {
+            advisorName: '',
+            isFemaleAdvisor: false,
+            advisorTitle: 'doctor'
+          },
+          cotutorshipInstitution: '',
+          cotutorshipProgram: ''
+        }
+      })
+  },
+
+  methods: {
+    filterModels() {
+      return Object.keys(this.$v).filter(k => !k.startsWith('$'))
+    },
+    checkNext() {
+      // const { coadvisorName } = this.$refs
+      const { validations } = this.$options
+      this.$v.$touch()
+      for (const field in validations) {
+        console.log(this.$v[field])
+        if (this.$v[field].$invalid && !this.$v[field].$each) {
+          this.$refs[field].focus()
+          return false
+        }
+        if (this.$v[field].$each) {
+          // se houver $each, só pode dizer q é a array adicional de coorientador
+          if (this.$v[field].$each.$invalid) {
+            return false
+          }
+        }
+      }
+      return true
+    }
+  },
+
+  validations: {
+    cotutorshipAdvisorName: {
+      required,
+      minLength: minLength(3)
+    },
+    advisorTitle: {
+      required
+    },
+
+    coadvisors: {
+      minLength: minLength(0),
+      $each: {
+        coadvisorName: {
+          required,
+          minLength: minLength(3)
+        },
+        coadvisorTitle: {
+          required
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+.input-float {
+  display: flex;
+
+  margin-left: 10%;
+  justify-content: flex-start;
+}
+
+.vcenter {
+  align-items: center;
+}
+
+.field {
+  position: relative;
+  top: -1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .input-float {
+    flex-direction: column;
+  }
+}
+</style>

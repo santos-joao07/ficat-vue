@@ -16,7 +16,7 @@ var options = {
 // Descomente para testar
 const testeFont = 'times'
 const testeCutter = 'P475c'
-const testeAuthorHeader = 'Pessôa, Fábio Tadeu de Melo'
+const testeAuthorHeader = 'Pessôa, Fábio Tadeu de Melo.'
 const testeWorkTitleHeader =
   'Ao cristão é proibido ter medo : a trajetória da Comissão Pastoral da Terra (CPT) no Sul e Sudeste do Pará durante a Ditadura Militar (1975/1985) / Fábio Tadeu de Melo Pessôa. — 2019.'
 const testePagesHeader = '301 f. : il. color.'
