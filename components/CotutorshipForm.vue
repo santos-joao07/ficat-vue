@@ -2,7 +2,7 @@
   <Card title="Cotutela">
     <div class="columns">
       <div class="column is-centered">
-        <div class="input-float">
+        <div class="campo-orientador input-float">
           <input-validation
             ref="cotutorshipAdvisorName"
             v-model="$v.cotutorshipAdvisorName.$model"
@@ -53,6 +53,46 @@
                 </template>
               </input-validation>
             </div>
+          </div>
+        </div>
+
+        <div class="info-instituicao input-float">
+          <div class="campo-instituicao">
+            <input-validation
+              ref="cotutorshipInstitution"
+              v-model="$v.cotutorshipInstitution.$model"
+              :validations="$options.validations.cotutorshipInstitution"
+              :v="$v"
+              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              label="Instituição de Ensino"
+              field-name="cotutorshipInstitution"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+          </div>
+
+          <div class="campo-programa">
+            <input-validation
+              ref="cotutorshipProgram"
+              v-model="$v.cotutorshipProgram.$model"
+              :validations="$options.validations.cotutorshipProgram"
+              :v="$v"
+              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              label="Programa/Faculdade"
+              field-name="cotutorshipProgram"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
           </div>
         </div>
       </div>
@@ -157,6 +197,12 @@ export default {
           required
         }
       }
+    },
+    cotutorshipInstitution: {
+      required
+    },
+    cotutorshipProgram: {
+      required
     }
   }
 }
@@ -177,6 +223,10 @@ export default {
 .field {
   position: relative;
   top: -1rem;
+}
+
+.campo-instituicao {
+  margin-right: 10%;
 }
 
 @media screen and (max-width: 900px) {

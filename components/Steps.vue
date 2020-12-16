@@ -32,24 +32,24 @@
       </b-step-item>
 
       <template
-        v-if="customNavigation"
         slot="navigation"
+        v-if="customNavigation"
         slot-scope="{ previous, next }"
       >
         <div class="test">
           <b-button
-            type="is-primary"
-            icon-left="arrow-left-thick"
             :disabled="previous.disabled"
             @click.prevent="previous.action"
+            type="is-primary"
+            icon-left="arrow-left-thick"
           >
             Anterior
           </b-button>
           <b-button
-            type="is-primary"
-            icon-right="arrow-right-thick"
             :disabled="next.disabled"
             @click.prevent="validate(next.action)"
+            type="is-primary"
+            icon-right="arrow-right-thick"
           >
             Próximo
           </b-button>
