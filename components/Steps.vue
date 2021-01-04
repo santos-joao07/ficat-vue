@@ -8,9 +8,6 @@
       :label-position="labelPosition"
       :mobile-mode="mobileMode"
     >
-      <b-step-item icon="1">
-        <CotutorshipForm ref="teste" />
-      </b-step-item>
       <b-step-item icon="account">
         <AuthorshipForm ref="section-0" />
       </b-step-item>
@@ -23,12 +20,16 @@
         <OrientationForm ref="section-2" />
       </b-step-item>
 
+      <b-step-item icon="account-key">
+        <CotutorshipForm ref="section-3" />
+      </b-step-item>
+
       <b-step-item icon="tag-multiple">
-        <KeywordForm ref="section-3" />
+        <KeywordForm ref="section-4" />
       </b-step-item>
 
       <b-step-item icon="check">
-        <SendCatalogDataForm ref="section-4" />
+        <SendCatalogDataForm ref="section-5" />
       </b-step-item>
 
       <template

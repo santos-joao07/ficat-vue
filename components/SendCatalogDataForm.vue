@@ -109,7 +109,14 @@ export default {
 
     onSubmit() {
       const form = recovery('form')
-      const { authors, work, advisors, keywords, catalogFont } = form
+      const {
+        authors,
+        work,
+        advisors,
+        keywords,
+        cotutorship,
+        catalogFont
+      } = form
       const totalPages =
         work.numberType === 'roman'
           ? romanize(+work.totalPages)
@@ -180,6 +187,28 @@ export default {
             acdUnityId: work.selectedAcdUnity.id,
             knAreaId: work.selectedKnArea.id,
             courseId: work.course
+          },
+          cotutorship: {
+            ...maybe(
+              'cotutorshipAdvisorName',
+              cotutorship.advisor ? cotutorship.advisor.advisorName : ''
+            ),
+            ...maybe(
+              'isFemaleAdvisor',
+              cotutorship.advisor ? cotutorship.advisor.isFemaleAdvisor : false
+            ),
+            ...maybe(
+              'advisorTitle',
+              cotutorship.advisor ? cotutorship.advisor.advisorTitle : false
+            ),
+            ...maybe(
+              'cotutorshipInstitution',
+              cotutorship ? cotutorship.institutionName : ''
+            ),
+            ...maybe(
+              'cotutorshipProgram',
+              cotutorship ? cotutorship.program : ''
+            )
           },
           catalogFont
         })

@@ -5,6 +5,7 @@
         <div class="campo-orientador input-float">
           <input-validation
             ref="cotutorshipAdvisorName"
+            class="advisor-name"
             v-model="$v.cotutorshipAdvisorName.$model"
             :validations="$options.validations.cotutorshipAdvisorName"
             :v="$v"
@@ -138,7 +139,7 @@ export default {
   //   },
 
   beforeCreate() {
-    if (!recovery('form').advisors)
+    if (!recovery('form').cotutorship)
       replace('form', {
         cotutorship: {
           advisor: {
@@ -164,15 +165,18 @@ export default {
         console.log(this.$v[field])
         if (this.$v[field].$invalid && !this.$v[field].$each) {
           this.$refs[field].focus()
+          console.log('não passou')
           return false
         }
         if (this.$v[field].$each) {
           // se houver $each, só pode dizer q é a array adicional de coorientador
           if (this.$v[field].$each.$invalid) {
+            console.log('não passou')
             return false
           }
         }
       }
+      console.log('Passou.')
       return true
     }
   },
@@ -199,7 +203,8 @@ export default {
       }
     },
     cotutorshipInstitution: {
-      required
+      required,
+      minLength: minLength(10)
     },
     cotutorshipProgram: {
       required
@@ -216,6 +221,10 @@ export default {
   justify-content: flex-start;
 }
 
+.advisor-name {
+  margin-right: 5%;
+}
+
 .vcenter {
   align-items: center;
 }
@@ -226,7 +235,7 @@ export default {
 }
 
 .campo-instituicao {
-  margin-right: 10%;
+  margin-right: 5%;
 }
 
 @media screen and (max-width: 900px) {
