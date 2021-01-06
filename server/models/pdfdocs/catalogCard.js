@@ -40,7 +40,16 @@ const { readFileSync } = require('fs')
  */
 function catalogCard(
   catalogFont,
-  { cutter, authors, work, advisors, academicDetailNames, keywords, cdd }
+  {
+    cutter,
+    authors,
+    work,
+    advisors,
+    academicDetailNames,
+    keywords,
+    cotutorship,
+    cdd
+  }
 ) {
   const header = `
 Dados Internacionais de Catalogação na Publicação (CIP) de acordo com ISBD
@@ -74,6 +83,8 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   const femaleAdvisor = +!!advisors.isFemaleAdvisor
   const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
   const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
+  const cotutorshipFemaleAdvisor = +!!cotutorship.advisor.isFemaleAdvisor
+
   const advisorHeader = `Orientador(a): ${
     title[advisors.advisorTitle][femaleAdvisor]
   }${advisors.advisorName}` // ${advisors.advisorSurname}
@@ -94,7 +105,20 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
       : ''
   }
 
+  let cotutorshipHeader = ''
+
+  if (cotutorship.advisor.advisorName) {
+    cotutorshipHeader = `Orientador(a): ${
+      title[cotutorship.advisor.advisorTitle][cotutorshipFemaleAdvisor]
+    } ${cotutorship.advisor.advisorName}`
+  }
+
   const fontSize = 10 // catalogFont === 'times' ? 9 : 10
+
+  const withCotutorshipAdvisorHeader = cotutorshipHeader
+    ? `<p class="ml">${cotutorshipHeader}</p>`
+    : ''
+
   const withCoadvisorHeader = coadvisorHeader
     ? `<p class="ml">${coadvisorHeader}</p>`
     : ''
@@ -115,9 +139,10 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   //   academicDetailNames.programName
   // }, ${academicDetailNames.acdUnityName}, ` + localHeader
 
-  const workHeader = `${workTypes[work.workType]} - Universidade Federal do Pará, ${academicDetailNames.acdUnityName}, ${
-    academicDetailNames.programName
-  }, ` + localHeader
+  const workHeader =
+    `${workTypes[work.workType]} - Universidade Federal do Pará, ${
+      academicDetailNames.acdUnityName
+    }, ${academicDetailNames.programName}, ` + localHeader
 
   let kws = ''
   for (const kn in keywords) {
@@ -134,21 +159,23 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')
 
-
-  return htmlTemplate
-    .replace('__fontFamily__', fontFamily)
-    .replace('__fontSize__', fontSize)
-    .replace('{{cutter}}', cutter)
-    .replace('{{header}}', header)
-    .replace('{{authorHeader}}', authorHeader)
-    .replace('{{workTitleHeader}}', workTitleHeader)
-    .replace('{{pagesHeader}}', pagesHeader)
-    .replace('{{advisorHeader}}', advisorHeader)
-    .replace('{{coadvisorHeader}}', withCoadvisorHeader)
-    .replace('{{workHeader}}', workHeader)
-    // .replace('{{localHeader}}', localHeader)
-    .replace('{{keywordHeader}}', keywordHeader)
-    .replace('{{cdd}}', cdd)
+  return (
+    htmlTemplate
+      .replace('__fontFamily__', fontFamily)
+      .replace('__fontSize__', fontSize)
+      .replace('{{cutter}}', cutter)
+      .replace('{{header}}', header)
+      .replace('{{authorHeader}}', authorHeader)
+      .replace('{{workTitleHeader}}', workTitleHeader)
+      .replace('{{pagesHeader}}', pagesHeader)
+      .replace('{{advisorHeader}}', advisorHeader)
+      .replace('{{cotutorshipAdvisorHeader}}', withCotutorshipAdvisorHeader)
+      .replace('{{coadvisorHeader}}', withCoadvisorHeader)
+      .replace('{{workHeader}}', workHeader)
+      // .replace('{{localHeader}}', localHeader)
+      .replace('{{keywordHeader}}', keywordHeader)
+      .replace('{{cdd}}', cdd)
+  )
 }
 
 function getLocal(acdUnityName) {

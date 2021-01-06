@@ -32,6 +32,7 @@ async function create(ctx) {
     keywords,
     work,
     authors,
+    cotutorship,
     advisors,
     academicDetails,
     catalogFont
@@ -100,6 +101,7 @@ async function create(ctx) {
       catalogFont,
       cutter,
       authors,
+      cotutorship,
       work,
       advisors,
       academicDetailNames,
