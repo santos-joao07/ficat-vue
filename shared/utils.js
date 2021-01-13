@@ -66,6 +66,7 @@ function validatePayload(data, validFields = [], optional = []) {
     for (const f of validFields) {
       if (!Object.keys(dataObj).includes(f) && !optional.includes(f)) {
         if (!result.missingFields) result.missingFields = []
+
         result.missingFields.push(f)
       }
     }
@@ -77,11 +78,11 @@ function validatePayload(data, validFields = [], optional = []) {
         result.invalidFields.push(d)
       }
     }
+    console.log(validFields)
     if (!result.invalidFields && !result.missingFields) result.valid = true
     return result
-  } 
+  }
   // tentando validar autores q agora é uma array
-
 
   return undefined
 }

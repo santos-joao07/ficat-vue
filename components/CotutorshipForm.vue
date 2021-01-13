@@ -176,7 +176,7 @@ export default {
           }
         }
       }
-      console.log(this.isFemaleAdvisor)
+      console.log('cotutorship female: ' + this.isFemaleAdvisor)
       return true
     }
   },

@@ -9,6 +9,17 @@ module.exports = {
       ],
       optional: ['author2Name', 'author2Surname']
     },
+
+    cotutorship: {
+      optional: [
+        'cotutorshipAdvisorName',
+        'isFemaleAdvisor',
+        'advisorTitle',
+        'cotutorshipProgram',
+        'cotutorshipInstitution'
+      ]
+    },
+
     work: {
       mandatory: [
         'workTitle',
@@ -103,7 +114,8 @@ module.exports = {
       'advisors',
       'authors',
       'academicDetails',
-      'catalogFont'
+      'catalogFont',
+      'cotutorship'
     ]
   },
   email: {

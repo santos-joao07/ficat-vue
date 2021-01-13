@@ -117,6 +117,9 @@ export default {
         cotutorship,
         catalogFont
       } = form
+
+      console.log(cotutorship)
+
       const totalPages =
         work.numberType === 'roman'
           ? romanize(+work.totalPages)
@@ -142,7 +145,7 @@ export default {
             workImagesType: work.workImagesType,
             totalPages,
             workType: work.workType
-          }, // TODO: Resolver isso aqui para que aceite um segundo coorientador
+          },
           advisors: {
             advisorName: advisors.advisorName,
             advisorSurname: advisors.advisorName,
@@ -191,23 +194,23 @@ export default {
           cotutorship: {
             ...maybe(
               'cotutorshipAdvisorName',
-              cotutorship.advisor ? cotutorship.advisor.advisorName : ''
+              cotutorship ? cotutorship.cotutorshipAdvisorName : ''
             ),
             ...maybe(
               'isFemaleAdvisor',
-              cotutorship.advisor ? cotutorship.advisor.isFemaleAdvisor : false
+              cotutorship ? cotutorship.isFemaleAdvisor : false
             ),
             ...maybe(
               'advisorTitle',
-              cotutorship.advisor ? cotutorship.advisor.advisorTitle : false
+              cotutorship ? cotutorship.advisorTitle : false
             ),
             ...maybe(
               'cotutorshipInstitution',
-              cotutorship ? cotutorship.institutionName : ''
+              cotutorship ? cotutorship.cotutorshipInstitutionName : ''
             ),
             ...maybe(
               'cotutorshipProgram',
-              cotutorship ? cotutorship.program : ''
+              cotutorship ? cotutorship.cotutorshipProgram : ''
             )
           },
           catalogFont

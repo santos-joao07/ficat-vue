@@ -32,11 +32,13 @@ async function create(ctx) {
     keywords,
     work,
     authors,
-    cotutorship,
     advisors,
     academicDetails,
+    cotutorship,
     catalogFont
   } = ctx.request.body
+
+  console.log(ctx.request.body)
 
   const validations = [
     // validatePayload(
@@ -62,6 +64,7 @@ async function create(ctx) {
     !catalogFields.fonts.includes(catalogFont) ||
     !keywords.length
   ) {
+    console.log('crashou aqui')
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errInvalidFields, {
       fields: validations.filter(val => val && val.valid === false)
     })
@@ -97,15 +100,16 @@ async function create(ctx) {
     ctx.set('Content-Disposition', `filename=ficha.pdf`)
     ctx.status = HttpCodes.OK
     const id = newCatalogCard.id
+
     pdfResults[id] = {
       catalogFont,
       cutter,
       authors,
-      cotutorship,
       work,
       advisors,
       academicDetailNames,
       keywords,
+      cotutorship,
       cdd
     }
     ctx.set('PDF-Location', `/api/catalogCards/get/${id}`)
@@ -171,6 +175,7 @@ async function catalogQueries(ctx) {
   const { mandatory, optional } = querieFields[searchType]
   const validation = validatePayload(params, mandatory, optional)
   if (!validation.valid) {
+    console.log('crashou aqui')
     payloadErrors(ctx, validation)
   }
 

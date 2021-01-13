@@ -79,11 +79,11 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     doctor: ['Dr. ', 'Dra. ']
   }
 
-  console.log(advisors)
+  console.log(cotutorship)
   const femaleAdvisor = +!!advisors.isFemaleAdvisor
   const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
   const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
-  const cotutorshipFemaleAdvisor = +!!cotutorship.advisor.isFemaleAdvisor
+  const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
 
   const advisorHeader = `Orientador(a): ${
     title[advisors.advisorTitle][femaleAdvisor]
@@ -101,16 +101,16 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     coadvisorHeader = advisors.coadvisorName
       ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
           advisors.coadvisorName
-        }` // ${advisors.coadvisorSurname}
+        }` // ${advisors.coadvisorSurname}s
       : ''
   }
 
   let cotutorshipHeader = ''
 
-  if (cotutorship.advisor.advisorName) {
+  if (cotutorship.cotutorshipAdvisorName) {
     cotutorshipHeader = `Orientador(a): ${
-      title[cotutorship.advisor.advisorTitle][cotutorshipFemaleAdvisor]
-    } ${cotutorship.advisor.advisorName}`
+      title[cotutorship.advisorTitle][cotutorshipFemaleAdvisor]
+    } ${cotutorship.cotutorshipAdvisorName}`
   }
 
   const fontSize = 10 // catalogFont === 'times' ? 9 : 10
@@ -118,6 +118,8 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   const withCotutorshipAdvisorHeader = cotutorshipHeader
     ? `<p class="ml">${cotutorshipHeader}</p>`
     : ''
+
+  console.log('pdfdocs: ' + cotutorshipHeader)
 
   const withCoadvisorHeader = coadvisorHeader
     ? `<p class="ml">${coadvisorHeader}</p>`
