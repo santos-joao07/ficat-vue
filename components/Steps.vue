@@ -18,9 +18,16 @@
 
       <b-step-item icon="account-multiple">
         <OrientationForm ref="section-2" />
+        <div class="cotutela-switch">
+          <p class="cotutela-switch-label">Cotutela</p>
+          <b-switch v-model="hasCotutela"> </b-switch>
+        </div>
       </b-step-item>
 
-      <b-step-item icon="account-key">
+      <b-step-item
+        icon="
+              account-key"
+      >
         <CotutorshipForm ref="section-3" />
       </b-step-item>
 
@@ -93,7 +100,10 @@ export default {
       labelPosition: 'bottom',
       mobileMode: 'minimalist',
       position: null,
-      size: null
+      size: null,
+
+      hasCotutela: false,
+      leftLabel: true
     }
   },
 
@@ -108,8 +118,18 @@ export default {
 }
 </script>
 
-<style coped>
+<style scoped>
 .test {
   text-align: center;
+}
+
+.cotutela-switch-label {
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}
+
+.cotutela-switch {
+  text-align: right;
 }
 </style>
