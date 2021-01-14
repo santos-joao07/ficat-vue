@@ -115,9 +115,9 @@ export default {
   data() {
     const { cotutorship } = recovery('form') // serasi funciona?
     return {
-      cotutorshipAdvisorName: cotutorship.advisor.advisorName,
-      isFemaleAdvisor: cotutorship.advisor.isFemaleAdvisor,
-      advisorTitle: cotutorship.advisor.advisorTitle,
+      cotutorshipAdvisorName: cotutorship.advisorName,
+      isFemaleAdvisor: cotutorship.isFemaleAdvisor,
+      advisorTitle: cotutorship.advisorTitle,
       cotutorshipInstitution: cotutorship.institutionName,
       cotutorshipProgram: cotutorship.program,
       initialRef: 'cotutorshipAdvisorName'
@@ -142,13 +142,12 @@ export default {
     if (!recovery('form').cotutorship)
       replace('form', {
         cotutorship: {
-          advisor: {
-            advisorName: '',
-            isFemaleAdvisor: false,
-            advisorTitle: 'doctor'
-          },
-          cotutorshipInstitution: '',
-          cotutorshipProgram: ''
+          advisorName: '',
+          isFemaleAdvisor: false,
+          advisorTitle: 'doctor',
+
+          institutionName: '',
+          program: ''
         }
       })
   },
@@ -188,19 +187,6 @@ export default {
     },
     advisorTitle: {
       required
-    },
-
-    coadvisors: {
-      minLength: minLength(0),
-      $each: {
-        coadvisorName: {
-          required,
-          minLength: minLength(3)
-        },
-        coadvisorTitle: {
-          required
-        }
-      }
     },
     cotutorshipInstitution: {
       required,

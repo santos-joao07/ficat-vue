@@ -206,7 +206,7 @@ export default {
             ),
             ...maybe(
               'cotutorshipInstitution',
-              cotutorship ? cotutorship.cotutorshipInstitutionName : ''
+              cotutorship ? cotutorship.cotutorshipInstitution : ''
             ),
             ...maybe(
               'cotutorshipProgram',
