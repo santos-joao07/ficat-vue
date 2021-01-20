@@ -79,7 +79,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     doctor: ['Dr. ', 'Dra. ']
   }
 
-  console.log(cotutorship)
   const femaleAdvisor = +!!advisors.isFemaleAdvisor
   const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
   const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
@@ -119,8 +118,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     ? `<p class="ml">${cotutorshipHeader}</p>`
     : ''
 
-  console.log('pdfdocs: ' + cotutorshipHeader)
-
   const withCoadvisorHeader = coadvisorHeader
     ? `<p class="ml">${coadvisorHeader}</p>`
     : ''
@@ -135,16 +132,22 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   const local = academicDetailNames.acdUnityName.includes('Campus')
     ? getLocal(academicDetailNames.acdUnityName)
     : 'Belém'
-  const localHeader = `${local}, 2019.`
+  const localHeader = `, ${local}, ${work.presentationYear}.`
 
   // const workHeader = `${workTypes[work.workType]} - ${
   //   academicDetailNames.programName
   // }, ${academicDetailNames.acdUnityName}, ` + localHeader
 
+  const cotutorshipWorkHeader = cotutorship.cotutorshipAdvisorName
+    ? `e ${cotutorship.cotutorshipInstitution}, ${cotutorship.cotutorshipProgram}`
+    : ''
+
   const workHeader =
     `${workTypes[work.workType]} - Universidade Federal do Pará, ${
       academicDetailNames.acdUnityName
-    }, ${academicDetailNames.programName}, ` + localHeader
+    }, ${academicDetailNames.programName} ` +
+    cotutorshipWorkHeader +
+    localHeader
 
   let kws = ''
   for (const kn in keywords) {

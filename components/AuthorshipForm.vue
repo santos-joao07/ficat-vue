@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { required, minLength, alpha } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 // import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
@@ -146,13 +146,11 @@ export default {
       $each: {
         authorName: {
           required,
-          minLength: minLength(3),
-          alpha
+          minLength: minLength(3)
         },
         authorSurname: {
           required,
-          minLength: minLength(3),
-          alpha
+          minLength: minLength(3)
         }
       }
     }
