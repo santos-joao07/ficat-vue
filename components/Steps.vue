@@ -20,23 +20,20 @@
         <OrientationForm ref="section-2" />
         <div class="cotutela-switch">
           <p class="cotutela-switch-label">Cotutela</p>
-          <b-switch v-model="hasCotutela"> </b-switch>
+          <b-switch v-model="showCotutela"> </b-switch>
         </div>
       </b-step-item>
 
-      <b-step-item
-        icon="
-              account-key"
-      >
+      <b-step-item v-if="showCotutela" icon="account-key">
         <CotutorshipForm ref="section-3" />
       </b-step-item>
 
       <b-step-item icon="tag-multiple">
-        <KeywordForm ref="section-4" />
+        <KeywordForm :ref="sectionIndex.keyword" />
       </b-step-item>
 
       <b-step-item icon="check">
-        <SendCatalogDataForm ref="section-5" />
+        <SendCatalogDataForm :ref="sectionIndex.send" />
       </b-step-item>
 
       <template
@@ -102,8 +99,26 @@ export default {
       position: null,
       size: null,
 
-      hasCotutela: false,
-      leftLabel: true
+      showCotutela: false,
+      leftLabel: true,
+
+      sectionIndex: {
+        keyword: 'section-3',
+        send: 'section-4'
+      }
+    }
+  },
+
+  watch: {
+    showCotutela(val) {
+      if (val === false) {
+        this.sectionIndex.keyword = 'section-3'
+        this.sectionIndex.send = 'section-4'
+      } else if (val === true) {
+        this.sectionIndex.keyword = 'section-4'
+        this.sectionIndex.send = 'section-5'
+      }
+      console.log('refs:' + this.$refs['section-5'])
     }
   },
 
@@ -131,5 +146,6 @@ export default {
 
 .cotutela-switch {
   text-align: right;
+  margin-right: 6px;
 }
 </style>
