@@ -113,7 +113,7 @@ export default {
   components: { Card, InputValidation, WithTooltip },
   // mixins: [helper],
   data() {
-    const { cotutorship } = recovery('form') // serasi funciona?
+    const { cotutorship } = recovery('form')
     return {
       cotutorshipAdvisorName: cotutorship.advisorName,
       isFemaleAdvisor: cotutorship.isFemaleAdvisor,
@@ -164,19 +164,29 @@ export default {
         console.log(this.$v[field])
         if (this.$v[field].$invalid && !this.$v[field].$each) {
           this.$refs[field].focus()
-          console.log('não passou')
+
           return false
         }
         if (this.$v[field].$each) {
           // se houver $each, só pode dizer q é a array adicional de coorientador
           if (this.$v[field].$each.$invalid) {
-            console.log('não passou')
             return false
           }
         }
       }
-      console.log('cotutorship female: ' + this.isFemaleAdvisor)
       return true
+    },
+    reset() {
+      replace('form', {
+        cotutorship: {
+          advisorName: '',
+          isFemaleAdvisor: false,
+          advisorTitle: 'doctor',
+
+          institutionName: '',
+          program: ''
+        }
+      })
     }
   },
 

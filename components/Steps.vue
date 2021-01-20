@@ -112,6 +112,8 @@ export default {
   watch: {
     showCotutela(val) {
       if (val === false) {
+        this.$refs['section-3'].reset()
+
         this.sectionIndex.keyword = 'section-3'
         this.sectionIndex.send = 'section-4'
       } else if (val === true) {
