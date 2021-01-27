@@ -38,8 +38,6 @@ async function create(ctx) {
     catalogFont
   } = ctx.request.body
 
-  console.log(ctx.request.body)
-
   const validations = [
     // validatePayload(
     //   authors,
@@ -175,7 +173,6 @@ async function catalogQueries(ctx) {
   const { mandatory, optional } = querieFields[searchType]
   const validation = validatePayload(params, mandatory, optional)
   if (!validation.valid) {
-    console.log('crashou aqui')
     payloadErrors(ctx, validation)
   }
 
@@ -224,7 +221,6 @@ async function catalogQueries(ctx) {
       responseObj[groupIdx] = f
     }
   } else {
-    console.log('yay!')
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
   }
 

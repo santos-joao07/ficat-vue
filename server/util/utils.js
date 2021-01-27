@@ -122,12 +122,17 @@ const diacritics = {
 function cutterFetch(surname, workTitle) {
   // Substituir caracteres unicode por ascii
   ;[surname, workTitle] = [surname, workTitle].map(word => {
-    const lower = word[0].toLowerCase()
-    for (const group in diacritics) {
-      if (diacritics[group].includes(lower))
-        return group.toUpperCase() + word.substring(1)
+    let normalizedString = ''
+    for (let i = 0; i < word.length; i++) {
+      let letter = word[i]
+      for (const group in diacritics) {
+        if (diacritics[group].includes(letter)) {
+          letter = group
+        }
+      }
+      normalizedString += letter
     }
-    return word
+    return normalizedString
   })
 
   // Capitalizar sobrenome para encontrar o cutter correspondente
