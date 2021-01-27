@@ -19,7 +19,7 @@
             </WithTooltip>
           </b-field>
           <div style="display:flex;margin:.5em">
-            <WithTooltip :text="$tr('layout.solveCaptcha')">
+            <WithTooltip :text="$tr('layout.solveCaptcha')" class="recaptcha">
               <div style="margin:auto">
                 <recaptcha
                   @success="onSuccess"
@@ -118,14 +118,11 @@ export default {
         catalogFont
       } = form
 
-      console.log(cotutorship)
-
       const totalPages =
         work.numberType === 'roman'
           ? romanize(+work.totalPages)
           : work.totalPages
 
-      console.log(authors[0].authorName)
       this.$axios
         .post('/api/catalogCards', {
           keywords: keywords.map(k => k.text),
@@ -225,3 +222,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.recaptcha {
+  margin: 0 auto;
+}
+</style>
