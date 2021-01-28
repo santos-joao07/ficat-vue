@@ -20,9 +20,9 @@
               {{ $tr('layout.minLength', [min]) }}
             </template>
           </input-validation>
-          <div class="columns vcenter">
+          <div class="columns vcenter orientador-detalhes">
             <div class="column is-half">
-              <div class="vcenter">
+              <div class="female-checkbox">
                 <WithTooltip
                   :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
                 >
@@ -95,9 +95,9 @@
               {{ $tr('layout.minLength', [min]) }}
             </template>
           </input-validation>
-          <div class="columns vcenter">
+          <div class="columns vcenter orientador-detalhes">
             <div class="column is-half">
-              <div class="vcenter">
+              <div class="female-checkbox">
                 <WithTooltip
                   :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
                 >
@@ -267,12 +267,20 @@ export default {
   justify-content: flex-start;
 }
 
-.orientador-field {
-  margin: 0 3%;
+.vcenter {
+  align-items: flex-start;
 }
 
-.vcenter {
-  align-items: center;
+.orientador-detalhes {
+  padding-left: 3%;
+}
+
+.orientador-field {
+  margin-left: 3%;
+}
+
+.female-checkbox {
+  text-align: left;
 }
 
 .field {
