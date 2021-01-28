@@ -59,7 +59,8 @@ export default {
   data() {
     return {
       mobileDevice: false,
-      isSelected: true
+      isSelected: true,
+      selectedLanguage: 'pt'
     }
   },
   computed: {
@@ -112,7 +113,10 @@ export default {
   methods: {
     setLang(langKey) {
       this.$store.dispatch('lang/change', langKey)
-      this.isSelected = !this.isSelected
+      if (this.selectedLanguage !== langKey) {
+        this.isSelected = !this.isSelected
+        this.selectedLanguage = langKey
+      }
     }
   }
 }
