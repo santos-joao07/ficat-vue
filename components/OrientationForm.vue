@@ -11,6 +11,7 @@
             :label="$tr('layout.whosName', ['advisor'])"
             :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
             field-name="advisorName"
+            class="orientador-field"
           >
             <template #required>
               {{ $tr('layout.required') }}
@@ -85,6 +86,7 @@
             :label="$tr('layout.whosName', ['coadvisor'])"
             :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
             field-name="coadvisorName"
+            class="orientador-field"
           >
             <template #required>
               {{ $tr('layout.required') }}
@@ -218,7 +220,6 @@ export default {
       const { validations } = this.$options
       this.$v.$touch()
       for (const field in validations) {
-        console.log(this.$v[field])
         if (this.$v[field].$invalid && !this.$v[field].$each) {
           this.$refs[field].focus()
           return false
@@ -263,8 +264,11 @@ export default {
 .input-float {
   display: flex;
 
-  margin-left: 10%;
   justify-content: flex-start;
+}
+
+.orientador-field {
+  margin: 0 3%;
 }
 
 .vcenter {
@@ -276,9 +280,10 @@ export default {
   top: -1rem;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1012px) {
   .input-float {
     flex-direction: column;
+    margin-left: 0;
   }
 }
 </style>

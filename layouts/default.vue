@@ -2,7 +2,7 @@
   <div>
     <b-navbar class="has-background-dark app-navbar">
       <template slot="brand">
-        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+        <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
             src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
             alt="Lightweight UI components for Vue.js based on Bulma"
@@ -17,7 +17,7 @@
           :aria-roledescription="path"
           :aria-label="path"
         >
-          <b-navbar-item tag="router-link" :to="key" class="has-text-primary">
+          <b-navbar-item :to="key" tag="router-link" class="has-text-primary">
             {{ path }}
           </b-navbar-item>
         </b-navbar-item>
