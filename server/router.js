@@ -23,6 +23,7 @@ const { auth, authz } = require('./routes/auth')
 
 const router = new Router()
 const api = new Router({ prefix: '/api' })
+
 const bodyParser = BodyParser()
 
 /**
@@ -39,7 +40,11 @@ api.post('/auth', bodyParser, routeValidate('auth'), auth)
  * de ficha catalográfica (usuários finais)
  */
 
+
 authz.unless = unless
+
+router.use('/admin', authz)
+
 api.use(
   authz.unless({
     custom: ctx =>
