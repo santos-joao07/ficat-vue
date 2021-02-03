@@ -67,6 +67,11 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
 
@@ -106,6 +111,7 @@ export default {
       tooltipLabel,
       options,
       disabled,
+      placeholder,
       useLabel = true
     } = this.$props
 
@@ -138,7 +144,7 @@ export default {
               aria-label={tooltipLabel}
               aria-required={!!validations.required}
               aria-describedby="errormsg"
-              aria-placeholder={label.toLowerCase()}
+              placeholder={placeholder}
               rounded
               expanded
               onInput={e => this.$emit('input', e)}

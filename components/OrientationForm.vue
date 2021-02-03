@@ -182,6 +182,7 @@ export default {
       coadvisors: [],
       isFemaleAdvisor: advisors.isFemaleAdvisor,
       advisorTitle: advisors.advisorTitle,
+      placeholderNames: [[], []], //  TODO: Adicionar nomes
       initialRef: 'advisorName'
     }
   },

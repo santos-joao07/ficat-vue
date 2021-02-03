@@ -11,6 +11,7 @@
             :label="$tr('layout.workTitle')"
             :tooltip-label="$tr('layout.workTitleTooltip')"
             field-name="workTitle"
+            placeholder="Ex.: Redes sociais em bibliotecas universitárias"
           >
             <template #required>
               {{ $tr('layout.required') }}
@@ -28,6 +29,7 @@
             :tooltip-label="$tr('layout.workSubtitleTooltip')"
             field-name="workSubtitle"
             type="text"
+            placeholder="Ex.: estudo exploratório"
           >
             <template #minLength="{ min }">
               {{ $tr('layout.minLength', [min]) }}
@@ -61,6 +63,7 @@
                 :label="$tr('layout.totalPages')"
                 :tooltip-label="$tr('layout.numberTypeTooltip')"
                 field-name="totalPages"
+                placeholder="Ex.: xxi, 70"
               >
                 <!-- <template #addon>
                   <b-select v-model="numberType" @input="onChangeType" rounded>
@@ -139,6 +142,7 @@
             @select="option => (selectedKnArea = option)"
             use-component="b-autocomplete"
             field-name="knArea"
+            placeholder="Pesquisa por cdd ou descrição"
           >
             <template #required>
               {{ $tr('layout.required') }}
@@ -162,6 +166,7 @@
             @select="onSelectedAcdUnity"
             use-component="b-autocomplete"
             field-name="acdUnity"
+            placeholder="Pesquisa por nome ou sigla"
           >
             <template #required>
               {{ $tr('layout.required') }}

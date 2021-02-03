@@ -17,6 +17,7 @@
               :tooltip-label="
                 $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
               "
+              :placeholder="'Ex.: ' + placeholderNames[i][0]"
               field-name="authorName"
               class="author-first-input"
             >
@@ -41,6 +42,7 @@
                 ])
               "
               :v="kw"
+              :placeholder="'Ex.: ' + placeholderNames[i][1]"
               field-name="authorSurname"
             >
               <template #required>
@@ -94,7 +96,11 @@ export default {
   data() {
     const { authors } = recovery('form')
     return {
-      authors
+      authors,
+      placeholderNames: [
+        ['João Henrique Rabelo', 'Barbosa'],
+        ['Caio Shimada', 'Rabello']
+      ]
     }
   },
   watch: {

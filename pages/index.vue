@@ -44,3 +44,11 @@ export default {
   overflow-y: hidden;
 }
 </style>
+
+<!-- muda cor do placeholder no escopo global -->
+<style>
+.input::placeholder {
+  color: black;
+  opacity: 0.3;
+}
+</style>
