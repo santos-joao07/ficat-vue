@@ -120,7 +120,6 @@ export default {
         this.sectionIndex.keyword = 'section-4'
         this.sectionIndex.send = 'section-5'
       }
-      console.log('refs:' + this.$refs['section-5'])
     }
   },
 

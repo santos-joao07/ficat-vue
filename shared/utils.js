@@ -78,7 +78,6 @@ function validatePayload(data, validFields = [], optional = []) {
         result.invalidFields.push(d)
       }
     }
-    console.log(validFields)
     if (!result.invalidFields && !result.missingFields) result.valid = true
     return result
   }

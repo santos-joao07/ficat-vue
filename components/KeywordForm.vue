@@ -88,7 +88,6 @@ export default {
   methods: {
     onHover(evt, action) {
       const btn = evt.target
-      console.log(btn.classList)
       btn.classList.add('tt-btn-visible')
     },
 
@@ -96,7 +95,6 @@ export default {
       const { keywords } = this.$refs
       this.$v.$touch()
       for (const i in keywords) {
-        console.log(i, this.$refs.keywords[i])
         if (this.$v.keywords.$each[i].$invalid) {
           this.$refs.keywords[i].focus()
           return false

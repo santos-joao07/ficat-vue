@@ -36,7 +36,7 @@ function tokenVerify(token, xsrfToken, rememberMeFactor = 6) {
 
 function payloadErrors(ctx, validationResult) {
   // Validação não-vazia com erros
-  console.log(validationResult)
+  // console.log(validationResult)
   ctx.status = HttpCodes.BAD_REQUEST
   const errorMessages = []
   for (const i in validationResult) {

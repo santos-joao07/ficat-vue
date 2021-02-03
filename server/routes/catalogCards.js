@@ -62,7 +62,6 @@ async function create(ctx) {
     !catalogFields.fonts.includes(catalogFont) ||
     !keywords.length
   ) {
-    console.log('crashou aqui')
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errInvalidFields, {
       fields: validations.filter(val => val && val.valid === false)
     })
