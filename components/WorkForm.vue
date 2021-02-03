@@ -61,19 +61,15 @@
                 :label="$tr('layout.totalPages')"
                 :tooltip-label="$tr('layout.numberTypeTooltip')"
                 field-name="totalPages"
-                type="number"
               >
-                <template #addon>
+                <!-- <template #addon>
                   <b-select v-model="numberType" @input="onChangeType" rounded>
                     <option value="arabic">{{ $tr('layout.arabic') }}</option>
                     <option value="roman">{{ $tr('layout.roman') }}</option>
                   </b-select>
-                </template>
+                </template> -->
                 <template #required>
                   {{ $tr('layout.required') }}
-                </template>
-                <template #minValue="{ min }">
-                  {{ $tr('layout.minValue', [min]) }}
                 </template>
               </input-validation>
             </div>
@@ -200,7 +196,7 @@
 
 <script>
 import pDebounce from 'p-debounce'
-import { required, minLength, minValue } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
@@ -369,8 +365,7 @@ export default {
       minLength: minLength(10)
     },
     totalPages: {
-      required,
-      minValue: minValue(1)
+      required
     },
     presentationYear: {
       required
