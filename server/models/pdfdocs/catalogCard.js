@@ -79,30 +79,71 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     doctor: ['Dr. ', 'Dra. ']
   }
 
-  const femaleAdvisor = +!!advisors.isFemaleAdvisor
-  const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
-  const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
-  const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
+  // const femaleAdvisor = +!!advisors.isFemaleAdvisor
+  // const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
+  // const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
+  // const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
 
-  const advisorHeader = `Orientador(a): ${
-    title[advisors.advisorTitle][femaleAdvisor]
-  }${advisors.advisorName}` // ${advisors.advisorSurname}
+  const advisorsArray = advisors.advisors
+  const advisorsHeadersArray = []
+  const coadvisorsHeaderArray = ['Coorientadores: ']
 
-  let coadvisorHeader = ''
+  console.log('Tamanho array: ' + advisorsArray.length)
+  console.log(advisorsArray)
+  for (
+    let advisorIndex = 0;
+    advisorIndex < advisorsArray.length;
+    advisorIndex++
+  ) {
+    const advisor = advisorsArray[advisorIndex]
+    const advisorSex = advisor.advisorSex === 'female' ? 1 : 0
 
-  if (advisors.coadvisorXName) {
-    coadvisorHeader = `Coorientadores: ${
-      title[advisors.coadvisorTitle][femaleCoadvisor]
-    } ${advisors.coadvisorName},  ${
-      title[advisors.coadvisorXTitle][femaleCoadvisorX]
-    } ${advisors.coadvisorXName}` // ${advisors.coadvisorSurname}
-  } else {
-    coadvisorHeader = advisors.coadvisorName
-      ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
-          advisors.coadvisorName
-        }` // ${advisors.coadvisorSurname}s
-      : ''
+    if (advisor.advisorType === 'advisor') {
+      console.log('entrou em advisor')
+      advisorsHeadersArray.push(
+        `Orientador(a): ${title[advisor.advisorTitle][advisorSex]}${
+          advisor.advisorName
+        }\n` // serasi o espaço vai contar na ficha??
+      )
+    } else {
+      const coadvisorSex = advisor.advisorSex === 'female' ? 1 : 0
+      coadvisorsHeaderArray.push(
+        `${title[advisor.advisorTitle][coadvisorSex]}${advisor.advisorName}, ` // o final sempre vai ser ,\s
+      )
+    }
   }
+
+  const advisorHeader = ''.concat(...advisorsArray).trim()
+  const coadvisorHeader =
+    coadvisorsHeaderArray.length > 1
+      ? ''
+          .concat(...coadvisorsHeaderArray)
+          .trim()
+          .slice(0, -1)
+      : ''
+  // console.log(advisorsArray.length)
+
+  // const advisorHeader = `Orientador(a): ${
+  //   title[advisors.advisorTitle][femaleAdvisor]
+  // }${advisors.advisorName}`
+
+  // let coadvisorHeader = ''
+
+  // if (advisors.coadvisorXName) {
+  //   coadvisorHeader = `Coorientadores: ${
+  //     title[advisors.coadvisorTitle][femaleCoadvisor]
+  //   } ${advisors.coadvisorName},  ${
+  //     title[advisors.coadvisorXTitle][femaleCoadvisorX]
+  //   } ${advisors.coadvisorXName}`
+  // } else {
+  //   coadvisorHeader = advisors.coadvisorName
+  //     ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
+  //         advisors.coadvisorName
+  //       }` // ${advisors.coadvisorSurname}s
+  //     : ''
+  // }
+
+  const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
 
   let cotutorshipHeader = ''
 

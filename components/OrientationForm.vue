@@ -25,7 +25,7 @@
                 rounded
               >
                 <option value="advisor">Orientador(a)</option>
-                <option value="cooadvisor">Coorientador(a)</option>
+                <option value="coadvisor">Coorientador(a)</option>
               </b-select>
             </template>
             <template #required>

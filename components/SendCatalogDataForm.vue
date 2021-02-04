@@ -143,46 +143,7 @@ export default {
             totalPages,
             workType: work.workType
           },
-          advisors: {
-            advisorName: advisors.advisorName,
-            advisorSurname: advisors.advisorName,
-            isFemaleAdvisor: advisors.isFemaleAdvisor,
-            advisorTitle: advisors.advisorTitle,
-            ...maybe(
-              'coadvisorName',
-              advisors.coadvisors[0] ? advisors.coadvisors[0].coadvisorName : ''
-            ),
-            ...maybe('coadvisorSurname', ''),
-            ...maybe(
-              'isFemaleCoadvisor',
-              advisors.coadvisors[0]
-                ? advisors.coadvisors[0].isFemaleCoadvisor
-                : false
-            ),
-            ...maybe(
-              'coadvisorTitle',
-              advisors.coadvisors[0]
-                ? advisors.coadvisors[0].coadvisorTitle
-                : ''
-            ),
-            ...maybe(
-              'coadvisorXName',
-              advisors.coadvisors[1] ? advisors.coadvisors[1].coadvisorName : ''
-            ),
-            ...maybe('coadvisorXSurname', ''),
-            ...maybe(
-              'isFemaleCoadvisorX',
-              advisors.coadvisors[1]
-                ? advisors.coadvisors[1].isFemaleCoadvisor
-                : false
-            ),
-            ...maybe(
-              'coadvisorXTitle',
-              advisors.coadvisors[1]
-                ? advisors.coadvisors[1].coadvisorTitle
-                : ''
-            )
-          },
+          advisors, // TESTANDO
           academicDetails: {
             acdUnityId: work.selectedAcdUnity.id,
             knAreaId: work.selectedKnArea.id,
@@ -213,6 +174,7 @@ export default {
           catalogFont
         })
         .then(response => {
+          // console.log(advisors.advisors[0])
           const location = response.headers['pdf-location']
           window.open(location, '_blank')
         })
