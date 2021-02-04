@@ -79,11 +79,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     doctor: ['Dr. ', 'Dra. ']
   }
 
-  // const femaleAdvisor = +!!advisors.isFemaleAdvisor
-  // const femaleCoadvisor = +!!advisors.isFemaleCoadvisor
-  // const femaleCoadvisorX = +!!advisors.isFemaleCoadvisorX
-  // const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
-
   const advisorsArray = advisors.advisors
   const advisorsHeadersArray = []
   const coadvisorsHeaderArray = ['Coorientadores: ']
@@ -96,24 +91,25 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     advisorIndex++
   ) {
     const advisor = advisorsArray[advisorIndex]
-    const advisorSex = advisor.advisorSex === 'female' ? 1 : 0
+    const advisorGender = advisor.advisorGender === 'female' ? 1 : 0
 
     if (advisor.advisorType === 'advisor') {
       console.log('entrou em advisor')
       advisorsHeadersArray.push(
-        `Orientador(a): ${title[advisor.advisorTitle][advisorSex]}${
+        `<p class="ml advisor">Orientador(a): ${title[advisor.advisorTitle][advisorGender]}${
           advisor.advisorName
-        }\n` // serasi o espaço vai contar na ficha??
+        }</p>`
       )
     } else {
-      const coadvisorSex = advisor.advisorSex === 'female' ? 1 : 0
+      const coadvisorGender = advisor.advisorGender === 'female' ? 1 : 0
       coadvisorsHeaderArray.push(
-        `${title[advisor.advisorTitle][coadvisorSex]}${advisor.advisorName}, ` // o final sempre vai ser ,\s
+        `${title[advisor.advisorTitle][coadvisorGender]}${advisor.advisorName}, ` // o final sempre vai ser ,\s
       )
     }
   }
 
-  const advisorHeader = ''.concat(...advisorsArray).trim()
+  const advisorHeader = ''.concat(...advisorsHeadersArray)
+  
   const coadvisorHeader =
     coadvisorsHeaderArray.length > 1
       ? ''
@@ -205,6 +201,8 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')
 
+  console.log(advisorHeader)
+  console.log(withCoadvisorHeader)
   return (
     htmlTemplate
       .replace('__fontFamily__', fontFamily)
@@ -214,7 +212,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
       .replace('{{authorHeader}}', authorHeader)
       .replace('{{workTitleHeader}}', workTitleHeader)
       .replace('{{pagesHeader}}', pagesHeader)
-      .replace('{{advisorHeader}}', advisorHeader)
+      .replace('{{advisorsHeader}}', advisorHeader)
       .replace('{{cotutorshipAdvisorHeader}}', withCotutorshipAdvisorHeader)
       .replace('{{coadvisorHeader}}', withCoadvisorHeader)
       .replace('{{workHeader}}', workHeader)

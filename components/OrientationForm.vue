@@ -39,18 +39,18 @@
           <div class="columns vcenter orientador-detalhes">
             <div class="column is-half">
               <input-validation
-                ref="advisorSex"
-                v-model="kw.advisorSex.$model"
+                ref="advisorGender"
+                v-model="kw.advisorGender.$model"
                 :v="kw"
                 :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
-                :validations="$options.validations.advisors.$each.advisorSex"
-                label="Sexo"
-                field-name="advisorSex"
+                :validations="$options.validations.advisors.$each.advisorGender"
+                label="Gênero"
+                field-name="advisorGender"
                 use-component="b-select"
               >
                 <template #component>
-                  <option value="male">Masculino</option>
-                  <option value="female">Feminino</option>
+                  <option value="male">Homem</option>
+                  <option value="female">Mulher</option>
                 </template>
                 <template #required>
                   {{ $tr('layout.required') }}
@@ -87,7 +87,7 @@
                 @click="
                   advisors.push({
                     advisorName: '',
-                    advisorSex: 'male',
+                    advisorGender: 'male',
                     advisorTitle: 'doctor',
                     advisorType: 'advisor'
                   })
@@ -151,7 +151,7 @@ export default {
         advisors: [
           {
             advisorName: '',
-            advisorSex: 'male',
+            advisorGender: 'male',
             advisorTitle: 'doctor',
             advisorType: 'advisor'
           }
@@ -198,7 +198,7 @@ export default {
         advisorTitle: {
           required
         },
-        advisorSex: {
+        advisorGender: {
           required
         },
         advisorType: {
