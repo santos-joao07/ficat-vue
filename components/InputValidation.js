@@ -137,7 +137,6 @@ export default {
             {...(useLabel && { props: { label } })}
             label-position="on-border"
           >
-            {this.$slots.addon}
             <Component
               ref="innerIpt"
               vModel={this.iptValue}
@@ -156,6 +155,7 @@ export default {
               {this.$slots.component}
               {...this.$props.wrappedSlots(h)}
             </Component>
+            {this.$slots.addon}
           </b-field>
         </WithTooltip>
         {this.$slots.message && (

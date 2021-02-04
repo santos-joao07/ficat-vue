@@ -2,17 +2,32 @@
   <Card :title="$tr('layout.orientationData')">
     <div class="columns">
       <div class="column is-centered">
-        <div class="input-float">
+        <div
+          v-for="(kw, i) in $v.advisors.$each.$iter"
+          :key="i"
+          class="input-float"
+        >
           <input-validation
             ref="advisorName"
-            v-model="$v.advisorName.$model"
-            :validations="$options.validations.advisorName"
-            :v="$v"
-            :label="$tr('layout.whosName', ['advisor'])"
+            v-model="kw.advisorName.$model"
+            :validations="$options.validations.advisors.$each.advisorName"
+            :v="kw"
             :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+            label="Nome completo"
             field-name="advisorName"
             class="orientador-field"
           >
+            <template #addon>
+              <b-select
+                v-model="kw.advisorType.$model"
+                @input="onChangeType"
+                placeholder="Tipo"
+                rounded
+              >
+                <option value="advisor">Orientador(a)</option>
+                <option value="cooadvisor">Coorientador(a)</option>
+              </b-select>
+            </template>
             <template #required>
               {{ $tr('layout.required') }}
             </template>
@@ -20,24 +35,34 @@
               {{ $tr('layout.minLength', [min]) }}
             </template>
           </input-validation>
+
           <div class="columns vcenter orientador-detalhes">
             <div class="column is-half">
-              <div class="female-checkbox">
-                <WithTooltip
-                  :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
-                >
-                  <b-checkbox v-model="isFemaleAdvisor">
-                    {{ $tr('layout.femaleAdvisor') }}
-                  </b-checkbox>
-                </WithTooltip>
-              </div>
+              <input-validation
+                ref="advisorSex"
+                v-model="kw.advisorSex.$model"
+                :v="kw"
+                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :validations="$options.validations.advisors.$each.advisorSex"
+                label="Sexo"
+                field-name="advisorSex"
+                use-component="b-select"
+              >
+                <template #component>
+                  <option value="male">Masculino</option>
+                  <option value="female">Feminino</option>
+                </template>
+                <template #required>
+                  {{ $tr('layout.required') }}
+                </template>
+              </input-validation>
             </div>
             <div class="column is-half">
               <input-validation
                 ref="advisorTitle"
-                v-model="$v.advisorTitle.$model"
-                :validations="$options.validations.advisorTitle"
-                :v="$v"
+                v-model="kw.advisorTitle.$model"
+                :validations="$options.validations.advisors.$each.advisorTitle"
+                :v="kw"
                 :label="$tr('layout.title')"
                 :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
                 field-name="advisorTitle"
@@ -58,89 +83,13 @@
           <div class="btn-block">
             <WithTooltip :text="$tr('layout.addCoadvisor')">
               <b-button
-                :disabled="coadvisors.length > 1"
+                :disabled="advisors.length > 2"
                 @click="
-                  coadvisors.push({
-                    coadvisorName: '',
-                    coadvisorTitle: 'doctor',
-                    isFemaleCoadvisor: false
-                  })
-                "
-                icon-right="plus"
-                class="is-success is-round is-outlined btn"
-              >
-              </b-button>
-            </WithTooltip>
-          </div>
-        </div>
-        <div
-          v-for="(kw, i) in $v.coadvisors.$each.$iter"
-          :key="i"
-          class="coadvisor-area input-float"
-        >
-          <input-validation
-            ref="coadvisorName"
-            v-model="kw.coadvisorName.$model"
-            :validations="$options.validations.coadvisors.$each.coadvisorName"
-            :v="kw"
-            :label="$tr('layout.whosName', ['coadvisor'])"
-            :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
-            field-name="coadvisorName"
-            class="orientador-field"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
-          <div class="columns vcenter orientador-detalhes">
-            <div class="column is-half">
-              <div class="female-checkbox">
-                <WithTooltip
-                  :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
-                >
-                  <b-checkbox v-model="coadvisors[i].isFemaleCoadvisor">
-                    {{ $tr('layout.femaleAdvisor') }}
-                  </b-checkbox>
-                </WithTooltip>
-              </div>
-            </div>
-            <div class="column is-half">
-              <input-validation
-                ref="coadvisorTitle"
-                v-model="kw.coadvisorTitle.$model"
-                :validations="
-                  $options.validations.coadvisors.$each.coadvisorTitle
-                "
-                :v="kw"
-                :label="$tr('layout.title')"
-                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
-                field-name="coadvisorTitle"
-                use-component="b-select"
-              >
-                <template #component>
-                  <option value="graduate">{{ $tr('layout.graduate') }}</option>
-                  <option value="expert">{{ $tr('layout.expert') }}</option>
-                  <option value="master">{{ $tr('layout.master') }}</option>
-                  <option value="doctor">{{ $tr('layout.doctor') }}</option>
-                </template>
-                <template #required>
-                  {{ $tr('layout.required') }}
-                </template>
-              </input-validation>
-            </div>
-          </div>
-          <div class="btn-block">
-            <WithTooltip :text="$tr('layout.addCoadvisor')">
-              <b-button
-                :disabled="coadvisors.length > 1"
-                @click="
-                  coadvisors.push({
-                    coadvisorName: '',
-                    coadvisorTitle: 'doctor',
-                    isFemaleCoadvisor: false
+                  advisors.push({
+                    advisorName: '',
+                    advisorSex: 'male',
+                    advisorTitle: 'doctor',
+                    advisorType: 'advisor'
                   })
                 "
                 icon-right="plus"
@@ -150,8 +99,8 @@
             </WithTooltip>
             <WithTooltip :text="$tr('layout.removeCoadvisor')">
               <b-button
-                v-if="i >= 0"
-                @click="coadvisors.splice(i, 1)"
+                v-if="i > 0"
+                @click="advisors.splice(i, 1)"
                 icon-right="minus"
                 class="is-danger is-round btn-margin is-outlined btn"
               ></b-button>
@@ -172,18 +121,14 @@ import InputValidation from '~/components/InputValidation.js'
 import WithTooltip from '~/components/WithTooltip'
 
 export default {
-  name: 'AuthorshipForm',
+  name: 'AdvisorForm',
   components: { Card, InputValidation, WithTooltip },
   // mixins: [helper],
   data() {
     const { advisors } = recovery('form')
     return {
-      advisorName: advisors.advisorName,
-      coadvisors: [],
-      isFemaleAdvisor: advisors.isFemaleAdvisor,
-      advisorTitle: advisors.advisorTitle,
-      placeholderNames: [[], []], //  TODO: Adicionar nomes
-      initialRef: 'advisorName'
+      advisors,
+      placeholderNames: [[], []] //  TODO: Adicionar nomes
     }
   },
 
@@ -197,18 +142,20 @@ export default {
   },
 
   mounted() {
-    this.$refs.advisorName.focus()
+    // this.$refs.advisorName[0].focus()
   },
 
   beforeCreate() {
     if (!recovery('form').advisors)
       replace('form', {
-        advisors: {
-          advisorName: '',
-          isFemaleAdvisor: false,
-          advisorTitle: 'doctor',
-          coadvisors: []
-        }
+        advisors: [
+          {
+            advisorName: '',
+            advisorSex: 'male',
+            advisorTitle: 'doctor',
+            advisorType: 'advisor'
+          }
+        ]
       })
   },
 
@@ -233,26 +180,28 @@ export default {
         }
       }
       return true
+    },
+    onChangeType(e) {
+      replace('form', { advisors: this.$data })
     }
   },
 
   validations: {
-    advisorName: {
+    advisors: {
       required,
-      minLength: minLength(3)
-    },
-    advisorTitle: {
-      required
-    },
-
-    coadvisors: {
-      minLength: minLength(0),
+      minLength: minLength(1),
       $each: {
-        coadvisorName: {
+        advisorName: {
           required,
-          minLength: minLength(3)
+          minLength: minLength(5)
         },
-        coadvisorTitle: {
+        advisorTitle: {
+          required
+        },
+        advisorSex: {
+          required
+        },
+        advisorType: {
           required
         }
       }
@@ -265,7 +214,7 @@ export default {
 .input-float {
   display: flex;
 
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 .vcenter {
