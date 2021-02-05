@@ -16,6 +16,7 @@
             label="Nome completo"
             field-name="advisorName"
             class="orientador-field"
+            :placeholder="'Ex.: ' + placeholderNames[i]"
           >
             <template #addon>
               <b-select
@@ -41,16 +42,18 @@
               <input-validation
                 ref="advisorGender"
                 v-model="kw.advisorGender.$model"
+                placeholder="Selecione"
                 :v="kw"
                 :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
                 :validations="$options.validations.advisors.$each.advisorGender"
                 label="Gênero"
                 field-name="advisorGender"
+                @input="onChangeType"
                 use-component="b-select"
               >
                 <template #component>
-                  <option value="male">Homem</option>
-                  <option value="female">Mulher</option>
+                  <option value="male">Masculino</option>
+                  <option value="female">Feminino</option>
                 </template>
                 <template #required>
                   {{ $tr('layout.required') }}
@@ -87,7 +90,7 @@
                 @click="
                   advisors.push({
                     advisorName: '',
-                    advisorGender: 'male',
+                    advisorGender: null,
                     advisorTitle: 'doctor',
                     advisorType: 'advisor'
                   })
@@ -128,7 +131,11 @@ export default {
     const { advisors } = recovery('form')
     return {
       advisors,
-      placeholderNames: [[], []] //  TODO: Adicionar nomes
+      placeholderNames: [
+        'Paulo Victor Lobato Sarmento',
+        'Bruno Santos Souza',
+        'Fábio Antonio Medeiros Ayres'
+      ]
     }
   },
 
@@ -151,7 +158,7 @@ export default {
         advisors: [
           {
             advisorName: '',
-            advisorGender: 'male',
+            advisorGender: null,
             advisorTitle: 'doctor',
             advisorType: 'advisor'
           }

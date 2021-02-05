@@ -15,6 +15,9 @@
             :v="kw"
             :tooltip-label="$tr('layout.keywordTooltip')"
             field-name="text"
+            :placeholder="
+              placeholderKeywords[i] ? 'Ex.: ' + placeholderKeywords[i] : ''
+            "
           >
             <template #required>
               {{ $tr('layout.required') }}
@@ -61,7 +64,14 @@ export default {
   data() {
     const { keywords } = recovery('form')
     return {
-      keywords
+      keywords,
+      placeholderKeywords: [
+        'Bibliotecas universitárias',
+        'Redes Sociais',
+        'Universidades e faculdades',
+        '',
+        ''
+      ]
     }
   },
 

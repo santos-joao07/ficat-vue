@@ -1,10 +1,12 @@
 // const PDFDocument = require('pdfkit')
 const htmlPdf = require('html-pdf')
-
+const fs = require('fs')
 const CatalogCard = require('../models/CatalogCard')
 const KnowledgeArea = require('../models/KnowledgeArea')
 const Course = require('../models/Course')
 const AcademicUnity = require('../models/AcademicUnity')
+
+const mailer = require('../util/catalogCardEmail')
 
 const { validatePayload, chunks } = require('../../shared/utils')
 const {
@@ -110,6 +112,7 @@ async function create(ctx) {
       cdd
     }
     ctx.set('PDF-Location', `/api/catalogCards/get/${id}`)
+    
   } catch (e) {
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errOnDbSave, {
       error: {
@@ -151,10 +154,13 @@ async function getPdfResult(ctx) {
           stream.close()
           reject(err)
         }
+        stream.pipe(fs.createWriteStream('./assets/pdf_location/ficha.pdf'))
+        // mailer('samanthaathayde@hotmail.com', 'ficha.pdf', './assets/pdf_location/ficha.pdf')
         resolve(stream)
       })
   })
 
+  
   // delete pdfResults[id]
   ctx.body = stream
   ctx.status = HttpCodes.OK
