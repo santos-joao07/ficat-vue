@@ -43,7 +43,7 @@ api.post('/auth', bodyParser, routeValidate('auth'), auth)
 
 authz.unless = unless
 
-router.use('/admin', authz)
+// router.use('/admin', authz)
 
 api.use(
   authz.unless({

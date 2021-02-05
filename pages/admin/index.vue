@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <h1>This is the admin</h1>
-  </div>
+  <div><Nust /></div>
 </template>
 <script>
 export default {
   layout: 'adminLayout'
 }
 </script>
-<style></style>
+<style scoped>
+#__nuxt {
+  height: 100%;
+}
+</style>
