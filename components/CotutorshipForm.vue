@@ -10,6 +10,7 @@
             :v="$v"
             :label="$tr('layout.whosName', ['advisor'])"
             :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+            :placeholder="placeholder.advisorName"
             class="advisor-name"
             field-name="cotutorshipAdvisorName"
           >
@@ -20,17 +21,29 @@
               {{ $tr('layout.minLength', [min]) }}
             </template>
           </input-validation>
+
           <div class="columns vcenter">
             <div class="column is-half">
-              <div class="vcenter">
-                <WithTooltip
-                  :text="$tr('layout.whosFemaleTooltip', ['lowAdvisor'])"
-                >
-                  <b-checkbox v-model="isFemaleAdvisor">
-                    {{ $tr('layout.femaleAdvisor') }}
-                  </b-checkbox>
-                </WithTooltip>
-              </div>
+              <input-validation
+                ref="cotutorshipAdvisorGender"
+                v-model="$v.cotutorshipAdvisorGender.$model"
+                placeholder="Selecione"
+                :v="$v"
+                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :validations="$options.validations.cotutorshipAdvisorGender"
+                label="Gênero"
+                field-name="cotutorshipAdvisorGender"
+                @input="onChangeType"
+                use-component="b-select"
+              >
+                <template #component>
+                  <option value="male">Masculino</option>
+                  <option value="female">Feminino</option>
+                </template>
+                <template #required>
+                  {{ $tr('layout.required') }}
+                </template>
+              </input-validation>
             </div>
             <div class="column is-half">
               <input-validation
@@ -65,6 +78,7 @@
               :validations="$options.validations.cotutorshipInstitution"
               :v="$v"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :placeholder="placeholder.institutionName"
               label="Instituição de Ensino"
               field-name="cotutorshipInstitution"
             >
@@ -84,6 +98,7 @@
               :validations="$options.validations.cotutorshipProgram"
               :v="$v"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :placeholder="placeholder.programName"
               label="Programa/Faculdade"
               field-name="cotutorshipProgram"
             >
@@ -106,21 +121,26 @@ import { required, minLength } from 'vuelidate/lib/validators'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
 import InputValidation from '~/components/InputValidation.js'
-import WithTooltip from '~/components/WithTooltip'
+// import WithTooltip from '~/components/WithTooltip'
 
 export default {
   name: 'CotutorshipForm',
-  components: { Card, InputValidation, WithTooltip },
+  components: { Card, InputValidation },
   // mixins: [helper],
   data() {
     const { cotutorship } = recovery('form')
     return {
       cotutorshipAdvisorName: cotutorship.advisorName,
-      isFemaleAdvisor: cotutorship.isFemaleAdvisor,
+      cotutorshipAdvisorGender: cotutorship.advisorGender,
       advisorTitle: cotutorship.advisorTitle,
       cotutorshipInstitution: cotutorship.institutionName,
       cotutorshipProgram: cotutorship.program,
-      initialRef: 'cotutorshipAdvisorName'
+      initialRef: 'cotutorshipAdvisorName',
+      placeholder: {
+        advisorName: 'Ex.: Jorge Duarte Caras Altas Pinheiro',
+        institutionName: 'Ex.: Universidade de Lisboa',
+        programName: 'Ex.: Faculdade de Direito'
+      }
     }
   },
 
@@ -143,7 +163,7 @@ export default {
       replace('form', {
         cotutorship: {
           advisorName: '',
-          isFemaleAdvisor: false,
+          advisorGender: null,
           advisorTitle: 'doctor',
 
           institutionName: '',
@@ -180,13 +200,16 @@ export default {
       replace('form', {
         cotutorship: {
           advisorName: '',
-          isFemaleAdvisor: false,
+          advisorGender: null,
           advisorTitle: 'doctor',
 
           institutionName: '',
           program: ''
         }
       })
+    },
+    onChangeType(e) {
+      replace('form', { advisors: this.$data })
     }
   },
 
@@ -204,6 +227,9 @@ export default {
     },
     cotutorshipProgram: {
       required
+    },
+    cotutorshipAdvisorGender: {
+      required
     }
   }
 }
@@ -213,7 +239,7 @@ export default {
 .input-float {
   display: flex;
 
-  margin-left: 10%;
+  margin-left: 15%;
   justify-content: flex-start;
 }
 
@@ -237,6 +263,15 @@ export default {
 @media screen and (max-width: 900px) {
   .input-float {
     flex-direction: column;
+    margin-left: 0;
+  }
+
+  .advisor-name {
+    margin-right: 0;
+  }
+
+  .campo-instituicao {
+    margin-right: 0;
   }
 }
 </style>

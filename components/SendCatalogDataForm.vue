@@ -155,8 +155,8 @@ export default {
               cotutorship ? cotutorship.cotutorshipAdvisorName : ''
             ),
             ...maybe(
-              'isFemaleAdvisor',
-              cotutorship ? cotutorship.isFemaleAdvisor : false
+              'cotutorshipAdvisorGender',
+              cotutorship ? cotutorship.cotutorshipAdvisorGender : ''
             ),
             ...maybe(
               'advisorTitle',

@@ -83,7 +83,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   const advisorsHeadersArray = []
   const coadvisorsHeaderArray = ['Coorientadores: ']
 
-  console.log('Tamanho array: ' + advisorsArray.length)
+  
   console.log(advisorsArray)
   for (
     let advisorIndex = 0;
@@ -117,35 +117,15 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
           .trim()
           .slice(0, -1)
       : ''
-  // console.log(advisorsArray.length)
 
-  // const advisorHeader = `Orientador(a): ${
-  //   title[advisors.advisorTitle][femaleAdvisor]
-  // }${advisors.advisorName}`
-
-  // let coadvisorHeader = ''
-
-  // if (advisors.coadvisorXName) {
-  //   coadvisorHeader = `Coorientadores: ${
-  //     title[advisors.coadvisorTitle][femaleCoadvisor]
-  //   } ${advisors.coadvisorName},  ${
-  //     title[advisors.coadvisorXTitle][femaleCoadvisorX]
-  //   } ${advisors.coadvisorXName}`
-  // } else {
-  //   coadvisorHeader = advisors.coadvisorName
-  //     ? `Coorientador(a): ${title[advisors.coadvisorTitle][femaleCoadvisor]} ${
-  //         advisors.coadvisorName
-  //       }` // ${advisors.coadvisorSurname}s
-  //     : ''
-  // }
-
-  const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
+  // const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
+  const cotutorshipAdvisorGender = cotutorship.cotutorshipAdvisorGender === 'female' ? 1 : 0
 
   let cotutorshipHeader = ''
 
   if (cotutorship.cotutorshipAdvisorName) {
     cotutorshipHeader = `Orientador(a): ${
-      title[cotutorship.advisorTitle][cotutorshipFemaleAdvisor]
+      title[cotutorship.advisorTitle][cotutorshipAdvisorGender]
     } ${cotutorship.cotutorshipAdvisorName}`
   }
 
