@@ -1,13 +1,11 @@
 <template>
-  <div></div>
+  <section>
+    <div><h1>Cursos</h1></div>
+  </section>
 </template>
 <script>
 export default {
   layout: 'adminLayout'
 }
 </script>
-<style scoped>
-#__nuxt {
-  height: 100%;
-}
-</style>
+<style scoped></style>
