@@ -83,7 +83,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   const advisorsHeadersArray = []
   const coadvisorsHeaderArray = ['Coorientadores: ']
 
-  
   console.log(advisorsArray)
   for (
     let advisorIndex = 0;
@@ -96,20 +95,22 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     if (advisor.advisorType === 'advisor') {
       console.log('entrou em advisor')
       advisorsHeadersArray.push(
-        `<p class="ml advisor">Orientador(a): ${title[advisor.advisorTitle][advisorGender]}${
-          advisor.advisorName
-        }</p>`
+        `<p class="ml advisor">Orientador(a): ${
+          title[advisor.advisorTitle][advisorGender]
+        }${advisor.advisorName}</p>`
       )
     } else {
       const coadvisorGender = advisor.advisorGender === 'female' ? 1 : 0
       coadvisorsHeaderArray.push(
-        `${title[advisor.advisorTitle][coadvisorGender]}${advisor.advisorName}, ` // o final sempre vai ser ,\s
+        `${title[advisor.advisorTitle][coadvisorGender]}${
+          advisor.advisorName
+        }, ` // o final sempre vai ser ,\s
       )
     }
   }
 
   const advisorHeader = ''.concat(...advisorsHeadersArray)
-  
+
   const coadvisorHeader =
     coadvisorsHeaderArray.length > 1
       ? ''
@@ -119,7 +120,8 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
       : ''
 
   // const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
-  const cotutorshipAdvisorGender = cotutorship.cotutorshipAdvisorGender === 'female' ? 1 : 0
+  const cotutorshipAdvisorGender =
+    cotutorship.cotutorshipAdvisorGender === 'female' ? 1 : 0
 
   let cotutorshipHeader = ''
 

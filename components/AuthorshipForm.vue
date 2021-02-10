@@ -98,8 +98,8 @@ export default {
     return {
       authors,
       placeholderNames: [
-        ['João Henrique Rabelo', 'Barbosa'],
-        ['Caio Shimada', 'Rabello']
+        ['Samantha Luíza Athayde', 'Silva'],
+        ['Carlos Augusto Andrade do', 'Nascimento']
       ]
     }
   },

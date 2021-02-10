@@ -132,9 +132,9 @@ export default {
     return {
       advisors,
       placeholderNames: [
-        'Paulo Victor Lobato Sarmento',
-        'Bruno Santos Souza',
-        'Fábio Antonio Medeiros Ayres'
+        'Diego Bil Silva Barros',
+        'Aline Santiago Borges',
+        'Ramon da Gama Cordeiro'
       ]
     }
   },

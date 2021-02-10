@@ -1,6 +1,6 @@
 // const PDFDocument = require('pdfkit')
-const htmlPdf = require('html-pdf')
 const fs = require('fs')
+const htmlPdf = require('html-pdf')
 const CatalogCard = require('../models/CatalogCard')
 const KnowledgeArea = require('../models/KnowledgeArea')
 const Course = require('../models/Course')
@@ -27,11 +27,13 @@ const generatePdfReport = require('../models/pdfdocs/report')
 // Usado para guardar as operações realizadas por cada usuário no sistema
 // Previne condições de corrida
 const pdfResults = {}
+let userEmail = ''
 
 async function create(ctx) {
   // Validação interna do payload
   const {
     keywords,
+    email,
     work,
     authors,
     advisors,
@@ -39,6 +41,8 @@ async function create(ctx) {
     cotutorship,
     catalogFont
   } = ctx.request.body
+
+  userEmail = email
 
   const validations = [
     // validatePayload(
@@ -112,7 +116,6 @@ async function create(ctx) {
       cdd
     }
     ctx.set('PDF-Location', `/api/catalogCards/get/${id}`)
-    
   } catch (e) {
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errOnDbSave, {
       error: {
@@ -155,12 +158,11 @@ async function getPdfResult(ctx) {
           reject(err)
         }
         stream.pipe(fs.createWriteStream('./assets/pdf_location/ficha.pdf'))
-        // mailer('samanthaathayde@hotmail.com', 'ficha.pdf', './assets/pdf_location/ficha.pdf')
+        mailer(userEmail, 'ficha.pdf', './assets/pdf_location/ficha.pdf')
         resolve(stream)
       })
   })
 
-  
   // delete pdfResults[id]
   ctx.body = stream
   ctx.status = HttpCodes.OK

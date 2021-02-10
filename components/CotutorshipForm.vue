@@ -137,7 +137,7 @@ export default {
       cotutorshipProgram: cotutorship.program,
       initialRef: 'cotutorshipAdvisorName',
       placeholder: {
-        advisorName: 'Ex.: Jorge Duarte Caras Altas Pinheiro',
+        advisorName: 'Ex.: Edisângela Paixão Bastos',
         institutionName: 'Ex.: Universidade de Lisboa',
         programName: 'Ex.: Faculdade de Direito'
       }

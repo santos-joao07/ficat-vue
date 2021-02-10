@@ -170,7 +170,6 @@ export default {
       const { validations } = this.$options
       this.$v.$touch()
       for (const field in validations) {
-        console.log(this.$v[field])
         if (this.$v[field].$invalid && !this.$v[field].$each) {
           this.$refs[field].focus()
           this.emailInvalid = true
@@ -215,6 +214,7 @@ export default {
       this.$axios
         .post('/api/catalogCards', {
           keywords: keywords.map(k => k.text),
+          email,
           authors: {
             authorName: authors[0].authorName,
             authorSurname: authors[0].authorSurname,
@@ -232,7 +232,7 @@ export default {
             totalPages,
             workType: work.workType
           },
-          advisors, // TESTANDO
+          advisors,
           academicDetails: {
             acdUnityId: work.selectedAcdUnity.id,
             knAreaId: work.selectedKnArea.id,
@@ -263,7 +263,8 @@ export default {
           catalogFont
         })
         .then(response => {
-          // console.log(advisors.advisors[0])
+          console.log(email)
+          console.log(authors)
           const location = response.headers['pdf-location']
           window.open(location, '_blank')
         })

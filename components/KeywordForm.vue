@@ -14,10 +14,10 @@
             :validations="$options.validations.keywords.$each.text"
             :v="kw"
             :tooltip-label="$tr('layout.keywordTooltip')"
-            field-name="text"
             :placeholder="
               placeholderKeywords[i] ? 'Ex.: ' + placeholderKeywords[i] : ''
             "
+            field-name="text"
           >
             <template #required>
               {{ $tr('layout.required') }}
@@ -67,7 +67,7 @@ export default {
       keywords,
       placeholderKeywords: [
         'Bibliotecas universitárias',
-        'Redes Sociais',
+        'Redes sociais',
         'Universidades e faculdades',
         '',
         ''
