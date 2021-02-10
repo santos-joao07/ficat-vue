@@ -27,13 +27,13 @@ const generatePdfReport = require('../models/pdfdocs/report')
 // Usado para guardar as operações realizadas por cada usuário no sistema
 // Previne condições de corrida
 const pdfResults = {}
-let userEmail = ''
+let userEmailV = ''
 
 async function create(ctx) {
   // Validação interna do payload
   const {
     keywords,
-    email,
+    userEmail,
     work,
     authors,
     advisors,
@@ -42,8 +42,8 @@ async function create(ctx) {
     catalogFont
   } = ctx.request.body
 
-  userEmail = email
-
+  userEmailV = userEmail
+  console.log("from send:"+ userEmail)
   const validations = [
     // validatePayload(
     //   authors,
@@ -158,7 +158,7 @@ async function getPdfResult(ctx) {
           reject(err)
         }
         stream.pipe(fs.createWriteStream('./assets/pdf_location/ficha.pdf'))
-        mailer(userEmail, 'ficha.pdf', './assets/pdf_location/ficha.pdf')
+        mailer(userEmailV, 'ficha.pdf', './assets/pdf_location/ficha.pdf')
         resolve(stream)
       })
   })

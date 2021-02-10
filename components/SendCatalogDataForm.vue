@@ -214,7 +214,7 @@ export default {
       this.$axios
         .post('/api/catalogCards', {
           keywords: keywords.map(k => k.text),
-          email,
+          userEmail: this.email,
           authors: {
             authorName: authors[0].authorName,
             authorSurname: authors[0].authorSurname,
@@ -263,7 +263,7 @@ export default {
           catalogFont
         })
         .then(response => {
-          console.log(email)
+          console.log(this.email)
           console.log(authors)
           const location = response.headers['pdf-location']
           window.open(location, '_blank')

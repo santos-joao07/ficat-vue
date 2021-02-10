@@ -115,7 +115,8 @@ module.exports = {
       'authors',
       'academicDetails',
       'catalogFont',
-      'cotutorship'
+      'cotutorship',
+      'userEmail'
     ]
   },
   email: {

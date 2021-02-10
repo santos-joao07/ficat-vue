@@ -38,6 +38,13 @@ const mailer = async function(emailAddres, pdfName, stream) {
       } else {
         console.log(info)
       }
+      fs.unlink('./assets/pdf_location/ficha.pdf', err => {
+        if (err) {
+          console.error(err)
+        } else {
+          console.log('pdf removed')
+        }
+      })
     }
   )
 
@@ -47,16 +54,6 @@ const mailer = async function(emailAddres, pdfName, stream) {
   // Preview only available when sending through an Ethereal account
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-
-  fs.unlink('./assets/pdf_location/ficha.pdf', err => {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log('pdf removed')
-    }
-  })
 }
-
-mailer().catch(console.error)
 
 module.exports = mailer
