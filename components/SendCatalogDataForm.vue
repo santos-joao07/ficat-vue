@@ -3,7 +3,7 @@
     <div class="columns is-centered">
       <div class="column is-center is-5">
         <form @submit.prevent="onSubmit">
-          <b-field>
+          <b-field label="Fonte" label-position="on-border">
             <WithTooltip :text="$tr('layout.fontFamilyTooltip')">
               <b-select
                 ref="font"
@@ -18,7 +18,58 @@
               </b-select>
             </WithTooltip>
           </b-field>
-          <div style="display:flex;margin:.5em">
+          <b-field v-if="sendEmailCopy" class="email-input">
+            <input-validation
+              ref="email"
+              v-model="$v.email.$model"
+              :validations="$options.validations.email"
+              :v="$v"
+              :tooltip-label="
+                $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
+              "
+              placeholder="Ex.: seu.email@exemplo.com"
+              label="Digite seu email"
+              field-name="email"
+              class="author-first-input"
+            >
+              <template #email>
+                {{ $tr('layout.email') }}
+              </template>
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+            </input-validation>
+          </b-field>
+
+          <!-- <b-field
+            v-if="sendEmailCopy"
+            class="email-input"
+            label="Digite seu email"
+            label-position="on-border"
+            expanded
+          >
+            <b-input
+              :v="$v"
+              :validations="$options.validations.email"
+              v-model="email"
+              placeholder="Ex.: seu.email@exemplo.com"
+              rounded
+              expanded
+            >
+            </b-input>
+          </b-field> -->
+
+          <b-field class="email-box">
+            <WithTooltip
+              text="Marque se você deseja receber uma cópia do pdf no seu email"
+            >
+              <b-checkbox v-model="sendEmailCopy" class="email-checkbox">
+                Quero receber uma cópia da ficha catalografica por email.
+              </b-checkbox>
+            </WithTooltip>
+          </b-field>
+
+          <div class="recaptcha-box" style="display:flex;margin:.5em">
             <WithTooltip :text="$tr('layout.solveCaptcha')" class="recaptcha">
               <div style="margin:auto">
                 <recaptcha
@@ -49,17 +100,20 @@
 </template>
 
 <script>
+import { email, required } from 'vuelidate/lib/validators'
 import Card from '~/components/Card'
 import WithTooltip from '~/components/WithTooltip'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import { maybe, romanize } from '~/shared/frontUtils'
+import InputValidation from '~/components/InputValidation.js'
 
 export default {
   name: 'SendCatalogDataForm',
   components: {
     Card,
-    WithTooltip
+    WithTooltip,
+    InputValidation
   },
   mixins: [helper],
 
@@ -70,6 +124,9 @@ export default {
       touchedCaptcha: false,
       captchaHasError: false,
       captchaHasExpired: false,
+      sendEmailCopy: false,
+      emailInvalid: false,
+      email: '',
       initialRef: 'font'
     }
   },
@@ -77,7 +134,10 @@ export default {
   computed: {
     disabled() {
       return (
-        !this.touchedCaptcha || this.captchaHasError || this.captchaHasExpired
+        !this.touchedCaptcha ||
+        this.captchaHasError ||
+        this.captchaHasExpired ||
+        this.emailInvalid
       )
     }
   },
@@ -85,6 +145,16 @@ export default {
   watch: {
     catalogFont() {
       replace('form', { catalogFont: this.catalogFont })
+    },
+
+    sendEmailCopy(value) {
+      if (value === false) {
+        this.resetEmail()
+      }
+    },
+
+    email(value) {
+      this.isEmailValid()
     }
   },
 
@@ -96,6 +166,25 @@ export default {
   },
 
   methods: {
+    isEmailValid() {
+      const { validations } = this.$options
+      this.$v.$touch()
+      for (const field in validations) {
+        console.log(this.$v[field])
+        if (this.$v[field].$invalid && !this.$v[field].$each) {
+          this.$refs[field].focus()
+          this.emailInvalid = true
+          return
+        }
+      }
+      this.emailInvalid = false
+    },
+
+    resetEmail() {
+      this.email = ''
+      this.emailInvalid = false
+    },
+
     onSomeError(type) {
       const data = type === 'exp' ? 'captchaHasExpired' : 'captchaHasError'
       this.$set(this.$data, data, true)
@@ -181,11 +270,30 @@ export default {
         .catch()
         .finally(() => (this.loading = false))
     }
+  },
+
+  validations: {
+    email: {
+      email,
+      required
+    }
   }
 }
 </script>
 <style scoped>
 .recaptcha {
   margin: 0 auto;
+}
+
+.email-input {
+  margin-top: 10%;
+}
+
+.email-box {
+  margin-bottom: 7%;
+}
+
+.email-checkbox {
+  font-size: 0.8em;
 }
 </style>

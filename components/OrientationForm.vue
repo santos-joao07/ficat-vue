@@ -13,10 +13,10 @@
             :validations="$options.validations.advisors.$each.advisorName"
             :v="kw"
             :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+            :placeholder="'Ex.: ' + placeholderNames[i]"
             label="Nome completo"
             field-name="advisorName"
             class="orientador-field"
-            :placeholder="'Ex.: ' + placeholderNames[i]"
           >
             <template #addon>
               <b-select
@@ -42,13 +42,13 @@
               <input-validation
                 ref="advisorGender"
                 v-model="kw.advisorGender.$model"
-                placeholder="Selecione"
                 :v="kw"
                 :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
                 :validations="$options.validations.advisors.$each.advisorGender"
+                @input="onChangeType"
+                placeholder="Selecione"
                 label="Gênero"
                 field-name="advisorGender"
-                @input="onChangeType"
                 use-component="b-select"
               >
                 <template #component>

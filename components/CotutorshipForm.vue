@@ -27,13 +27,13 @@
               <input-validation
                 ref="cotutorshipAdvisorGender"
                 v-model="$v.cotutorshipAdvisorGender.$model"
-                placeholder="Selecione"
                 :v="$v"
                 :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
                 :validations="$options.validations.cotutorshipAdvisorGender"
+                @input="onChangeType"
+                placeholder="Selecione"
                 label="Gênero"
                 field-name="cotutorshipAdvisorGender"
-                @input="onChangeType"
                 use-component="b-select"
               >
                 <template #component>
