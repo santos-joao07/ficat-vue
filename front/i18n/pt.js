@@ -34,7 +34,7 @@ export default {
     numberTypeTooltip:
       'Escrever número total de páginas em algarismos romanos/arábicos',
     minValue: min => `Não pode ser menor que ${min}`,
-    pictures: 'Possui Imagens?',
+    pictures: 'Ilustração',
     picturesTooltip:
       'Selecione o tipo de imagens presentes no seu trabalho ou "nenhuma"',
     nocolor: 'Não possui',
