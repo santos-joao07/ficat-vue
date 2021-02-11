@@ -1,11 +1,31 @@
 <template>
   <section>
-    <div><h1>Cursos</h1></div>
+    <div>
+      <cursos-header></cursos-header>
+      <cursos-searchbar class="cursos-searchbar"></cursos-searchbar>
+      <cursos-table></cursos-table>
+    </div>
+    <div>
+      <h1>Cursos</h1>
+    </div>
   </section>
 </template>
 <script>
+import CursosHeader from '../../components/admin/CursosHeader'
+import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
+import CursosTable from '../../components/admin/CursosTable.vue'
+
 export default {
-  layout: 'adminLayout'
+  layout: 'adminLayout',
+  components: {
+    'cursos-header': CursosHeader,
+    'cursos-searchbar': CursosSearchbar,
+    'cursos-table': CursosTable
+  }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.cursos-searchbar {
+  margin: 2%;
+}
+</style>

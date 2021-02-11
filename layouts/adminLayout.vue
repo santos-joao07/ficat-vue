@@ -1,14 +1,14 @@
 <template>
   <div class="app-sidebar-page">
     <div class="app-sidebar">
-      <b-sidebar position="static" type="is-light" :fullheight="true" open>
+      <b-sidebar :fullheight="true" position="static" type="is-light" open>
         <div class="p-1">
-          <div class="block">
+          <!-- <div class="block">
             <img
               src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
               alt="Lightweight UI components for Vue.js based on Bulma"
             />
-          </div>
+          </div> -->
           <b-menu class="app-menu">
             <b-menu-list label="Navegação">
               <b-menu-item
@@ -118,5 +118,9 @@ body {
 .app-menu a.nuxt-link-exact-active:hover {
   background-color: #7957d5;
   color: white;
+}
+
+.app-content {
+  width: 100%;
 }
 </style>
