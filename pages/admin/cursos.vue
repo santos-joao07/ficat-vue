@@ -2,8 +2,8 @@
   <section>
     <div>
       <cursos-header></cursos-header>
-      <cursos-searchbar class="cursos-searchbar"></cursos-searchbar>
-      <cursos-table></cursos-table>
+      <!-- <cursos-searchbar class="cursos-searchbar"></cursos-searchbar> -->
+      <cursos-table class="cursos-table"></cursos-table>
     </div>
     <div>
       <h1>Cursos</h1>
@@ -12,14 +12,14 @@
 </template>
 <script>
 import CursosHeader from '../../components/admin/CursosHeader'
-import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
+// import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
 import CursosTable from '../../components/admin/CursosTable.vue'
 
 export default {
   layout: 'adminLayout',
   components: {
     'cursos-header': CursosHeader,
-    'cursos-searchbar': CursosSearchbar,
+    // 'cursos-searchbar': CursosSearchbar,
     'cursos-table': CursosTable
   }
 }
@@ -27,5 +27,9 @@ export default {
 <style scoped>
 .cursos-searchbar {
   margin: 2%;
+}
+
+.cursos-table {
+  margin: 5%;
 }
 </style>
