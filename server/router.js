@@ -40,7 +40,6 @@ api.post('/auth', bodyParser, routeValidate('auth'), auth)
  * de ficha catalográfica (usuários finais)
  */
 
-
 authz.unless = unless
 
 // router.use('/admin', authz)
