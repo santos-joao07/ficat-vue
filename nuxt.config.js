@@ -43,7 +43,8 @@ module.exports = {
   plugins: [
     '~/plugins/lang.js',
     '~/plugins/vue-cookies.js',
-    '~/plugins/vuelidate.js'
+    '~/plugins/vuelidate.js',
+    '~/plugins/buefy.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -57,7 +58,7 @@ module.exports = {
    */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    'nuxt-buefy',
+
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/recaptcha'

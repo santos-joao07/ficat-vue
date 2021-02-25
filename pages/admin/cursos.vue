@@ -17,14 +17,9 @@
         </template>
       </b-modal> -->
       <b-modal v-model="isComponentModalActive">
-        <p class="image is-4by3">
-          <img src="/static/img/placeholder-1280x960.png" />
-        </p>
+        <cursos-add></cursos-add>
       </b-modal>
       <cursos-table class="cursos-table"></cursos-table>
-    </div>
-    <div>
-      <h1>Cursos</h1>
     </div>
   </section>
 </template>
@@ -32,15 +27,15 @@
 import CursosHeader from '../../components/admin/CursosHeader'
 // import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
 import CursosTable from '../../components/admin/CursosTable'
-// import CursosAdd from '../../components/admin/CursosAdd'
+import CursosAdd from '../../components/admin/CursosAdd'
 
 export default {
   layout: 'adminLayout',
   components: {
     'cursos-header': CursosHeader,
     // 'cursos-searchbar': CursosSearchbar,
-    'cursos-table': CursosTable
-    // 'cursos-add': CursosAdd
+    'cursos-table': CursosTable,
+    'cursos-add': CursosAdd
   },
 
   data() {
