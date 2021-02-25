@@ -13,7 +13,7 @@
     <template #end>
       <b-navbar-item tag="div">
         <div class="buttons">
-          <a class="button is-primary">
+          <a @click="addClicked" class="button is-primary">
             Adicionar novo
           </a>
         </div>
@@ -22,7 +22,23 @@
   </b-navbar>
 </template>
 <script>
-export default {}
+// import CursosAdd from '../../components/admin/CursosAdd'
+
+export default {
+  components: {},
+
+  data() {
+    return {
+      isComponentModalActive: false
+    }
+  },
+
+  methods: {
+    addClicked() {
+      this.$emit('addCourseClicked')
+    }
+  }
+}
 </script>
 <style scoped>
 .app-navbar {
