@@ -7,20 +7,16 @@
       </header>
       <section class="modal-card-body">
         <b-field label="Nome do curso">
-          <b-input :value="email" placeholder="Your email" required> </b-input>
-        </b-field>
-
-        <b-field label="Unidade academica">
           <b-input
-            :value="password"
-            password-reveal
-            placeholder="Your password"
+            placeholder="Ex.: Programa de pó-graduação em direito"
             required
           >
           </b-input>
         </b-field>
 
-        <b-checkbox>Remember me</b-checkbox>
+        <b-field label="Unidade academica">
+          <b-input placeholder="Ex.: ICJ" required> </b-input>
+        </b-field>
       </section>
       <footer class="modal-card-foot">
         <b-button @click="$emit('close')" label="Close" />
