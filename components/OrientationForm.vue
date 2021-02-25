@@ -21,7 +21,6 @@
             <template #addon>
               <b-select
                 v-model="kw.advisorType.$model"
-                @input="onChangeType"
                 placeholder="Tipo"
                 rounded
               >
@@ -45,7 +44,6 @@
                 :v="kw"
                 :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
                 :validations="$options.validations.advisors.$each.advisorGender"
-                @input="onChangeType"
                 placeholder="Selecione"
                 label="Gênero"
                 field-name="advisorGender"
@@ -143,13 +141,13 @@ export default {
     $v: {
       deep: true,
       handler($v) {
-        replace('form', { advisors: this.$data })
+        replace('form', { advisors: this.advisors })
       }
     }
   },
 
   mounted() {
-    // this.$refs.advisorName[0].focus()
+    this.$refs.advisorName[0].focus()
   },
 
   beforeCreate() {
@@ -187,10 +185,10 @@ export default {
         }
       }
       return true
-    },
-    onChangeType(e) {
-      replace('form', { advisors: this.$data })
     }
+    // onChangeType(e) {
+    //   replace('form', { advisors: this.$data })
+    // }
   },
 
   validations: {

@@ -263,8 +263,6 @@ export default {
           catalogFont
         })
         .then(response => {
-          console.log(this.email)
-          console.log(authors)
           const location = response.headers['pdf-location']
           window.open(location, '_blank')
         })

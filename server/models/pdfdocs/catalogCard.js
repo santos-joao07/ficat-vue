@@ -79,11 +79,10 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     doctor: ['Dr. ', 'Dra. ']
   }
 
-  const advisorsArray = advisors.advisors
+  const advisorsArray = advisors
   const advisorsHeadersArray = []
   const coadvisorsHeaderArray = ['Coorientadores: ']
 
-  console.log(advisorsArray)
   for (
     let advisorIndex = 0;
     advisorIndex < advisorsArray.length;
