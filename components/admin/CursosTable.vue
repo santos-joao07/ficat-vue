@@ -8,25 +8,31 @@
       </div>
     </div>
     <div class="column">
-      <b-table
-        :data="filter"
-        :paginated="isPaginated"
-        :per-page="perPage"
-        :current-page.sync="currentPage"
-        :pagination-simple="isPaginationSimple"
-        :pagination-position="paginationPosition"
-        :default-sort-direction="defaultSortDirection"
-        :pagination-rounded="isPaginationRounded"
-        :sort-icon="sortIcon"
-        :sort-icon-size="sortIconSize"
-        :columns="columns"
-        default-sort="user.first_name"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-      >
-      </b-table>
+      <b-tabs v-model="activeTab" type="is-boxed">
+        <template v-for="courseType in courseTypes">
+          <b-tab-item :key="courseType" :label="courseType">
+            <b-table
+              :data="filter"
+              :paginated="isPaginated"
+              :per-page="perPage"
+              :current-page.sync="currentPage"
+              :pagination-simple="isPaginationSimple"
+              :pagination-position="paginationPosition"
+              :default-sort-direction="defaultSortDirection"
+              :pagination-rounded="isPaginationRounded"
+              :sort-icon="sortIcon"
+              :sort-icon-size="sortIconSize"
+              :columns="columns"
+              default-sort="user.first_name"
+              aria-next-label="Next page"
+              aria-previous-label="Previous page"
+              aria-page-label="Page"
+              aria-current-label="Current page"
+            >
+            </b-table>
+          </b-tab-item>
+        </template>
+      </b-tabs>
     </div>
   </section>
 </template>
@@ -42,6 +48,8 @@ export default {
   },
   data() {
     return {
+      activeTab: 'Graduação',
+      courseTypes: ['Graduação', 'Especialização', 'Mestrado', 'Doutorado'],
       filterText: '',
       courseData: [],
       columns: [
