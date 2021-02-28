@@ -21,17 +21,29 @@ async function auth(ctx) {
     try {
       await user.authenticate(password)
       const { accessToken, xsrfToken } = await tokenSign(user, rememberMe)
+
+      console.log('auth: ' + xsrfToken)
       ctx.status = HttpCodes.OK
-      ctx.cookies.set('accessToken', accessToken, {
-        domain: process.env.HOST,
-        secure: false,
-        httpOnly: true
-      })
-      ctx.cookies.set('xsrfToken', xsrfToken, {
-        domain: process.env.HOST,
-        secure: false,
-        httpOnly: false
-      })
+      ctx.cookies.set(
+        'accessToken',
+        accessToken,
+        {
+          domain: process.env.HOST,
+          secure: false,
+          httpOnly: true
+        },
+        { withCredentials: true }
+      )
+      ctx.cookies.set(
+        'xsrfToken',
+        xsrfToken,
+        {
+          domain: process.env.HOST,
+          secure: false,
+          httpOnly: false
+        },
+        { withCredentials: true }
+      )
     } catch (e) {
       ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errPasswordMismatch)
     }
@@ -45,8 +57,10 @@ async function auth(ctx) {
 
 // Autorização - Obter acesso a recursos da API
 function authz(ctx, next) {
-  const token = ctx.cookies.get('accessToken')
-  const xsrfToken = ctx.headers['x-xsrf-token']
+  const token = ctx.cookies.get('accessToken', { withCredentials: true })
+  // const xsrfToken = ctx.headers['x-xsrf-token']
+  const xsrfToken = Object.entries(ctx.headers)
+  console.log('headers: ' + xsrfToken)
   if (!token || !xsrfToken) {
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errNotAuthorized)
   }

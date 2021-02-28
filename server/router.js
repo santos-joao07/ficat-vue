@@ -54,6 +54,7 @@ api.use(
       (/\/api\/catalogCards\/get/.test(ctx.path) && ctx.method === 'GET') ||
       (ctx.path === '/api/catalogCards/reportResult' && ctx.method === 'GET') ||
       (ctx.path === '/api/courses' && ctx.method === 'GET') ||
+      // (ctx.path === '/api/courses' && ctx.method === 'POST') ||
       (ctx.path === '/api/send' && ctx.method === 'POST') ||
       (ctx.path === '/api/captcha' && ctx.method === 'GET')
   })

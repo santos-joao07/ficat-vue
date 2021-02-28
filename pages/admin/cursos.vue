@@ -17,7 +17,9 @@
         </template>
       </b-modal> -->
       <b-modal v-model="isComponentModalActive">
-        <cursos-add></cursos-add>
+        <template #default="props">
+          <cursos-add @close="props.close"></cursos-add>
+        </template>
       </b-modal>
       <cursos-table class="cursos-table"></cursos-table>
     </div>

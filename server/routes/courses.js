@@ -5,6 +5,7 @@ const MessageCodes = require('../../shared/messageCodes')
 async function create(ctx) {
   const payload = ctx.request.body
   ctx.status = HttpCodes.OK
+
   try {
     const newCourse = await Course.forge(payload).save()
     ctx.body = newCourse

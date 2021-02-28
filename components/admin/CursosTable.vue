@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      activeTab: 'Graduação',
+      activeTab: 0,
       courseTypes: ['Graduação', 'Especialização', 'Mestrado', 'Doutorado'],
       filterText: '',
       courseData: [],
