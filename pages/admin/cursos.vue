@@ -2,20 +2,6 @@
   <section>
     <div>
       <cursos-header @addCourseClicked="test"></cursos-header>
-      <!-- <cursos-searchbar class="cursos-searchbar"></cursos-searchbar> -->
-      <!-- <b-modal
-        v-model="isComponentModalActive"
-        :destroy-on-hide="false"
-        has-modal-card
-        trap-focus
-        aria-role="dialog"
-        aria-label="Example Modal"
-        aria-modal
-      >
-        <template #default>
-          <cursos-add></cursos-add>
-        </template>
-      </b-modal> -->
       <b-modal v-model="isComponentModalActive">
         <template #default="props">
           <cursos-add @close="props.close"></cursos-add>

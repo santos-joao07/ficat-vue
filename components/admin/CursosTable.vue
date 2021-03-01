@@ -49,7 +49,8 @@ export default {
   data() {
     return {
       activeTab: 0,
-      courseTypes: ['Graduação', 'Especialização', 'Mestrado', 'Doutorado'],
+      courseTypes: ['graduação', 'especialização', 'mestrado', 'doutorado'],
+      currentType: 'graduação',
       filterText: '',
       courseData: [],
       columns: [
@@ -85,11 +86,19 @@ export default {
       const nameRe = new RegExp(this.filterText, 'i')
       const data = []
       for (const i in this.courseData) {
-        if (this.courseData[i].name.match(nameRe)) {
+        if (
+          this.courseData[i].name.match(nameRe) &&
+          this.courseData[i].type.match(this.currentType)
+        ) {
           data.push(this.courseData[i])
         }
       }
       return data
+    }
+  },
+  watch: {
+    activeTab(val) {
+      this.currentType = this.courseTypes[val]
     }
   },
   created() {
