@@ -65,10 +65,6 @@ export default {
           label: 'Nome do curso'
         },
         {
-          field: 'program',
-          label: 'Programa'
-        },
-        {
           field: 'unityId',
           label: 'Unidade Academica'
         }
@@ -99,13 +95,17 @@ export default {
   created() {
     this.getCourseData()
   },
+  mounted() {
+    this.$root.$on('course_added', () => {
+      this.getCourseData()
+    })
+  },
   methods: {
     getCourseData() {
       this.$axios
         .get('/api/courses')
         .then(response => {
           this.courseData = response.data
-          console.log('Data fetched!')
         })
         .catch(error => (this.courseData = error.data))
     }

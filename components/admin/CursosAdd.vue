@@ -15,34 +15,22 @@
           </b-input>
         </b-field>
         <p v-if="formHasErrors" class="errors">
-          <span class="error" v-if="!$v.courseName.required">
+          <span v-if="!$v.courseName.required" class="error">
             Campo obrigatório
           </span>
-          <span class="error" v-if="!$v.courseName.minLength">
+          <span v-if="!$v.courseName.minLength" class="error">
             Nome do curso deve ter no minimo
             {{ $v.courseName.$params.minLength.min }} letras.
           </span>
         </p>
 
-        <b-field label="Locação">
+        <b-field label="Unidade academica">
           <b-input
-            v-model.lazy="$v.formFields.courseProgram.$model"
-            placeholder="Ex.: PPGCF"
+            v-model="formFields.courseUnityId"
+            type="text"
+            placeholder="Ex.: ICJ"
           >
           </b-input>
-        </b-field>
-        <p v-if="formHasErrors" class="errors">
-          <span class="error" v-if="!$v.courseProgram.required">
-            Campo obrigatório
-          </span>
-          <span class="error" v-if="!$v.courseProgram.minLength">
-            Locação deve ter no minimo
-            {{ $v.courseProgram.$params.minLength.min }} letras.
-          </span>
-        </p>
-
-        <b-field label="Unidade academica">
-          <b-input type="number" placeholder="Ex.: ICJ" required> </b-input>
         </b-field>
         <b-field label="Tipo do curso">
           <b-select
@@ -79,8 +67,7 @@ export default {
     return {
       formFields: {
         courseName: '',
-        courseProgram: '',
-        courseUnityId: 1,
+        courseUnityId: '',
         courseType: 'graduation'
       },
       courseTypes: ['graduation', 'specialization', 'master', 'doctorate'],
@@ -95,10 +82,6 @@ export default {
       courseName: {
         required,
         minLength: minLength(7)
-      },
-      courseProgram: {
-        required,
-        minLength: minLength(4)
       },
       courseType: {
         required
@@ -122,27 +105,28 @@ export default {
         this.$buefy.snackbar.open(`Adição de curso falhou.`)
       }
     },
+    sendMessage() {
+      this.$root.$emit('course_added')
+    },
     addCourse() {
       this.$axios
         .post('/api/courses', {
-          name: this.courseName,
-          program: this.courseProgram,
-          type: this.courseType,
-          unityId: this.courseUnityId
+          name: this.formFields.courseName,
+          type: this.formFields.courseType,
+          unityId: this.formFields.courseUnityId
         })
         .then(response => {
           console.log('Data posted!')
           this.isPostSuccess = true
+          this.snackbar(true)
+          this.sendMessage()
+          this.$emit('close')
         })
-        .catch(error => (this.courseData = error.data))
-
-      if (this.isPostSuccess) {
-        this.isPostSuccess = false
-        this.snackbar(true)
-        this.$emit('close')
-      } else {
-        this.snackbar(false)
-      }
+        .catch(error => {
+          this.courseData = error.data
+          this.isPostSuccess = false
+          this.snackbar(false)
+        })
     }
   }
 }

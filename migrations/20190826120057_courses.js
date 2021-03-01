@@ -4,17 +4,16 @@ exports.up = function(knex) {
     table
       .string('name', 120)
       .notNullable()
-      .defaultTo('')
-    table
-      .string('program', 10)
-      .notNullable()
       .unique()
     table
       .enum('type', ['graduation', 'specialization', 'master', 'doctorate'])
       .notNullable()
       .defaultTo('graduation')
-    table.integer('unityId').unsigned()
-    table.foreign('unityId').references('academicUnities.id')
+    table
+      .string('unityId', 120)
+      .notNullable()
+      .defaultTo('')
+    table.foreign('unityId').references('academicUnities.name')
   })
 }
 
