@@ -159,6 +159,10 @@ api.post(
 // list
 api.get('/courses/', query(['acdUnityId']), courseRoutes.list)
 
+// find by id
+
+api.get('/courses/:id', courseRoutes.findById)
+
 // update
 api.put(
   '/courses/:id',

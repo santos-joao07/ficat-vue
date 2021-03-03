@@ -22,14 +22,13 @@
               :pagination-rounded="isPaginationRounded"
               :sort-icon="sortIcon"
               :sort-icon-size="sortIconSize"
-              :columns="columns"
               default-sort="user.first_name"
               aria-next-label="Next page"
               aria-previous-label="Previous page"
               aria-page-label="Page"
               aria-current-label="Current page"
             >
-              <b-table-column
+              <!-- <b-table-column
                 v-slot="props"
                 field="id"
                 label="ID"
@@ -37,7 +36,7 @@
                 numeric
               >
                 {{ props.row.id }}
-              </b-table-column>
+              </b-table-column> -->
 
               <b-table-column v-slot="props" field="name" label="Nome">
                 {{ props.row.name }}
