@@ -60,7 +60,7 @@ function authz(ctx, next) {
   const token = ctx.cookies.get('accessToken', { withCredentials: true })
   // const xsrfToken = ctx.headers['x-xsrf-token']
   const xsrfToken = Object.entries(ctx.headers)
-  console.log('headers: ' + xsrfToken)
+  // console.log('headers: ' + xsrfToken)
   if (!token || !xsrfToken) {
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errNotAuthorized)
   }

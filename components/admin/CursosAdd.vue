@@ -15,11 +15,30 @@
           </b-input>
         </b-field>
         <p v-if="formHasErrors" class="errors">
-          <span v-if="!$v.courseName.required" class="error">
+          <span v-if="!$v.formFields.courseName.required" class="error">
             Campo obrigatório
           </span>
-          <span v-if="!$v.courseName.minLength" class="error">
-            Nome do curso deve ter no minimo
+          <span v-if="!$v.formFields.courseName.minLength" class="error">
+            Campo 'nome' deve ter no minimo
+            {{ $v.courseName.$params.minLength.min }} letras.
+          </span>
+        </p>
+
+        <!-- PROGRAMA -->
+        <b-field label="Programa">
+          <b-input
+            v-model.lazy="$v.formFields.courseProgram.$model"
+            placeholder="Ex.: PPGCF"
+            type="text"
+          >
+          </b-input>
+        </b-field>
+        <p v-if="formHasErrors" class="errors">
+          <span v-if="!$v.formFields.courseProgram.required" class="error">
+            Campo obrigatório
+          </span>
+          <span v-if="!$v.formFields.courseProgram.minLength" class="error">
+            Campo 'programa' deve ter no minimo
             {{ $v.courseName.$params.minLength.min }} letras.
           </span>
         </p>
@@ -67,10 +86,11 @@ export default {
     return {
       formFields: {
         courseName: '',
+        courseProgram: '',
         courseUnityId: '',
-        courseType: 'graduation'
+        courseType: 'graduação'
       },
-      courseTypes: ['graduation', 'specialization', 'master', 'doctorate'],
+      courseTypes: ['graduação', 'especialização', 'mestrado', 'doutorado'],
 
       isPostSuccess: false,
       formHasErrors: false
@@ -82,6 +102,10 @@ export default {
       courseName: {
         required,
         minLength: minLength(7)
+      },
+      courseProgram: {
+        required,
+        minLength: minLength(2)
       },
       courseType: {
         required
@@ -112,6 +136,7 @@ export default {
       this.$axios
         .post('/api/courses', {
           name: this.formFields.courseName,
+          program: this.formFields.courseProgram,
           type: this.formFields.courseType,
           unityId: this.formFields.courseUnityId
         })

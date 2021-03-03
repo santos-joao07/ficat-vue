@@ -29,6 +29,31 @@
               aria-page-label="Page"
               aria-current-label="Current page"
             >
+              <b-table-column
+                v-slot="props"
+                field="id"
+                label="ID"
+                width="40"
+                numeric
+              >
+                {{ props.row.id }}
+              </b-table-column>
+
+              <b-table-column v-slot="props" field="name" label="Nome">
+                {{ props.row.name }}
+              </b-table-column>
+
+              <b-table-column v-slot="props" field="program" label="Programa">
+                {{ props.row.program }}
+              </b-table-column>
+
+              <b-table-column
+                v-slot="props"
+                field="unityId"
+                label="Unidade Academica"
+              >
+                {{ props.row.unityId }}
+              </b-table-column>
             </b-table>
           </b-tab-item>
         </template>
@@ -53,23 +78,6 @@ export default {
       currentType: 'graduação',
       filterText: '',
       courseData: [],
-      columns: [
-        {
-          field: 'id',
-          label: 'ID',
-          width: '40',
-          numeric: true,
-          sortable: true
-        },
-        {
-          field: 'name',
-          label: 'Nome do curso'
-        },
-        {
-          field: 'unityId',
-          label: 'Unidade Academica'
-        }
-      ],
       isPaginated: true,
       isPaginationSimple: false,
       isPaginationRounded: false,
@@ -106,6 +114,7 @@ export default {
   },
   mounted() {
     this.$root.$on('course_added', () => {
+      console.log('data fetched')
       this.getCourseData()
     })
   },

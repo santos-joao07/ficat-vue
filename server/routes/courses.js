@@ -4,6 +4,7 @@ const MessageCodes = require('../../shared/messageCodes')
 
 async function create(ctx) {
   const payload = ctx.request.body
+  // console.log(payload)
   ctx.status = HttpCodes.OK
 
   try {

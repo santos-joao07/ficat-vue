@@ -84,7 +84,7 @@ module.exports = {
   },
   courses: {
     create: {
-      mandatory: ['name', 'type', 'unityId']
+      mandatory: ['name', 'program', 'type', 'unityId']
     },
     update: {
       mandatory: ['description']

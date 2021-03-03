@@ -6,6 +6,10 @@ exports.up = function(knex) {
       .notNullable()
       .unique()
     table
+      .string('program', 120)
+      .notNullable()
+      .unique()
+    table
       .enum('type', ['graduação', 'especialização', 'mestrado', 'doutorado'])
       .notNullable()
       .defaultTo('graduação')
