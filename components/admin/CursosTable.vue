@@ -54,6 +54,19 @@
               >
                 {{ props.row.unityId }}
               </b-table-column>
+
+              <b-table-column field="edit">
+                <a href="">
+                  <b-icon icon="pencil" size="is-small"> </b-icon>
+                </a>
+              </b-table-column>
+
+              <b-table-column v-slot="props" field="delete">
+                <a @click="deleteCourse(props.row.id)">
+                  <b-icon icon="delete" size="is-small" type="is-danger">
+                  </b-icon>
+                </a>
+              </b-table-column>
             </b-table>
           </b-tab-item>
         </template>
@@ -63,14 +76,6 @@
 </template>
 <script>
 export default {
-  filters: {
-    filterName(value) {
-      // if (value.includes(this.search)) {
-      //   return value
-      // }
-      return value
-    }
-  },
   data() {
     return {
       activeTab: 0,
@@ -126,6 +131,17 @@ export default {
           this.courseData = response.data
         })
         .catch(error => (this.courseData = error.data))
+    },
+    deleteCourse(id) {
+      this.$axios
+        .delete(`/api/courses/${id}`)
+        .then(() => {
+          console.log('Course deleted!')
+          this.getCourseData()
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

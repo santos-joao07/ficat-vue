@@ -66,7 +66,7 @@ async function update(ctx) {
 }
 
 async function del(ctx) {
-  const id = +ctx.params.id
+  const id = ctx.params.id
   const existingCourse = await Course.where({ id }).fetch()
   if (!existingCourse) {
     ctx.throw(
