@@ -54,7 +54,7 @@ async function findById(ctx) {
 }
 
 async function update(ctx) {
-  const id = +ctx.params.id
+  const id = ctx.params.id
   const payload = ctx.request.body
   let course = await Course.where({ id }).fetch()
   if (course) {

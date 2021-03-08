@@ -55,7 +55,7 @@
               </b-table-column>
 
               <b-table-column field="edit">
-                <a href="">
+                <a @click="editCourse">
                   <b-icon icon="pencil" size="is-small"> </b-icon>
                 </a>
               </b-table-column>
@@ -75,6 +75,7 @@
 </template>
 <script>
 export default {
+  props: { editClicked: Function },
   data() {
     return {
       activeTab: 0,
@@ -130,6 +131,9 @@ export default {
           this.courseData = response.data
         })
         .catch(error => (this.courseData = error.data))
+    },
+    editCourse() {
+      this.$emit('editClicked')
     },
     deleteCourse(id) {
       this.$axios

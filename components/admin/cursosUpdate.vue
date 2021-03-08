@@ -74,7 +74,7 @@
       </section>
       <footer class="modal-card-foot">
         <b-button @click="$emit('close')" label="Fechar janela" />
-        <b-button @click="addCourse" label="Adicionar" type="is-primary" />
+        <b-button label="Adicionar" type="is-primary" />
       </footer>
     </div>
   </form>
@@ -139,28 +139,28 @@ export default {
     },
     sendMessage() {
       this.$root.$emit('course_added')
-    },
-    addCourse() {
-      this.$axios
-        .post('/api/courses', {
-          name: this.formFields.courseName,
-          program: this.formFields.courseProgram,
-          type: this.formFields.courseType,
-          unityId: this.formFields.courseUnityId
-        })
-        .then(response => {
-          console.log('Data posted!')
-          this.isPostSuccess = true
-          this.snackbar(true)
-          this.sendMessage()
-          this.$emit('close')
-        })
-        .catch(error => {
-          this.courseData = error.data
-          this.isPostSuccess = false
-          this.snackbar(false)
-        })
     }
+    // addCourse() {
+    //   this.$axios
+    //     .post('/api/courses', {
+    //       name: this.formFields.courseName,
+    //       program: this.formFields.courseProgram,
+    //       type: this.formFields.courseType,
+    //       unityId: this.formFields.courseUnityId
+    //     })
+    //     .then(response => {
+    //       console.log('Data posted!')
+    //       this.isPostSuccess = true
+    //       this.snackbar(true)
+    //       this.sendMessage()
+    //       this.$emit('close')
+    //     })
+    //     .catch(error => {
+    //       this.courseData = error.data
+    //       this.isPostSuccess = false
+    //       this.snackbar(false)
+    //     })
+    // }
   }
 }
 </script>

@@ -7,7 +7,15 @@
           <cursos-add @close="props.close"></cursos-add>
         </template>
       </b-modal>
-      <cursos-table class="cursos-table"></cursos-table>
+      <b-modal v-model="isEditModalActive">
+        <template #default="props">
+          <cursos-update @close="props.close"></cursos-update>
+        </template>
+      </b-modal>
+      <cursos-table
+        @editClicked="showEditModal"
+        class="cursos-table"
+      ></cursos-table>
     </div>
   </section>
 </template>
@@ -16,6 +24,7 @@ import CursosHeader from '../../components/admin/CursosHeader'
 // import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
 import CursosTable from '../../components/admin/CursosTable'
 import CursosAdd from '../../components/admin/CursosAdd'
+import cursosUpdate from '../../components/admin/cursosUpdate'
 
 export default {
   layout: 'adminLayout',
@@ -23,18 +32,23 @@ export default {
     'cursos-header': CursosHeader,
     // 'cursos-searchbar': CursosSearchbar,
     'cursos-table': CursosTable,
-    'cursos-add': CursosAdd
+    'cursos-add': CursosAdd,
+    'cursos-update': cursosUpdate
   },
 
   data() {
     return {
-      isComponentModalActive: false
+      isComponentModalActive: false,
+      isEditModalActive: false
     }
   },
 
   methods: {
     test() {
       this.isComponentModalActive = true
+    },
+    showEditModal() {
+      this.isEditModalActive = true
     }
   }
 }
