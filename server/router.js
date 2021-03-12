@@ -164,10 +164,10 @@ api.get('/courses/', query(['acdUnityId']), courseRoutes.list)
 api.get('/courses/:id', courseRoutes.findById)
 
 // update
-api.put(
+api.patch(
   '/courses/:id',
   bodyParser,
-  routeValidate('courses', 'update'),
+  // routeValidate('courses', 'update'),
   courseRoutes.update
 )
 

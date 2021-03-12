@@ -9,10 +9,14 @@
       </b-modal>
       <b-modal v-model="isEditModalActive">
         <template #default="props">
-          <cursos-update @close="props.close"></cursos-update>
+          <cursos-update
+            :id="courseEditedId"
+            @close="props.close"
+          ></cursos-update>
         </template>
       </b-modal>
       <cursos-table
+        :getCourseId="getCourseId"
         @editClicked="showEditModal"
         class="cursos-table"
       ></cursos-table>
@@ -39,7 +43,8 @@ export default {
   data() {
     return {
       isComponentModalActive: false,
-      isEditModalActive: false
+      isEditModalActive: false,
+      courseEditedId: 1
     }
   },
 
@@ -49,6 +54,9 @@ export default {
     },
     showEditModal() {
       this.isEditModalActive = true
+    },
+    getCourseId(idFromTable) {
+      this.courseEditedId = idFromTable
     }
   }
 }

@@ -54,8 +54,8 @@
                 {{ props.row.unityId }}
               </b-table-column>
 
-              <b-table-column field="edit">
-                <a @click="editCourse">
+              <b-table-column v-slot="props" field="edit">
+                <a @click="editCourse(props.row.id)">
                   <b-icon icon="pencil" size="is-small"> </b-icon>
                 </a>
               </b-table-column>
@@ -75,7 +75,7 @@
 </template>
 <script>
 export default {
-  props: { editClicked: Function },
+  props: { editClicked: Function, getCourseId: Function },
   data() {
     return {
       activeTab: 0,
@@ -119,8 +119,12 @@ export default {
   },
   mounted() {
     this.$root.$on('course_added', () => {
-      console.log('data fetched')
       this.getCourseData()
+      console.log('data fetched')
+    })
+    this.$root.$on('course_edited', () => {
+      this.getCourseData()
+      console.log('data fetched')
     })
   },
   methods: {
@@ -132,7 +136,8 @@ export default {
         })
         .catch(error => (this.courseData = error.data))
     },
-    editCourse() {
+    editCourse(id) {
+      this.$props.getCourseId(id)
       this.$emit('editClicked')
     },
     deleteCourse(id) {
