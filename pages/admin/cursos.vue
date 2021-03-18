@@ -24,11 +24,11 @@
   </section>
 </template>
 <script>
-import CursosHeader from '../../components/admin/CursosHeader'
+import CursosHeader from '../../components/admin/courses/CursosHeader'
 // import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
-import CursosTable from '../../components/admin/CursosTable'
-import CursosAdd from '../../components/admin/CursosAdd'
-import cursosUpdate from '../../components/admin/cursosUpdate'
+import CursosTable from '../../components/admin/courses/CursosTable'
+import CursosAdd from '../../components/admin/courses/CursosAdd'
+import cursosUpdate from '../../components/admin/courses/cursosUpdate'
 
 export default {
   layout: 'adminLayout',
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-CursosAdd<style scoped>
+<style scoped>
 .cursos-searchbar {
   margin: 2%;
 }
