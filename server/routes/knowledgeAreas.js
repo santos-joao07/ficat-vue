@@ -47,6 +47,20 @@ async function list(ctx) {
   }
 }
 
+async function findById(ctx) {
+  const id = ctx.params.id
+
+  try {
+    ctx.body = await KnowledgeArea.where({ id }).fetch()
+  } catch (e) {
+    ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errOnDbFetch, {
+      error: {
+        rawErrorMessage: e.stack
+      }
+    })
+  }
+}
+
 async function update(ctx) {
   const id = +ctx.params.id
   const payload = ctx.request.body
@@ -87,4 +101,4 @@ async function del(ctx) {
   }
 }
 
-module.exports = { create, list, update, del }
+module.exports = { create, list, findById, update, del }

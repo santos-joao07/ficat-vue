@@ -50,7 +50,7 @@
         </b-table-column>
 
         <b-table-column v-slot="props" field="delete">
-          <a @click="deleteCourse(props.row.id)">
+          <a @click="deleteKnowledgeArea(props.row.id)">
             <b-icon icon="delete" size="is-small" type="is-danger"> </b-icon>
           </a>
         </b-table-column>
@@ -60,7 +60,7 @@
 </template>
 <script>
 export default {
-  props: { editClicked: Function, getCourseId: Function },
+  props: { editClicked: Function, getKnowledgeAreaId: Function },
   data() {
     return {
       activeTab: 0,
@@ -123,6 +123,9 @@ export default {
         .delete(`/api/knowledgeAreas/${id}`)
         .then(() => {
           console.log('Knowledge area deleted!')
+
+          this.$buefy.snackbar.open('Área do conhecimento removida!')
+
           this.getKnowledgeAreasData()
         })
         .catch(error => {

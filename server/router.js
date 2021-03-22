@@ -133,6 +133,9 @@ api.get(
   kaRoutes.list
 )
 
+// find by id
+api.get('/knowledgeAreas/:id', kaRoutes.findById)
+
 // update
 api.put(
   '/knowledgeAreas/:id',

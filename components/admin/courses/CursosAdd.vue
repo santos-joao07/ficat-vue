@@ -20,7 +20,7 @@
           </span>
           <span v-if="!$v.formFields.courseName.minLength" class="error">
             Campo 'nome' deve ter no minimo
-            {{ $v.courseName.$params.minLength.min }} letras.
+            {{ $v.formFields.courseName.$params.minLength.min }} letras.
           </span>
         </p>
 
@@ -39,7 +39,7 @@
           </span>
           <span v-if="!$v.formFields.courseProgram.minLength" class="error">
             Campo 'programa' deve ter no minimo
-            {{ $v.courseName.$params.minLength.min }} letras.
+            {{ $v.formFields.courseName.$params.minLength.min }} letras.
           </span>
         </p>
 
@@ -57,7 +57,7 @@
           </span>
           <span v-if="!$v.formFields.courseUnityId.minLength" class="error">
             Campo 'programa' deve ter no minimo
-            {{ $v.courseName.$params.minLength.min }} letras.
+            {{ $v.formFields.courseName.$params.minLength.min }} letras.
           </span>
         </p>
 
@@ -180,6 +180,7 @@ export default {
 }
 
 .errors {
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
 }
 

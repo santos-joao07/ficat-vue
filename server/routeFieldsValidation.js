@@ -79,7 +79,7 @@ module.exports = {
       mandatory: ['code', 'description']
     },
     update: {
-      mandatory: ['description']
+      mandatory: ['code', 'description']
     }
   },
   courses: {

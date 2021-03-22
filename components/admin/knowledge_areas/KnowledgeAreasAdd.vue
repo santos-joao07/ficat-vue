@@ -20,7 +20,7 @@
           </span>
           <span v-if="!$v.formFields.cdd.minLength" class="error">
             Campo 'cdd' deve ter no minimo
-            {{ $v.cdd.$params.minLength.min }} letras.
+            {{ $v.formFields.cdd.$params.minLength.min }} letras.
           </span>
         </p>
 
@@ -39,7 +39,7 @@
           </span>
           <span v-if="!$v.formFields.description.minLength" class="error">
             Campo 'programa' deve ter no minimo
-            {{ $v.description.$params.minLength.min }} letras.
+            {{ $v.formFields.description.$params.minLength.min }} letras.
           </span>
         </p>
       </section>
@@ -132,6 +132,7 @@ export default {
 }
 
 .errors {
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
 }
 
