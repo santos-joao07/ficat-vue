@@ -45,7 +45,7 @@
       </section>
       <footer class="modal-card-foot">
         <b-button @click="$emit('close')" label="Fechar janela" />
-        <b-button @click="submitForm" label="Adicionar" type="is-primary" />
+        <b-button @click="submitForm" label="Atualizar" type="is-primary" />
       </footer>
     </div>
   </form>
@@ -93,11 +93,7 @@ export default {
 
   methods: {
     submitForm() {
-      this.formTouched = !this.$v.formFields.$anyDirty
-      this.errors = this.$v.formFields.$anyError
-      this.uiState = 'submit clicked'
-
-      if (this.errors === false && this.formTouched === false) {
+      if (this.$v.formFields.$invalid === false) {
         this.uiState = 'form submitted'
         this.$axios
           .put(`/api/academicUnities/${this.$props.id}`, {

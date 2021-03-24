@@ -81,10 +81,7 @@ export default {
 
   methods: {
     submitForm() {
-      this.formTouched = !this.$v.formFields.$anyDirty
-      this.errors = this.$v.formFields.$anyError
-      this.uiState = 'submit clicked'
-      if (this.errors === false && this.formTouched === false) {
+      if (this.$v.formFields.$invalid === false) {
         this.addKnowledgeArea()
         this.uiState = 'form submitted'
         this.formHasErrors = false
@@ -132,7 +129,6 @@ export default {
 }
 
 .errors {
-  margin-top: 1rem;
   margin-bottom: 0.75rem;
 }
 

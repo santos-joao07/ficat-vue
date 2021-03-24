@@ -81,11 +81,8 @@ export default {
 
   methods: {
     submitForm() {
-      this.formTouched = !this.$v.formFields.$anyDirty
-      this.errors = this.$v.formFields.$anyError
-      console.log(this.errors)
       this.uiState = 'submit clicked'
-      if (this.errors === false && this.formTouched === false) {
+      if (this.$v.formFields.$invalid === false) {
         this.addAcademicUnity()
         this.uiState = 'form submitted'
         this.formHasErrors = false

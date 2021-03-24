@@ -28,7 +28,7 @@ import CursosHeader from '../../components/admin/courses/CursosHeader'
 // import CursosSearchbar from '../../components/admin/CursosSearchbar.vue'
 import CursosTable from '../../components/admin/courses/CursosTable'
 import CursosAdd from '../../components/admin/courses/CursosAdd'
-import cursosUpdate from '../../components/admin/courses/cursosUpdate'
+import CursosUpdate from '../../components/admin/courses/CursosUpdate'
 
 export default {
   layout: 'adminLayout',
@@ -37,7 +37,7 @@ export default {
     // 'cursos-searchbar': CursosSearchbar,
     'cursos-table': CursosTable,
     'cursos-add': CursosAdd,
-    'cursos-update': cursosUpdate
+    'cursos-update': CursosUpdate
   },
 
   data() {
