@@ -105,6 +105,9 @@ api.post(
 // list
 api.get('/users/', userRoutes.list)
 
+// find by id
+api.get('/users/:id', userRoutes.findById)
+
 // toggle active
 api.put(
   '/users/:username',

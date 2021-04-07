@@ -39,11 +39,13 @@
                 tag="nuxt-link"
                 to="/admin/unidades_academicas"
               ></b-menu-item>
-            </b-menu-list>
-
-            <b-menu-list label="Usuário">
-              <b-menu-item label="Adicionar novo usuario"></b-menu-item>
-              <b-menu-item icon="account" label="Minha conta"> </b-menu-item>
+              <b-menu-item
+                icon="account"
+                label="Usuários"
+                tag="nuxt-link"
+                to="/admin/usuarios"
+                ><b-icon></b-icon
+              ></b-menu-item>
             </b-menu-list>
 
             <b-menu-list label="Actions">
