@@ -4,76 +4,83 @@ module.exports = [
     name: 'name1',
     program: 'program1',
     type: 'graduação',
-    unityId: 'Instituto de Tecnologia'
+    unityId: 1
   },
   {
     id: 2,
     name: 'name2',
     program: 'program2',
     type: 'graduação',
-    unityId: 'Instituto de Ciências da Saúde'
+    unityId: 2
   },
   {
     id: 3,
     name: 'name3',
     program: 'program3',
     type: 'graduação',
-    unityId: 'Instituto de Ciências Juridicas'
+    unityId: 3
   },
   {
     id: 4,
     name: 'name4',
     program: 'program4',
     type: 'graduação',
-    unityId: 'Instituto de Filosofia e Ciências Humanas'
+    unityId: 4
   },
   {
     id: 5,
     name: 'name5',
     program: 'program6',
     type: 'graduação',
-    unityId: 'Instituto de Ciências Exatas e Naturais'
+    unityId: 5
   },
   {
     id: 6,
     name: 'name6',
     program: 'program5',
     type: 'graduação',
-    unityId: 'Instituto de Tecnologia'
+    unityId: 6
   },
   {
     id: 7,
     name: 'name7',
     program: 'program7',
     type: 'graduação',
-    unityId: 'Instituto de Geociências'
+    unityId: 7
   },
   {
     id: 8,
     name: 'name8',
     program: 'program8',
     type: 'graduação',
-    unityId: 'Instituto de Geociências'
+    unityId: 8
   },
   {
     id: 9,
     name: 'name9',
     program: 'program9',
     type: 'graduação',
-    unityId: 'Instituto de Letras e Comunicação'
+    unityId: 9
   },
   {
     id: 10,
     name: 'name10',
     program: 'program10',
     type: 'especialização',
-    unityId: 'Instituto de Ciências da Saúde'
+    unityId: 10
   },
   {
     id: 11,
     name: 'name11',
     program: 'program11',
     type: 'especialização',
-    unityId: 'Instituto de Tecnologia'
+    unityId: 11
+  },
+  {
+    id: 12,
+    name: 'Programa de Pós-Graduação em Letras',
+    program: 'PPGL',
+    type: 'doutorado',
+    unityId: 12
   }
 ]

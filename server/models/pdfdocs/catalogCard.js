@@ -62,8 +62,8 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const color = {
     nocolor: '',
-    color: ' : il. color',
-    pb: ' : il. pb'
+    color: ' : il. color.',
+    pb: ' : il. pb.'
   }
 
   const subtitle = work.workSubtitle ? `: ${work.workSubtitle}` : ''
@@ -81,7 +81,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const advisorsArray = advisors
   const advisorsHeadersArray = []
-  const coadvisorsHeaderArray = ['Coorientadores: ']
+  const coadvisorsHeaderArray = ['Coorientador(a): ']
 
   for (
     let advisorIndex = 0;
@@ -161,9 +161,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     : ''
 
   const workHeader =
-    `${workTypes[work.workType]} - Universidade Federal do Pará, ${
-      academicDetailNames.acdUnityName
-    }, ${academicDetailNames.programName} ` +
+    `${workTypes[work.workType]} - Universidade Federal do Pará, ${academicDetailNames.programName} ` +
     cotutorshipWorkHeader +
     localHeader
 
@@ -182,6 +180,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')
 
+  console.log('begin server')
   console.log(advisorHeader)
   console.log(withCoadvisorHeader)
   return (

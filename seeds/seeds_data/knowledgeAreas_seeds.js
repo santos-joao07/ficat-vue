@@ -8,5 +8,6 @@ module.exports = [
   { id: 7, code: '0.7', description: 'description7' },
   { id: 8, code: '0.8', description: 'description8' },
   { id: 9, code: '0.9', description: 'description9' },
-  { id: 10, code: '0.10', description: 'description10' }
+  { id: 10, code: '0.10', description: 'description10' },
+  { id: 11, code: '410', description: 'LINGUÍSTICA' }
 ]

@@ -8,5 +8,7 @@ module.exports = [
   { id: 7, name: 'name7', acronym: 'acronym7' },
   { id: 8, name: 'name8', acronym: 'acronym8' },
   { id: 9, name: 'name9', acronym: 'acronym9' },
-  { id: 10, name: 'name10', acronym: 'acronym10' }
+  { id: 10, name: 'name10', acronym: 'acronym10' },
+  { id: 11, name: 'name11', acronym: 'acronym11' },
+  { id: 12, name: 'Instituto de Letras e Comunicação', acronym: 'ILC' }
 ]
