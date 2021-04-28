@@ -207,10 +207,10 @@ export default {
           program: ''
         }
       })
-    },
-    onChangeType(e) {
-      replace('form', { advisors: this.$data })
     }
+    // onChangeType(e) {
+    //   replace('form', { advisors: this.$data })
+    // }
   },
 
   validations: {
