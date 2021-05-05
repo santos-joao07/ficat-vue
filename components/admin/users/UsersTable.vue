@@ -68,7 +68,7 @@
 </template>
 <script>
 export default {
-  props: { editClicked: Function, getKnowledgeAreaId: Function },
+  props: { editClicked: Function, getUserId: Function },
   data() {
     return {
       activeTab: 0,
@@ -119,7 +119,7 @@ export default {
         })
         .catch(error => (this.usersData = error.data))
     },
-    editUsers(id) {
+    editUser(id) {
       this.$props.getUserId(id)
       this.$emit('editClicked')
     },

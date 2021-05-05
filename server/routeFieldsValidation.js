@@ -71,7 +71,8 @@ module.exports = {
       mandatory: ['username', 'password', 'active']
     },
     update: {
-      mandatory: ['active']
+      mandatory: ['active', 'username', 'password']
+      // optional: ['password']
     }
   },
   knowledgeAreas: {

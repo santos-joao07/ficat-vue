@@ -46,12 +46,14 @@ async function findById(ctx) {
 }
 
 async function update(ctx) {
-  const username = ctx.params.username
+  // const username = ctx.params.username
+  const id = ctx.params.id
   const payload = ctx.request.body
-  let user = await User.where({ username }).fetch()
+  let user = await User.where({ id }).fetch()
   if (user) {
+    console.log('user exists')
     try {
-      user = await User.where({ username }).save(payload, {
+      user = await User.where({ id }).save(payload, {
         patch: true
       })
       ctx.status = HttpCodes.OK

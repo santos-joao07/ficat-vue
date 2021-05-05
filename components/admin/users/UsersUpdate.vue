@@ -22,23 +22,10 @@
           </span>
         </p>
 
-        <!-- SENHA ANTIGA -->
-        <b-field label="Digite sua senha atual">
-          <b-input
-            v-model.lazy="$v.formFields.oldPassword.$model"
-            type="password"
-            password-reveal
-          >
-          </b-input>
-        </b-field>
-        <p v-if="isPasswordCorrect" class="errors">
-          Senha incorreta
-        </p>
-
         <!-- NOVA SENHA -->
-        <b-field label="Digite sua nova senha">
+        <b-field label="Digite sua nova senha (opcional)">
           <b-input
-            v-model.lazy="$v.formFields.password.$model"
+            v-model="$v.formFields.password.$model"
             type="password"
             password-reveal
           >
@@ -56,7 +43,7 @@
       </section>
       <footer class="modal-card-foot">
         <b-button @click="$emit('close')" label="Fechar janela" />
-        <b-button @click="submitForm" label="Adicionar" type="is-primary" />
+        <b-button @click="submitForm" label="Atualizar" type="is-primary" />
       </footer>
     </div>
   </form>
@@ -70,8 +57,7 @@ export default {
     return {
       formFields: {
         username: '',
-        password: '',
-        oldPassword: ''
+        password: ''
       },
 
       isPostSuccess: false,
@@ -87,7 +73,6 @@ export default {
         minLength: minLength(5)
       },
       password: {
-        required,
         minLength: minLength(8)
       }
     }
@@ -104,10 +89,8 @@ export default {
 
   methods: {
     submitForm() {
-      if (
-        this.$v.formFields.$invalid === false &&
-        this.isPasswordValid(this.oldPassword)
-      ) {
+      console.log('inside submit')
+      if (this.$v.formFields.$invalid === false) {
         this.editUser()
         this.formHasErrors = false
       } else {
@@ -150,8 +133,11 @@ export default {
       this.$axios
         .get(`/api/users/${this.$props.id}`)
         .then(response => {
+          // console.log(this.formFields.oldPassword)
+          console.log(response.data.password_digest)
           if (this.formFields.oldPassword === response.data.password) {
             valid = true
+            // console.log('pass valid: ' + valid)
           }
         })
         .catch(error => console.log(error))

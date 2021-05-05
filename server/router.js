@@ -110,7 +110,7 @@ api.get('/users/:id', userRoutes.findById)
 
 // toggle active
 api.put(
-  '/users/:username',
+  '/users/:id',
   bodyParser,
   routeValidate('users', 'update'),
   userRoutes.update

@@ -6,20 +6,31 @@
         <users-add @close="props.close"></users-add>
       </template>
     </b-modal>
-    <users-table class="app-table"></users-table>
+    <b-modal v-model="isEditModalActive">
+      <template #default="props">
+        <users-update :id="userEditedId" @close="props.close"></users-update>
+      </template>
+    </b-modal>
+    <users-table
+      :getUserId="getUserId"
+      @editClicked="showEditModal"
+      class="app-table"
+    ></users-table>
   </div>
 </template>
 <script>
 import UsersHeader from '../../components/admin/users/UsersHeader'
 import UsersTable from '../../components/admin/users/UsersTable'
 import UsersAdd from '../../components/admin/users/UsersAdd'
+import UsersUpdate from '../../components/admin/users/UsersUpdate'
 
 export default {
   layout: 'adminLayout',
   components: {
     'users-header': UsersHeader,
     'users-table': UsersTable,
-    'users-add': UsersAdd
+    'users-add': UsersAdd,
+    'users-update': UsersUpdate
   },
   data() {
     return {
@@ -31,6 +42,12 @@ export default {
   methods: {
     showAddModal() {
       this.isAddModalActive = true
+    },
+    showEditModal() {
+      this.isEditModalActive = true
+    },
+    getUserId(idFromTable) {
+      this.userEditedId = idFromTable
     }
   }
 }

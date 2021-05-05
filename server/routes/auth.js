@@ -21,8 +21,6 @@ async function auth(ctx) {
     try {
       await user.authenticate(password)
       const { accessToken, xsrfToken } = await tokenSign(user, rememberMe)
-
-      console.log('auth: ' + xsrfToken)
       ctx.status = HttpCodes.OK
       ctx.cookies.set(
         'accessToken',
