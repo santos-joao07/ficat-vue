@@ -1,8 +1,8 @@
 <template>
-  <Card :title="$tr('layout.workData')">
+  <Card :title="$tr('layout.workData')" class="card-wf">
     <div class="columns">
       <div class="column is-half">
-        <div class="input-float">
+        <div class="input-float-wf">
           <input-validation
             ref="workTitle"
             v-model="$v.workTitle.$model"
@@ -148,6 +148,7 @@
               {{ $tr('layout.required') }}
             </template>
           </input-validation>
+
           <input-validation
             ref="acdUnity"
             v-model="$v.acdUnity.$model"
@@ -214,6 +215,7 @@ export default {
   data() {
     const { work } = recovery('form')
     return {
+      name: '',
       workTitle: work.workTitle,
       workSubtitle: work.workSubtitle,
       presentationYear: work.presentationYear,
@@ -266,6 +268,7 @@ export default {
           selectedCourse: undefined,
           acdUnity: '',
           knArea: '',
+          testKnAreas: [],
           initialRef: 'workTitle'
         }
       })
@@ -291,6 +294,17 @@ export default {
         )
       ]
     },
+
+    // getKna() {
+    //   this.$axios
+    //     .get('/api/knowledgeAreas')
+    //     .then(response => {
+    //       this.testKnAreas = response.data
+    //       console.log(this.testKnAreas)
+    //     })
+    //     .catch()
+    //     .finally(() => (this.loading = false))
+    // },
 
     getKnAreas: pDebounce(function(term) {
       if (!term.length) {
@@ -395,7 +409,7 @@ export default {
 </script>
 
 <style scoped>
-.input-float {
+.input-float-wf {
   min-height: 100%;
   display: flex;
   flex-direction: column;

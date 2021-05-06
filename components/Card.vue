@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  overflow: unset;
+}
+
 .rounded {
   border-radius: 10px;
 }

@@ -51,4 +51,8 @@ export default {
   color: black;
   opacity: 0.3;
 }
+
+a.dropdown-item {
+  text-align: left;
+}
 </style>

@@ -133,11 +133,9 @@ export default {
       this.$axios
         .get(`/api/users/${this.$props.id}`)
         .then(response => {
-          // console.log(this.formFields.oldPassword)
           console.log(response.data.password_digest)
           if (this.formFields.oldPassword === response.data.password) {
             valid = true
-            // console.log('pass valid: ' + valid)
           }
         })
         .catch(error => console.log(error))
