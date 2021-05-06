@@ -55,4 +55,10 @@ export default {
 a.dropdown-item {
   text-align: left;
 }
+
+@media screen and (max-width: 900px) {
+  .section {
+    padding: 0;
+  }
+}
 </style>
