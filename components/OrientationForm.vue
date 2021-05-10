@@ -7,34 +7,86 @@
           :key="i"
           class="input-float"
         >
-          <input-validation
-            ref="advisorName"
-            v-model="kw.advisorName.$model"
-            :validations="$options.validations.advisors.$each.advisorName"
-            :v="kw"
-            :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
-            :placeholder="'Ex.: ' + placeholderNames[i]"
-            label="Nome completo"
-            field-name="advisorName"
-            class="orientador-field"
-          >
-            <template #addon>
-              <b-select
-                v-model="kw.advisorType.$model"
-                placeholder="Tipo"
-                rounded
-              >
+          <!-- <div v-if="isMobile()">
+            <p>DIV MISTERIOSA</p>
+            <p>DIV MISTERIOSA</p>
+            <p>DIV MISTERIOSA</p>
+            <p>DIV MISTERIOSA</p>
+          </div> -->
+          <div v-if="!isMobile()">
+            <input-validation
+              ref="advisorName"
+              v-model="kw.advisorName.$model"
+              :validations="$options.validations.advisors.$each.advisorName"
+              :v="kw"
+              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :placeholder="'Ex.: ' + placeholderNames[i]"
+              label="Nome completo"
+              field-name="advisorName"
+              class="orientador-field"
+            >
+              <template #addon>
+                <b-select
+                  v-model="kw.advisorType.$model"
+                  placeholder="Tipo"
+                  rounded
+                >
+                  <option value="advisor">Orientador(a)</option>
+                  <option value="coadvisor">Coorientador(a)</option>
+                </b-select>
+              </template>
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+          </div>
+
+          <div v-if="isMobile()">
+            <input-validation
+              ref="advisorName"
+              v-model="kw.advisorName.$model"
+              :validations="$options.validations.advisors.$each.advisorName"
+              :v="kw"
+              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :placeholder="'Ex.: ' + placeholderNames[i]"
+              label="Nome completo"
+              field-name="advisorName"
+              class="orientador-field"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+            <!-- <b-select
+                  v-model="kw.advisorType.$model"
+                  placeholder="Tipo"
+                  rounded
+                >
+                  <option value="advisor">Orientador(a)</option>
+                  <option value="coadvisor">Coorientador(a)</option>
+                </b-select> -->
+            <input-validation
+              ref="advisorType"
+              v-model="kw.advisorType.$model"
+              :v="kw"
+              :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+              :validations="$options.validations.advisors.$each.advisorType"
+              label="Categoria"
+              field-name="advisorType"
+              use-component="b-select"
+            >
+              <template #component>
                 <option value="advisor">Orientador(a)</option>
                 <option value="coadvisor">Coorientador(a)</option>
-              </b-select>
-            </template>
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
+              </template>
+            </input-validation>
+          </div>
 
           <div class="columns vcenter orientador-detalhes">
             <div class="column is-half">
@@ -116,6 +168,7 @@
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
 // import helper from '~/mixins/helper'
+import detectMobileUser from '~/mixins/detectMobileUser'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
 import InputValidation from '~/components/InputValidation.js'
@@ -124,6 +177,7 @@ import WithTooltip from '~/components/WithTooltip'
 export default {
   name: 'AdvisorForm',
   components: { Card, InputValidation, WithTooltip },
+  mixins: [detectMobileUser],
   // mixins: [helper],
   data() {
     const { advisors } = recovery('form')
@@ -247,6 +301,12 @@ export default {
   .input-float {
     flex-direction: column;
     margin-left: 0;
+  }
+  .orientador-field {
+    margin-left: 0;
+  }
+  .orientador-detalhes {
+    padding-left: 0;
   }
 }
 </style>

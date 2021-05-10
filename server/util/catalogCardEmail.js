@@ -31,24 +31,25 @@ const mailer = async function(emailAddres, pdfName, stream) {
     (err, info) => {
       if (err) {
         console.log(err)
-      } else {
-        console.log(info)
-      }
+      } 
+      // else {
+      //   console.log(info)
+      // }
       fs.unlink('./assets/pdf_location/ficha.pdf', err => {
         if (err) {
           console.error(err)
         } else {
-          console.log('pdf removed')
+          console.log('cleared')
         }
       })
     }
   )
 
-  console.log('Message sent: %s', info.messageId)
+  // console.log('Message sent: %s', info.messageId)
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+  // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 

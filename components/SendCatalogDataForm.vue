@@ -69,7 +69,7 @@
             </WithTooltip>
           </b-field>
 
-          <div class="recaptcha-box" style="display:flex;margin:.5em">
+          <div class="recaptcha-box">
             <WithTooltip :text="$tr('layout.solveCaptcha')" class="recaptcha">
               <div style="margin:auto">
                 <recaptcha
@@ -284,6 +284,11 @@ export default {
   margin: 0 auto;
 }
 
+.recaptcha-box {
+  margin: 0.5em;
+  display: flex;
+}
+
 .email-input {
   margin-top: 10%;
 }
@@ -294,5 +299,15 @@ export default {
 
 .email-checkbox {
   font-size: 0.8em;
+}
+
+@media screen and (max-width: 575px) {
+  #rc-imageselect,
+  .g-recaptcha {
+    transform: scale(0.77);
+    -webkit-transform: scale(0.77);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+  }
 }
 </style>
