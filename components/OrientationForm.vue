@@ -7,12 +7,6 @@
           :key="i"
           class="input-float"
         >
-          <!-- <div v-if="isMobile()">
-            <p>DIV MISTERIOSA</p>
-            <p>DIV MISTERIOSA</p>
-            <p>DIV MISTERIOSA</p>
-            <p>DIV MISTERIOSA</p>
-          </div> -->
           <div v-if="!isMobile()">
             <input-validation
               ref="advisorName"
@@ -21,7 +15,7 @@
               :v="kw"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
               :placeholder="'Ex.: ' + placeholderNames[i]"
-              label="Nome completo"
+              :label="$tr('layout.advisorName')"
               field-name="advisorName"
               class="orientador-field"
             >
@@ -31,8 +25,10 @@
                   placeholder="Tipo"
                   rounded
                 >
-                  <option value="advisor">Orientador(a)</option>
-                  <option value="coadvisor">Coorientador(a)</option>
+                  <option value="advisor">{{ $tr('layout.advisor') }}</option>
+                  <option value="coadvisor">{{
+                    $tr('layout.coadvisor')
+                  }}</option>
                 </b-select>
               </template>
               <template #required>
@@ -52,7 +48,7 @@
               :v="kw"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
               :placeholder="'Ex.: ' + placeholderNames[i]"
-              label="Nome completo"
+              :label="$tr('layout.advisorName')"
               field-name="advisorName"
               class="orientador-field"
             >
@@ -74,8 +70,8 @@
               use-component="b-select"
             >
               <template #component>
-                <option value="advisor">Orientador(a)</option>
-                <option value="coadvisor">Coorientador(a)</option>
+                <option value="advisor">{{ $tr('layout.advisor') }}</option>
+                <option value="coadvisor">{{ $tr('layout.coadvisor') }}</option>
               </template>
             </input-validation>
           </div>
@@ -86,16 +82,17 @@
                 ref="advisorGender"
                 v-model="kw.advisorGender.$model"
                 :v="kw"
-                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :label="$tr('layout.advisorGender')"
                 :validations="$options.validations.advisors.$each.advisorGender"
                 placeholder="Selecione"
-                label="Gênero"
                 field-name="advisorGender"
                 use-component="b-select"
               >
                 <template #component>
-                  <option value="male">Masculino</option>
-                  <option value="female">Feminino</option>
+                  <option value="male">{{ $tr('layout.genderMale') }}</option>
+                  <option value="female">{{
+                    $tr('layout.genderFemale')
+                  }}</option>
                 </template>
                 <template #required>
                   {{ $tr('layout.required') }}

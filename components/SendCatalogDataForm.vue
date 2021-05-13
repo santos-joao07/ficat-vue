@@ -3,7 +3,7 @@
     <div class="columns is-centered">
       <div class="column is-center is-5">
         <form @submit.prevent="onSubmit">
-          <b-field label="Fonte" label-position="on-border">
+          <b-field :label="$tr('layout.font')" label-position="on-border">
             <WithTooltip :text="$tr('layout.fontFamilyTooltip')">
               <b-select
                 ref="font"
@@ -64,7 +64,7 @@
               text="Marque se você deseja receber uma cópia do pdf no seu email"
             >
               <b-checkbox v-model="sendEmailCopy" class="email-checkbox">
-                Quero receber uma cópia da ficha catalografica por email.
+                {{ $tr('layout.sendCopyToEmail') }}
               </b-checkbox>
             </WithTooltip>
           </b-field>

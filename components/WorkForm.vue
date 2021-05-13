@@ -65,12 +65,6 @@
                 field-name="totalPages"
                 placeholder="Ex.: xxi, 70"
               >
-                <!-- <template #addon>
-                  <b-select v-model="numberType" @input="onChangeType" rounded>
-                    <option value="arabic">{{ $tr('layout.arabic') }}</option>
-                    <option value="roman">{{ $tr('layout.roman') }}</option>
-                  </b-select>
-                </template> -->
                 <template #required>
                   {{ $tr('layout.required') }}
                 </template>
@@ -294,17 +288,6 @@ export default {
         )
       ]
     },
-
-    // getKna() {
-    //   this.$axios
-    //     .get('/api/knowledgeAreas')
-    //     .then(response => {
-    //       this.testKnAreas = response.data
-    //       console.log(this.testKnAreas)
-    //     })
-    //     .catch()
-    //     .finally(() => (this.loading = false))
-    // },
 
     getKnAreas: pDebounce(function(term) {
       if (!term.length) {
