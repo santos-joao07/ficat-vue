@@ -60,7 +60,10 @@
 </template>
 <script>
 export default {
-  props: { editClicked: Function, getKnowledgeAreaId: Function },
+  props: {
+    editClicked: { type: Function, required: true },
+    getKnowledgeAreaId: { type: Function, required: true }
+  },
   data() {
     return {
       activeTab: 0,

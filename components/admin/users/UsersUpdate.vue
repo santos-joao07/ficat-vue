@@ -52,7 +52,7 @@
 const { required, minLength } = require('vuelidate/lib/validators')
 
 export default {
-  props: ['id'],
+  props: { id: { type: Number, required: true } },
   data() {
     return {
       formFields: {

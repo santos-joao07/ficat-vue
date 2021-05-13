@@ -68,7 +68,10 @@
 </template>
 <script>
 export default {
-  props: { editClicked: Function, getUserId: Function },
+  props: {
+    editClicked: { type: Function, required: true },
+    getUserId: { type: Function, required: true }
+  },
   data() {
     return {
       activeTab: 0,

@@ -63,14 +63,6 @@
                 {{ $tr('layout.minLength', [min]) }}
               </template>
             </input-validation>
-            <!-- <b-select
-                  v-model="kw.advisorType.$model"
-                  placeholder="Tipo"
-                  rounded
-                >
-                  <option value="advisor">Orientador(a)</option>
-                  <option value="coadvisor">Coorientador(a)</option>
-                </b-select> -->
             <input-validation
               ref="advisorType"
               v-model="kw.advisorType.$model"
