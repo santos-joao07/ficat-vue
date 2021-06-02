@@ -297,7 +297,7 @@ async function fetchAllGroupByAcdUnity(query, year, filters) {
   const payload = {}
   const acdUnities = await AcademicUnity.fetchAll()
 
-  console.log(group)
+  // console.log(group)
   for (const i in acdUnities.toJSON()) {
     const key = parseInt(i) + 1 + ''
 
@@ -379,13 +379,23 @@ async function getReportPdf(ctx) {
   const queryResult = queryResults[pdfToken]
   const acdUnities =
     !queryResult.params.unityId && (await AcademicUnity.fetchAll()).toJSON()
+
+  // console.log(acdUnities)
+
   const { searchType, data } = queryResult
+
+  // console.log(searchType) // annually etc
+  // console.log(data) // res.data
   const table = []
-  const labels = labelMap(acdUnities)[searchType]
+  const labels = labelMap(acdUnities)[searchType] // [ name, acronym]
+
+  // console.log(labels)
   for (const i in labels) {
+    const data_key = parseInt(i) + 1 + ''
+
     const row = Array.isArray(labels[i])
-      ? [...labels[i], '' + data[i]]
-      : [labels[i], '' + data[i]]
+      ? [...labels[i], '' + data[data_key]]
+      : [labels[i], '' + data[data_key]]
     table.push(row)
   }
   // Sort descending first

@@ -276,7 +276,7 @@ export default {
         )
         .then(res => {
           this.searchId = res.headers.pdftoken
-          console.log(res.data)
+          // console.log(res.data)
           this.$refs.chart.createChart(res.data)
         })
     }
