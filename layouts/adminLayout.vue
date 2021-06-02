@@ -48,9 +48,9 @@
               ></b-menu-item>
             </b-menu-list>
 
-            <b-menu-list label="Actions">
+            <!-- <b-menu-list label="Actions">
               <b-menu-item icon="logout" label="Logout"></b-menu-item>
-            </b-menu-list>
+            </b-menu-list> -->
           </b-menu>
         </div>
       </b-sidebar>

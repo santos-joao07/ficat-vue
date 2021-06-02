@@ -1,41 +1,16 @@
 <template>
   <div class="admin-homepage">
-    <h1>Olá!</h1>
-
-    <div class="stat-row">
-      <div class="stat-card">
-        <div>
-          <h2>50</h2>
-          <p>CURSOS CADASTRADOS</p>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div>
-          <h2>50</h2>
-          <p>CURSOS CADASTRADOS</p>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div>
-          <h2>50</h2>
-          <p>CURSOS CADASTRADOS</p>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div>
-          <h2>50</h2>
-          <p>CURSOS CADASTRADOS</p>
-        </div>
-      </div>
-    </div>
+    <index-navbar></index-navbar>
   </div>
 </template>
 <script>
+import Navbar from '../../components/index/Navbar'
+
 export default {
-  layout: 'adminLayout'
+  layout: 'adminLayout',
+  components: {
+    'index-navbar': Navbar
+  }
 }
 </script>
 <style scoped>
