@@ -208,8 +208,6 @@ async function catalogQueries(ctx) {
   // Filtre e conte por mês, semestre ou ano inteiro.
   if (!isNaN(month)) {
     responseObj = await fetchMonthCount(query, year, month, optionalFilters)
-
-    console.log('op 1')
   } else if (!isNaN(semester)) {
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     responseObj = await fetchMonthGroupCount(
@@ -218,8 +216,6 @@ async function catalogQueries(ctx) {
       groupedMonths[semester],
       optionalFilters
     )
-
-    console.log('op 2')
   } else if (!isNaN(unityId)) {
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
@@ -231,13 +227,9 @@ async function catalogQueries(ctx) {
       )
       responseObj[groupIdx] = f
     }
-
-    console.log('op 3')
   } else {
     // PROBLEMA TÁ AQUI
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
-
-    console.log('op 4')
   }
 
   const user = ctx.cookies.get('user')
@@ -297,7 +289,6 @@ async function fetchAllGroupByAcdUnity(query, year, filters) {
   const payload = {}
   const acdUnities = await AcademicUnity.fetchAll()
 
-  // console.log(group)
   for (const i in acdUnities.toJSON()) {
     const key = parseInt(i) + 1 + ''
 
@@ -380,16 +371,11 @@ async function getReportPdf(ctx) {
   const acdUnities =
     !queryResult.params.unityId && (await AcademicUnity.fetchAll()).toJSON()
 
-  // console.log(acdUnities)
-
   const { searchType, data } = queryResult
 
-  // console.log(searchType) // annually etc
-  // console.log(data) // res.data
   const table = []
   const labels = labelMap(acdUnities)[searchType] // [ name, acronym]
 
-  // console.log(labels)
   for (const i in labels) {
     const data_key = parseInt(i) + 1 + ''
 
