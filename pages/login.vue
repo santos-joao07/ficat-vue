@@ -98,7 +98,7 @@ export default {
           })
           const to = this.$route.query.to
             ? atob(this.$route.query.to)
-            : '/admin'
+            : '/admin/cursos'
           this.$router.push(to)
         })
     }

@@ -10,15 +10,15 @@
             />
           </div> -->
           <b-menu class="app-menu">
-            <b-menu-list label="Navegação">
+            <!-- <b-menu-list label="Navegação">
               <b-menu-item
                 icon="home"
                 label="Inicio"
                 tag="nuxt-link"
                 to="/admin"
               ></b-menu-item>
-            </b-menu-list>
-            <b-menu-list label="Produtos">
+            </b-menu-list> -->
+            <b-menu-list label="Menu">
               <b-menu-item
                 icon="label"
                 label="Cursos"
@@ -45,6 +45,12 @@
                 tag="nuxt-link"
                 to="/admin/usuarios"
                 ><b-icon></b-icon
+              ></b-menu-item>
+              <b-menu-item
+                icon="logout"
+                label="Logout"
+                tag="nuxt-link"
+                to="/"
               ></b-menu-item>
             </b-menu-list>
 

@@ -24,6 +24,9 @@
       </template>
 
       <template slot="end">
+        <b-navbar-item class="has-text-primary" tag="nuxt-link" to="/login"
+          >Log in</b-navbar-item
+        >
         <b-navbar-item tag="div">
           <b-navbar-item>
             <a @click="setLang('pt')" :class="{ selectedClass: isSelected }">

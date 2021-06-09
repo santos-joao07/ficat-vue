@@ -228,7 +228,6 @@ async function catalogQueries(ctx) {
       responseObj[groupIdx] = f
     }
   } else {
-    // PROBLEMA TÁ AQUI
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
   }
 
