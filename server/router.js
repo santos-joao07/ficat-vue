@@ -134,7 +134,7 @@ api.post(
 // list
 api.get(
   '/knowledgeAreas/',
-  query(['page', 'size', 'description']),
+  query(['page', 'size', 'description', 'code']),
   pageableEntity,
   kaRoutes.list
 )

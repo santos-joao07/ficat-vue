@@ -296,17 +296,33 @@ export default {
       }
       if (term !== this.knAreaPreviousSearch) {
         this.knAreaPreviousSearch = term
-        this.$axios
-          .get('/api/knowledgeAreas', {
-            params: {
-              description: term
-            }
-          })
-          .then(response => {
-            this.knAreas = response.data
-          })
-          .catch()
-          .finally(() => (this.loading = false))
+
+        // check if term is a cdd code or if it is a description
+        if (this.hasNumber(term)) {
+          this.$axios
+            .get('/api/knowledgeAreas', {
+              params: {
+                code: term
+              }
+            })
+            .then(response => {
+              this.knAreas = response.data
+            })
+            .catch()
+            .finally(() => (this.loading = false))
+        } else {
+          this.$axios
+            .get('/api/knowledgeAreas', {
+              params: {
+                description: term
+              }
+            })
+            .then(response => {
+              this.knAreas = response.data
+            })
+            .catch()
+            .finally(() => (this.loading = false))
+        }
       }
     }, 500),
 
@@ -368,6 +384,10 @@ export default {
         })
         .catch()
         .finally(() => (this.loading = false))
+    },
+
+    hasNumber(term) {
+      return /\d/.test(term)
     },
 
     translateWorkType(workType) {

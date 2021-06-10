@@ -25,8 +25,11 @@ async function list(ctx) {
   const pagination = ctx.state.pagination
   let query = KnowledgeArea
   const description = ctx.query.description
+  const code = ctx.query.code
   if (description) {
     query = query.where('description', 'like', `%${description}%`)
+  } else if (code) {
+    query = query.where('code', 'like', `%${code}%`)
   }
   try {
     if (pagination) {
