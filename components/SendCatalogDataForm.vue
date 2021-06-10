@@ -60,9 +60,7 @@
           </b-field> -->
 
           <b-field class="email-box">
-            <WithTooltip
-              text="Marque se você deseja receber uma cópia do pdf no seu email"
-            >
+            <WithTooltip :text="$tr('layout.receiveEmailTooltip')">
               <b-checkbox v-model="sendEmailCopy" class="email-checkbox">
                 {{ $tr('layout.sendCopyToEmail') }}
               </b-checkbox>

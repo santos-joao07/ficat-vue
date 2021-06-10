@@ -7,8 +7,8 @@ const bcrypt = require('bcrypt')
 const HttpCodes = require('../httpCodes')
 const MessageCodes = require('../../shared/messageCodes')
 
-// Default exp = 4h
-const TIMEOUT = 60 * 60 * 4
+// Default exp = 3h
+const TIMEOUT = 60 * 60 * 3
 
 async function tokenSign(user, rememberMe, expiresIn = TIMEOUT) {
   const exp = Math.floor(Date.now() / 1000) + expiresIn
@@ -22,7 +22,7 @@ async function tokenSign(user, rememberMe, expiresIn = TIMEOUT) {
   }
 }
 
-/* RememberMe prolonga a expiração para 24h (default)
+/* RememberMe prolonga a expiração para 18h (default)
  * Verificar o token recebido no header contra o xsrfToken no JWT
  */
 function tokenVerify(token, xsrfToken, rememberMeFactor = 6) {

@@ -19,7 +19,7 @@
       <b-step-item icon="account-multiple">
         <OrientationForm ref="section-2" />
         <div class="cotutela-switch">
-          <p class="cotutela-switch-label">Cotutela</p>
+          <p class="cotutela-switch-label">Interinstitucional</p>
           <b-switch v-model="showCotutela"> </b-switch>
         </div>
       </b-step-item>

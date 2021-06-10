@@ -8,19 +8,19 @@ const mailer = async function(emailAddres, pdfName, stream) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'sedepti.devs@gmail.com', // generated ethereal user
-      pass: 'suporte@sedepti' // generated ethereal password
+      user: process.env.EMAIL_USER, 
+      pass: process.env.EMAIL_PASSWD 
     }
   })
 
   // send mail with defined transport object
   const info = await transporter.sendMail(
     {
-      from: '"Samantinha do Pop 👻" <sedepti.devs@gmail.com>', // sender address
+      from: '"SEDEPTI" <sedepti.devs@gmail.com>', // sender address
       to: emailAddres, // list of receivers
-      subject: 'Teste! ✔', // Subject line
-      text: 'Oki.', // plain text body
-      html: '<b>Hello world?</b>', // html body
+      subject: 'Ficha catalográfica - FICAT', // Subject line
+      text: 'Olá! Segue em anexo uma cópia da ficha catalográfica requisitada!', // plain text body
+      // html: '<b>Hello world?</b>', // html body
       attachments: [
         {
           filename: pdfName,

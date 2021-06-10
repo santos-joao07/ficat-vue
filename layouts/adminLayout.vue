@@ -48,7 +48,7 @@
               ></b-menu-item>
               <b-menu-item
                 icon="logout"
-                label="Logout"
+                label="Sair"
                 tag="nuxt-link"
                 to="/"
               ></b-menu-item>

@@ -1,5 +1,5 @@
 <template>
-  <Card title="Cotutela">
+  <Card :title="$tr('layout.interinstitutional')">
     <div class="columns">
       <div class="column is-centered">
         <div class="campo-orientador input-float">
@@ -28,7 +28,7 @@
                 ref="cotutorshipAdvisorGender"
                 v-model="$v.cotutorshipAdvisorGender.$model"
                 :v="$v"
-                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :tooltip-label="$tr('layout.genderTooltip', ['lowAdvisor'])"
                 :validations="$options.validations.cotutorshipAdvisorGender"
                 @input="onChangeType"
                 placeholder="Selecione"
@@ -52,7 +52,7 @@
                 :validations="$options.validations.advisorTitle"
                 :v="$v"
                 :label="$tr('layout.title')"
-                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :tooltip-label="$tr('layout.whosTitle', ['lowAdvisor'])"
                 field-name="advisorTitle"
                 use-component="b-select"
               >
@@ -77,7 +77,7 @@
               v-model="$v.cotutorshipInstitution.$model"
               :validations="$options.validations.cotutorshipInstitution"
               :v="$v"
-              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :tooltip-label="$tr('layout.institutionTooltip', ['lowAdvisor'])"
               :placeholder="placeholder.institutionName"
               label="Instituição de Ensino"
               field-name="cotutorshipInstitution"
@@ -97,9 +97,9 @@
               v-model="$v.cotutorshipProgram.$model"
               :validations="$options.validations.cotutorshipProgram"
               :v="$v"
-              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :tooltip-label="$tr('layout.facultyTooltip')"
               :placeholder="placeholder.programName"
-              label="Programa/Faculdade"
+              label="Faculdade"
               field-name="cotutorshipProgram"
             >
               <template #required>
