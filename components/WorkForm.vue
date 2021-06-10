@@ -353,6 +353,15 @@ export default {
         .finally(() => (this.loading = false))
     },
 
+    // getCoursesByAcdAcronym(acdAcronym) {
+    //   this.$axios
+    //     .get('/api/courses', {
+    //       params: {
+
+    //       }
+    //     })
+    // },
+
     onChangeType(e) {
       replace('form', { work: this.$data })
     }

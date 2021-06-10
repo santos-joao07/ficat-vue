@@ -28,7 +28,7 @@
         <b-field label="Programa">
           <b-input
             v-model.lazy="$v.formFields.courseProgram.$model"
-            placeholder="Ex.: PPGCF"
+            placeholder="Ex.: FAENF"
             type="text"
           >
           </b-input>
@@ -39,7 +39,7 @@
           </span>
           <span v-if="!$v.formFields.courseProgram.minLength" class="error">
             Campo 'programa' deve ter no minimo
-            {{ $v.formFields.courseName.$params.minLength.min }} letras.
+            {{ $v.formFields.courseProgram.$params.minLength.min }} letras.
           </span>
         </p>
 
@@ -47,7 +47,7 @@
           <b-input
             v-model="formFields.courseUnityId"
             type="text"
-            placeholder="Ex.: ICJ"
+            placeholder="Ex.: ICS"
           >
           </b-input>
         </b-field>
@@ -57,7 +57,7 @@
           </span>
           <span v-if="!$v.formFields.courseUnityId.minLength" class="error">
             Campo 'programa' deve ter no minimo
-            {{ $v.formFields.courseName.$params.minLength.min }} letras.
+            {{ $v.formFields.courseUnityId.$params.minLength.min }} letras.
           </span>
         </p>
 
