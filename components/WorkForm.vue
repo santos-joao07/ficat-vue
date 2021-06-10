@@ -335,8 +335,10 @@ export default {
 
     onSelectedAcdUnity(option) {
       this.selectedAcdUnity = option
-      if (this.selectedAcdUnity)
-        this.getCoursesByAcdUnity(this.selectedAcdUnity.id)
+      if (this.selectedAcdUnity) {
+        console.log(this.selectedAcdUnity.acronym)
+        this.getCoursesByAcdAcronym(this.selectedAcdUnity.acronym)
+      }
     },
 
     getCoursesByAcdUnity(acdUnityId) {
@@ -353,14 +355,19 @@ export default {
         .finally(() => (this.loading = false))
     },
 
-    // getCoursesByAcdAcronym(acdAcronym) {
-    //   this.$axios
-    //     .get('/api/courses', {
-    //       params: {
-
-    //       }
-    //     })
-    // },
+    getCoursesByAcdAcronym(unityAcronym) {
+      this.$axios
+        .get('/api/courses', {
+          params: {
+            unityAcronym
+          }
+        })
+        .then(response => {
+          this.courses = response.data
+        })
+        .catch()
+        .finally(() => (this.loading = false))
+    },
 
     onChangeType(e) {
       replace('form', { work: this.$data })

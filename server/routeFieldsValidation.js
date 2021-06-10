@@ -62,8 +62,8 @@ module.exports = {
       optional: ['semester', 'unityId', 'type', 'courseId']
     },
     annually: {
-      mandatory: ['year', 'unityId', 'type', 'courseId'],
-      optional: ['unityId', 'type', 'courseId']
+      mandatory: ['year', 'unityAcronym', 'type', 'courseId'],
+      optional: ['unityAcronym', 'type', 'courseId']
     }
   },
   users: {
@@ -85,7 +85,7 @@ module.exports = {
   },
   courses: {
     create: {
-      mandatory: ['name', 'program', 'type', 'unityId']
+      mandatory: ['name', 'program', 'type', 'unityAcronym']
     },
     update: {
       mandatory: ['description']

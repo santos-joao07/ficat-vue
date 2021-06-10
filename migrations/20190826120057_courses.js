@@ -13,8 +13,8 @@ exports.up = function(knex) {
       .enum('type', ['graduação', 'especialização', 'mestrado', 'doutorado'])
       .notNullable()
       .defaultTo('graduação')
-    table.integer('unityId').unsigned()
-    table.foreign('unityId').references('academicUnities.id')
+    table.string('unityAcronym', 12).notNullable()
+    table.foreign('unityAcronym').references('academicUnities.acronym')
   })
 }
 

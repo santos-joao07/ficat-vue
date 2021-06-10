@@ -166,7 +166,7 @@ api.post(
 )
 
 // list
-api.get('/courses/', query(['acdUnityId']), courseRoutes.list)
+api.get('/courses/', query(['unityAcronym']), courseRoutes.list)
 
 // find by id
 api.get('/courses/:id', courseRoutes.findById)

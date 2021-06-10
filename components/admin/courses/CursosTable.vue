@@ -48,10 +48,10 @@
 
               <b-table-column
                 v-slot="props"
-                field="unityId"
+                field="unityAcronym"
                 label="Unidade Academica"
               >
-                {{ props.row.unityId }}
+                {{ props.row.unityAcronym }}
               </b-table-column>
 
               <b-table-column v-slot="props" field="edit">
