@@ -25,8 +25,10 @@ async function create(ctx) {
 async function list(ctx) {
   let query = Course
   const unityAcronym = ctx.query.unityAcronym
-  if (unityAcronym) {
-    query = query.where({ unityAcronym })
+  const type = ctx.query.type
+
+  if (unityAcronym && type) {
+    query = query.where({ unityAcronym, type })
   }
   try {
     ctx.body = await query.fetchAll()

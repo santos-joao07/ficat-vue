@@ -336,7 +336,6 @@ export default {
     onSelectedAcdUnity(option) {
       this.selectedAcdUnity = option
       if (this.selectedAcdUnity) {
-        console.log(this.selectedAcdUnity.acronym)
         this.getCoursesByAcdAcronym(this.selectedAcdUnity.acronym)
       }
     },
@@ -356,10 +355,12 @@ export default {
     },
 
     getCoursesByAcdAcronym(unityAcronym) {
+      console.log(this.workTyp)
       this.$axios
         .get('/api/courses', {
           params: {
-            unityAcronym
+            unityAcronym,
+            type: this.translateWorkType(this.workType)
           }
         })
         .then(response => {
@@ -367,6 +368,25 @@ export default {
         })
         .catch()
         .finally(() => (this.loading = false))
+    },
+
+    translateWorkType(workType) {
+      let translatedWorkType = ''
+      switch (workType) {
+        case 'thesis':
+          translatedWorkType = 'doutorado'
+          break
+        case 'dissertation':
+          translatedWorkType = 'dissertação'
+          break
+        case 'tccGraduation':
+          translatedWorkType = 'graduação'
+          break
+        case 'tccExpert':
+          translatedWorkType = 'especialização'
+      }
+
+      return translatedWorkType
     },
 
     onChangeType(e) {
