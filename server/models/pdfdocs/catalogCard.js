@@ -157,11 +157,13 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   // }, ${academicDetailNames.acdUnityName}, ` + localHeader
 
   const cotutorshipWorkHeader = cotutorship.cotutorshipAdvisorName
-    ? `e ${cotutorship.cotutorshipInstitution}, ${cotutorship.cotutorshipProgram}`
+    ? ` e ${cotutorship.cotutorshipInstitution}, ${cotutorship.cotutorshipProgram}`
     : ''
 
   const workHeader =
-    `${workTypes[work.workType]} - Universidade Federal do Pará, ${academicDetailNames.programName} ` +
+    `${workTypes[work.workType]} - Universidade Federal do Pará, ${
+      academicDetailNames.programName
+    }` +
     cotutorshipWorkHeader +
     localHeader
 
