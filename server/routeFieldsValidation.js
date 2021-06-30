@@ -62,8 +62,8 @@ module.exports = {
       optional: ['semester', 'unityId', 'type', 'courseId']
     },
     annually: {
-      mandatory: ['year', 'unityAcronym', 'type', 'courseId'],
-      optional: ['unityAcronym', 'type', 'courseId']
+      mandatory: ['year', 'unityId', 'type', 'courseId'],
+      optional: ['unityId', 'type', 'courseId']
     }
   },
   users: {

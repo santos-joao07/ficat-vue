@@ -73,6 +73,8 @@ async function create(ctx) {
     })
   }
 
+  console.log(academicDetails)
+
   const kna = await KnowledgeArea.where({
     id: academicDetails.knAreaId
   }).fetch()
@@ -179,6 +181,7 @@ async function catalogQueries(ctx) {
 
   const { mandatory, optional } = querieFields[searchType]
   const validation = validatePayload(params, mandatory, optional)
+
   if (!validation.valid) {
     payloadErrors(ctx, validation)
   }

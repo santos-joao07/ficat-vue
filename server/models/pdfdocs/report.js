@@ -37,7 +37,7 @@ function generateReport(queryData, hasChoosenAcdUnity) {
 
   const paramList = Object.entries(params)
     .filter(([k]) => k !== 'year')
-    .map(([k, v]) => paramsPrettyNames[k] + ': ' + v)
+    .map(([k, v]) => paramsPrettyNames[k] + ': ' + translateWorkType(v))
 
   const withParameters = paramList.length ? ', com parâmetros:' : ''
 
@@ -133,6 +133,29 @@ function renderTableFooter(stats, headers) {
   }
 
   return s + '</tfoot>'
+}
+
+function translateWorkType(type) {
+  let translatedType = type
+  switch (type) {
+    case 'thesis':
+      translatedType = 'Doutorado'
+      break
+
+    case 'dissertation':
+      translatedType = 'Mestrado'
+      break
+
+    case 'tccExpert':
+      translatedType = 'Especialização'
+      break
+
+    case 'tccGraduation':
+      translatedType = 'Graduação'
+      break
+  }
+
+  return translatedType
 }
 
 module.exports = generateReport

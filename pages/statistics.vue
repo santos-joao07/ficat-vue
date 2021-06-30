@@ -233,11 +233,11 @@ export default {
       }
     }, 500),
 
-    getCoursesByAcdUnity(acdUnityId) {
+    getCoursesByAcdUnity(unityAcronym) {
       this.$axios
         .get('/api/courses', {
           params: {
-            acdUnityId
+            unityAcronym
           }
         })
         .then(({ data }) => {
@@ -250,7 +250,7 @@ export default {
     onSelectedAcdUnity(option) {
       this.selectedAcdUnity = option
       if (this.selectedAcdUnity)
-        this.getCoursesByAcdUnity(this.selectedAcdUnity.id)
+        this.getCoursesByAcdUnity(this.selectedAcdUnity.acronym)
     },
 
     onSubmit() {

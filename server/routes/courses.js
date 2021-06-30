@@ -27,8 +27,11 @@ async function list(ctx) {
   const unityAcronym = ctx.query.unityAcronym
   const type = ctx.query.type
 
-  if (unityAcronym && type) {
-    query = query.where({ unityAcronym, type })
+  if (unityAcronym) {
+    query = query.where({ unityAcronym })
+  }
+  if (type) {
+    query = query.where({ type })
   }
   try {
     ctx.body = await query.fetchAll()
