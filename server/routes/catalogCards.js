@@ -220,6 +220,7 @@ async function catalogQueries(ctx) {
       optionalFilters
     )
   } else if (!isNaN(unityId)) {
+    console.log('unity id')
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
       const f = await fetchMonthGroupCount(
@@ -228,11 +229,14 @@ async function catalogQueries(ctx) {
         groupedMonths[groupIdx],
         optionalFilters
       )
-      responseObj[groupIdx] = f
+      // increment KEY to prevent left shifting and guarantee that 1 -> jan, 2 -> fev etc
+      responseObj[parseInt(groupIdx) + 1 + ''] = f
     }
   } else {
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
   }
+
+  // console.log(responseObj)
 
   const user = ctx.cookies.get('user')
   const xsrfToken = ctx.headers['x-xsrf-token']
@@ -253,12 +257,12 @@ async function catalogQueries(ctx) {
  * @returns {number} contagem de ocorrências de fichas catalográficas
  */
 async function fetchMonthGroupCount(query, year, monthList, filters) {
-  let s = 0
+  let count = 0
   for (let i = 0; i < monthList.length; i++) {
     const t = await fetchMonthCount(query, year, monthList[i], filters)
-    s += t
+    count += t
   }
-  return s
+  return count
 }
 
 /**

@@ -208,7 +208,6 @@ export default {
       })
     },
 
-    // TODO: Criar uma função apenas para o pDebounce
     getAcdUnitiesByTerm: pDebounce(function(term) {
       if (!term.length) {
         this.academicUnities = []
