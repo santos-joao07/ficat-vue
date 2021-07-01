@@ -30,7 +30,6 @@
             <div class="field">
               <b-radio
                 v-model="searchPeriod"
-                :disabled="!selectedAcdUnity"
                 size="is-small"
                 native-value="monthly"
               >

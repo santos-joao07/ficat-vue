@@ -94,11 +94,33 @@ function renderTableHeader(headers) {
   return s + '</tr>'
 }
 
+function sortByMonths(table) {
+  const monthNames = {
+    Janeiro: 1,
+    Fevereiro: 2,
+    Março: 3,
+    Abril: 4,
+    Maio: 5,
+    Junho: 6,
+    Julho: 7,
+    Agosto: 8,
+    Setembro: 9,
+    Outubro: 10,
+    Novembro: 11,
+    Dezembro: 12
+  }
+
+  table.sort(function(a, b) {
+    return monthNames[a[0]] - monthNames[b[0]]
+  })
+}
+
 /**
  *
  * @param {Array[][]} table
  */
 function renderTableBody(table) {
+  sortByMonths(table)
   let s = ''
   for (let i = 0; i < table.length; i++) {
     s += '<tr>'
