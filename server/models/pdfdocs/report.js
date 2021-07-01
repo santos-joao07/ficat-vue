@@ -20,7 +20,7 @@ const { readFileSync } = require('fs')
 function generateReport(queryData, hasChoosenAcdUnity) {
   const { searchType, params, table, total, mean } = queryData
   const tableHeaders = {
-    monthly: ['Unidade Acadêmica', 'Quantidade'],
+    monthly: ['Mês', 'Quantidade'],
     semiannually: ['Unidade Acadêmica', 'Quantidade'],
     annually: hasChoosenAcdUnity
       ? ['Total Anual']

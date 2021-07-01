@@ -181,7 +181,7 @@ export default {
       courses: [],
       searchYear: new Date().getFullYear(),
       searchPeriod: 'annually',
-      searchCourseType: undefined,
+      searchCourseType: '',
       loading: false,
       acdUnityPreviousSearch: '',
       academicUnities: [],
