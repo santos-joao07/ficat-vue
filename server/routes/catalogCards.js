@@ -43,7 +43,6 @@ async function create(ctx) {
   } = ctx.request.body
 
   userEmailV = userEmail
-  console.log('from send:' + userEmail)
   const validations = [
     // validatePayload(
     //   authors,
@@ -72,8 +71,6 @@ async function create(ctx) {
       fields: validations.filter(val => val && val.valid === false)
     })
   }
-
-  console.log(academicDetails)
 
   const kna = await KnowledgeArea.where({
     id: academicDetails.knAreaId
@@ -220,7 +217,6 @@ async function catalogQueries(ctx) {
       optionalFilters
     )
   } else if (!isNaN(unityId)) {
-    console.log('unity id')
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
       const f = await fetchMonthGroupCount(
@@ -235,8 +231,6 @@ async function catalogQueries(ctx) {
   } else {
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
   }
-
-  // console.log(responseObj)
 
   const user = ctx.cookies.get('user')
   const xsrfToken = ctx.headers['x-xsrf-token']

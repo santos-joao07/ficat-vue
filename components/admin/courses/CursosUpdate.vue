@@ -46,7 +46,7 @@
 
         <b-field label="Unidade academica">
           <b-input
-            v-model="formFields.unityId"
+            v-model="formFields.unityAcronym"
             type="text"
             placeholder="Ex.: ICJ"
           >
@@ -89,7 +89,7 @@ export default {
       formFields: {
         name: '',
         program: '',
-        unityId: ''
+        unityAcronym: ''
       },
       originalData: {},
       courseTypes: ['graduação', 'especialização', 'mestrado', 'doutorado'],
@@ -108,6 +108,10 @@ export default {
       program: {
         required,
         minLength: minLength(2)
+      },
+      unityAcronym: {
+        required,
+        minLength: minLength(2)
       }
     }
   },
@@ -118,7 +122,7 @@ export default {
       .then(response => {
         this.formFields.name = response.data.name
         this.formFields.program = response.data.program
-        this.formFields.unityId = response.data.unityId
+        this.formFields.unityAcronym = response.data.unityAcronym
       })
       .catch(error => console.log(error))
   },
@@ -131,10 +135,9 @@ export default {
           .patch(`/api/courses/${this.$props.id}`, {
             name: this.formFields.name,
             program: this.formFields.program,
-            unityId: this.formFields.unityId
+            unityAcronym: this.formFields.unityAcronym
           })
           .then(response => {
-            console.log('course edited!')
             this.snackbar(true)
             this.sendMessage()
             this.$emit('close')

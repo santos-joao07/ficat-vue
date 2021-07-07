@@ -45,19 +45,19 @@
 
         <b-field label="Unidade academica">
           <b-input
-            v-model="formFields.courseUnityId"
+            v-model="formFields.courseUnity"
             type="text"
             placeholder="Ex.: ICS"
           >
           </b-input>
         </b-field>
         <p v-if="formHasErrors" class="errors">
-          <span v-if="!$v.formFields.courseUnityId.required" class="error">
+          <span v-if="!$v.formFields.courseUnity.required" class="error">
             Campo obrigatório
           </span>
-          <span v-if="!$v.formFields.courseUnityId.minLength" class="error">
+          <span v-if="!$v.formFields.courseUnity.minLength" class="error">
             Campo 'programa' deve ter no minimo
-            {{ $v.formFields.courseUnityId.$params.minLength.min }} letras.
+            {{ $v.formFields.courseUnity.$params.minLength.min }} letras.
           </span>
         </p>
 
@@ -115,11 +115,11 @@ export default {
       },
       courseProgram: {
         required,
-        minLength: minLength(2)
+        minLength: minLength(3)
       },
-      courseUnityId: {
+      courseUnity: {
         required,
-        minLength: minLength(5)
+        minLength: minLength(2)
       },
       courseType: {
         required
@@ -153,7 +153,7 @@ export default {
           name: this.formFields.courseName,
           program: this.formFields.courseProgram,
           type: this.formFields.courseType,
-          unityId: this.formFields.courseUnityId
+          unityAcronym: this.formFields.courseUnity
         })
         .then(response => {
           console.log('Data posted!')
