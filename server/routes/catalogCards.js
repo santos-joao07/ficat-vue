@@ -209,7 +209,9 @@ async function catalogQueries(ctx) {
   if (!isNaN(month)) {
     responseObj = await fetchMonthCount(query, year, month, optionalFilters)
   } else if (!isNaN(semester)) {
+    // console.log(searchType)
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
+    console.log(groupedMonths[semester])
     responseObj = await fetchMonthGroupCount(
       query,
       year,
@@ -256,6 +258,7 @@ async function fetchMonthGroupCount(query, year, monthList, filters) {
     const t = await fetchMonthCount(query, year, monthList[i], filters)
     count += t
   }
+  console.log(count)
   return count
 }
 
@@ -276,6 +279,14 @@ function fetchMonthCount(query, year, month, filters) {
     .where('datetime', '<=', monthFinalDay)
     .count()
 }
+
+// TODO
+// async function fetchSemesterGroupCount(query, year, monthList, filters) {
+//   const initialMonth = monthList[0] === 0 ? 0 : 6
+
+//   const firstDayOfSemester = new Date(year, 0).toISOString()
+//   const lastDayOfSemester = new Date(year, 12, 0).toISOString()
+// }
 
 async function fetchAllGroupByAcdUnity(query, year, filters) {
   const firstDayOfYear = new Date(year, 0).toISOString()

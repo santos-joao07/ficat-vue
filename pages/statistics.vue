@@ -39,11 +39,17 @@
             <div class="field">
               <b-radio
                 v-model="searchPeriod"
-                :disabled="!selectedAcdUnity"
                 size="is-small"
                 native-value="semiannually"
               >
-                Semestral
+                1º Semestre
+              </b-radio>
+              <b-radio
+                v-model="searchPeriod"
+                size="is-small"
+                native-value="semiannually"
+              >
+                2º Semestre
               </b-radio>
             </div>
             <div class="field">
@@ -258,7 +264,8 @@ export default {
           {
             year: +this.searchYear,
             ...maybe('month', this.month),
-            ...maybe('semester', this.semester),
+            // ...maybe('semester', this.semester),
+            semester: 0,
             ...maybe(
               'unityId',
               this.selectedAcdUnity && this.selectedAcdUnity.id
@@ -303,5 +310,12 @@ export default {
 
 .charts {
   background-color: #ccc9c994;
+}
+
+.semestre-label {
+  font-weight: normal;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  color: #7a7a7a;
 }
 </style>
