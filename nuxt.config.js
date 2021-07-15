@@ -75,7 +75,7 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseUrl: '/'
+    baseUrl: config.HOST
   },
 
   recaptcha: {

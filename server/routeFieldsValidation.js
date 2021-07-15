@@ -58,8 +58,16 @@ module.exports = {
       optional: ['month', 'unityId', 'type', 'courseId']
     },
     semiannually: {
+      mandatory: ['year', 'unityId', 'type', 'courseId'],
+      optional: ['unityId', 'type', 'courseId']
+    },
+    firstSemester: {
       mandatory: ['year', 'semester', 'unityId', 'type', 'courseId'],
-      optional: ['semester', 'unityId', 'type', 'courseId']
+      optional: ['unityId', 'semester', 'type', 'courseId']
+    },
+    secondSemester: {
+      mandatory: ['year', 'semester', 'unityId', 'type', 'courseId'],
+      optional: ['unityId', 'semester', 'type', 'courseId']
     },
     annually: {
       mandatory: ['year', 'unityId', 'type', 'courseId'],

@@ -186,7 +186,9 @@ async function catalogQueries(ctx) {
   // ano é obrigatório (ex: 2019 (number))
   // semester = 0 ou 1 (1º ou 2º semestre, respectivamente)
   // month = número em [0, ..., 11]
-  const { year, month, semester, unityId, type, courseId } = params
+  const { year, semester, month, unityId, type, courseId } = params
+
+  console.log('Semester:' + semester)
 
   // Primeiro filtrar por tipo, programa ou unidade acadêmica
   const optionalFilters = {
@@ -208,14 +210,20 @@ async function catalogQueries(ctx) {
   // Filtre e conte por mês, semestre ou ano inteiro.
   if (!isNaN(month)) {
     responseObj = await fetchMonthCount(query, year, month, optionalFilters)
-  } else if (!isNaN(semester)) {
-    // console.log(searchType)
-    const groupedMonths = chunks(months, chunkSizeConvert[searchType])
-    console.log(groupedMonths[semester])
-    responseObj = await fetchMonthGroupCount(
+  } else if (
+    searchType === 'firstSemester' ||
+    searchType === 'secondSemester'
+  ) {
+    const semesterIndex = searchType === 'firstSemester' ? 0 : 1
+
+    const groupedMonths = chunks(months, chunkSizeConvert.semiannually)
+
+    const initialMonth = groupedMonths[semesterIndex][0]
+
+    responseObj = await fetchSemesterGroupByAcdUnity(
       query,
       year,
-      groupedMonths[semester],
+      initialMonth,
       optionalFilters
     )
   } else if (!isNaN(unityId)) {
@@ -258,7 +266,7 @@ async function fetchMonthGroupCount(query, year, monthList, filters) {
     const t = await fetchMonthCount(query, year, monthList[i], filters)
     count += t
   }
-  console.log(count)
+  // console.log(count)
   return count
 }
 
@@ -272,6 +280,7 @@ async function fetchMonthGroupCount(query, year, monthList, filters) {
 function fetchMonthCount(query, year, month, filters) {
   month = +month
   const monthInitialDay = new Date(year, month).toISOString()
+  // console.log(monthInitialDay)
   const monthFinalDay = new Date(year, month + 1, 0).toISOString()
   return query
     .where({ ...filters })
@@ -281,14 +290,40 @@ function fetchMonthCount(query, year, month, filters) {
 }
 
 // TODO
-// async function fetchSemesterGroupCount(query, year, monthList, filters) {
-//   const initialMonth = monthList[0] === 0 ? 0 : 6
+async function fetchSemesterGroupByAcdUnity(
+  query,
+  year,
+  initialMonth,
+  filters
+) {
+  // const initialMonth = monthList[0] === 0 ? 0 : 6
+  const finalMonth = initialMonth === 0 ? 6 : 12
 
-//   const firstDayOfSemester = new Date(year, 0).toISOString()
-//   const lastDayOfSemester = new Date(year, 12, 0).toISOString()
-// }
+  const firstDayOfSemester = new Date(year, initialMonth).toISOString()
+  // console.log(firstDayOfSemester)
+  const lastDayOfSemester = new Date(year, finalMonth, 0).toISOString()
+  // console.log(lastDayOfSemester)
+
+  const all = await query
+    .where({ ...filters })
+    .where('datetime', '>=', firstDayOfSemester)
+    .where('datetime', '<=', lastDayOfSemester)
+    .fetchAll()
+
+  const group = all.groupBy('unityId')
+  const payload = {}
+  const acdUnities = await AcademicUnity.fetchAll()
+
+  for (const i in acdUnities.toJSON()) {
+    const key = parseInt(i) + 1 + ''
+
+    payload[key] = group[key] ? group[key].length : 0
+  }
+  return payload
+}
 
 async function fetchAllGroupByAcdUnity(query, year, filters) {
+  console.log('aight')
   const firstDayOfYear = new Date(year, 0).toISOString()
   const lastDayOfYear = new Date(year, 12, 0).toISOString()
   const all = await query
@@ -385,6 +420,9 @@ async function getReportPdf(ctx) {
   const { searchType, data } = queryResult
 
   const table = []
+
+  console.log('search type:' + searchType)
+
   const labels = labelMap(acdUnities)[searchType] // [ name, acronym]
 
   for (const i in labels) {
@@ -405,6 +443,9 @@ async function getReportPdf(ctx) {
       queryResult.mean = (queryResult.total / values.length).toPrecision(3)
     }
   }
+
+  console.log(queryResult)
+
   const htmlTemplate = generatePdfReport(
     queryResult,
     !!queryResult.params.unityId

@@ -90,6 +90,12 @@ export default {
           'Dezembro'
         ],
         semiannually: ['1º semestre', '2º semestre'],
+        firstSemester: !this.acdUnitySelected
+          ? this.acdUnities.map(u => u.name)
+          : '',
+        secondSemester: !this.acdUnitySelected
+          ? this.acdUnities.map(u => u.name)
+          : '',
         annually: !this.acdUnitySelected ? this.acdUnities.map(u => u.name) : ''
       }
     }

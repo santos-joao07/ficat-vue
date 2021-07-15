@@ -206,6 +206,12 @@ function labelMap(acdUnities) {
       'Dezembro'
     ],
     semiannually: ['1º semestre', '2º semestre'],
+    firstSemester: acdUnities.length
+      ? acdUnities.map(u => [u.name, u.acronym])
+      : ['1º semestre'],
+    secondSemester: acdUnities.length
+      ? acdUnities.map(u => [u.name, u.acronym])
+      : ['2º semestre'],
     annually: acdUnities.length
       ? acdUnities.map(u => [u.name, u.acronym])
       : ['Total Anual']

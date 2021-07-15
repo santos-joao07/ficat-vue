@@ -40,14 +40,14 @@
               <b-radio
                 v-model="searchPeriod"
                 size="is-small"
-                native-value="semiannually"
+                native-value="firstSemester"
               >
                 1º Semestre
               </b-radio>
               <b-radio
                 v-model="searchPeriod"
                 size="is-small"
-                native-value="semiannually"
+                native-value="secondSemester"
               >
                 2º Semestre
               </b-radio>
@@ -257,15 +257,24 @@ export default {
         this.getCoursesByAcdUnity(this.selectedAcdUnity.acronym)
     },
 
+    getSemesterIndex() {
+      if (this.searchPeriod === 'firstSemester') {
+        return '0'
+      } else if (this.searchPeriod === 'secondSemester') {
+        return '1'
+      }
+      return null
+    },
     onSubmit() {
+      // console.log(this.searchPeriod)
       this.$axios
         .post(
           '/api/catalogCards/q',
           {
             year: +this.searchYear,
             ...maybe('month', this.month),
-            // ...maybe('semester', this.semester),
-            semester: 0,
+            ...maybe('semester', this.getSemesterIndex()),
+            // semester: 0,
             ...maybe(
               'unityId',
               this.selectedAcdUnity && this.selectedAcdUnity.id

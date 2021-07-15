@@ -19,9 +19,16 @@ const { readFileSync } = require('fs')
 */
 function generateReport(queryData, hasChoosenAcdUnity) {
   const { searchType, params, table, total, mean } = queryData
+  console.log(params)
   const tableHeaders = {
     monthly: ['Mês', 'Quantidade'],
     semiannually: ['Unidade Acadêmica', 'Quantidade'],
+    firstSemester: hasChoosenAcdUnity
+      ? ['Total Anual']
+      : ['Unidade Acadêmica', 'Sigla', 'Quantidade'],
+    secondSemester: hasChoosenAcdUnity
+      ? ['Total Anual']
+      : ['Unidade Acadêmica', 'Sigla', 'Quantidade'],
     annually: hasChoosenAcdUnity
       ? ['Total Anual']
       : ['Unidade Acadêmica', 'Sigla', 'Quantidade']
@@ -29,7 +36,7 @@ function generateReport(queryData, hasChoosenAcdUnity) {
 
   const paramsPrettyNames = {
     // month: 'Mês',withTableFooter
-    // semester: 'Semestre',
+    semester: 'Semestre',
     unityId: 'Unidade acadêmica',
     type: 'Tipo de curso',
     courseId: 'Curso'
@@ -56,8 +63,7 @@ function generateReport(queryData, hasChoosenAcdUnity) {
 
   // A hospedagem dessas imagens poderia ser melhorada
   // const hostPreffix = `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}/`
-  const hostPreffix =
-    'https://raw.githubusercontent.com/Lakshamana/ficat-vue/master/assets/'
+  const hostPreffix = 'https://github.com/CylonSam/ficat-gui/raw/master/assets/'
   const img1 = hostPreffix + 'img/bibcentral-logo.png'
   const img2 = hostPreffix + 'img/ficat-logo.png'
   const img3 = hostPreffix + 'img/sibi-logo.png'
@@ -175,6 +181,13 @@ function translateWorkType(type) {
     case 'tccGraduation':
       translatedType = 'Graduação'
       break
+
+    case '0':
+      translatedType = 'De 2021-01-01 até 2021-06-30'
+      break
+
+    case '1':
+      translatedType = 'De 2021-07-01 até 2021-12-31'
   }
 
   return translatedType
