@@ -214,19 +214,33 @@ async function catalogQueries(ctx) {
     searchType === 'firstSemester' ||
     searchType === 'secondSemester'
   ) {
+    console.log('called')
+
     const semesterIndex = searchType === 'firstSemester' ? 0 : 1
 
     const groupedMonths = chunks(months, chunkSizeConvert.semiannually)
 
     const initialMonth = groupedMonths[semesterIndex][0]
 
-    responseObj = await fetchSemesterGroupByAcdUnity(
-      query,
-      year,
-      initialMonth,
-      optionalFilters
-    )
-  } else if (!isNaN(unityId)) {
+    console.log('Course ID: ' + courseId)
+    if (!isNaN(unityId)) {
+      const count = await fetchMonthGroupCount(
+        query,
+        year,
+        groupedMonths[semesterIndex],
+        optionalFilters
+      )
+
+      responseObj = { '1': count }
+    } else {
+      responseObj = await fetchSemesterGroupByAcdUnity(
+        query,
+        year,
+        initialMonth,
+        optionalFilters
+      )
+    }
+  } else if (!isNaN(unityId) || searchType === 'monthly') {
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
       const f = await fetchMonthGroupCount(
@@ -242,6 +256,7 @@ async function catalogQueries(ctx) {
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
   }
 
+  console.log(responseObj)
   const user = ctx.cookies.get('user')
   const xsrfToken = ctx.headers['x-xsrf-token']
   const pdfToken = sha256(user + xsrfToken + Date.now())
