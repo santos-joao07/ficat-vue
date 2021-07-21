@@ -49,29 +49,29 @@ module.exports = {
         'coadvisorTitle'
       ]
     },
-    academicDetails: ['acdUnityId', 'knAreaId', 'courseId'],
+    academicDetails: ['acdUnityId', 'knAreaId', 'courseName'],
     fonts: ['times', 'arial']
   },
   querieFields: {
     monthly: {
-      mandatory: ['year', 'month', 'unityId', 'type', 'courseId'],
-      optional: ['month', 'unityId', 'type', 'courseId']
+      mandatory: ['year', 'month', 'unityId', 'type', 'courseName'],
+      optional: ['month', 'unityId', 'type', 'courseName']
     },
     semiannually: {
-      mandatory: ['year', 'unityId', 'type', 'courseId'],
-      optional: ['unityId', 'type', 'courseId']
+      mandatory: ['year', 'unityId', 'type', 'courseName'],
+      optional: ['unityId', 'type', 'courseName']
     },
     firstSemester: {
-      mandatory: ['year', 'semester', 'unityId', 'type', 'courseId'],
-      optional: ['unityId', 'semester', 'type', 'courseId']
+      mandatory: ['year', 'semester', 'unityId', 'type', 'courseName'],
+      optional: ['unityId', 'semester', 'type', 'courseName']
     },
     secondSemester: {
-      mandatory: ['year', 'semester', 'unityId', 'type', 'courseId'],
-      optional: ['unityId', 'semester', 'type', 'courseId']
+      mandatory: ['year', 'semester', 'unityId', 'type', 'courseName'],
+      optional: ['unityId', 'semester', 'type', 'courseName']
     },
     annually: {
-      mandatory: ['year', 'unityId', 'type', 'courseId'],
-      optional: ['unityId', 'type', 'courseId']
+      mandatory: ['year', 'unityId', 'type', 'courseName'],
+      optional: ['unityId', 'type', 'courseName']
     }
   },
   users: {

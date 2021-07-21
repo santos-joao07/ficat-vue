@@ -78,7 +78,7 @@ async function create(ctx) {
   const cdd = kna.get('code')
 
   const course = await Course.where({
-    id: academicDetails.courseId
+    name: academicDetails.courseName
   }).fetch()
 
   const acdUnity = await AcademicUnity.where({
@@ -91,11 +91,13 @@ async function create(ctx) {
   }
 
   const cutter = cutterFetch(authors.authorSurname, work.workTitle)
+  console.log(academicDetails)
   try {
     const payload = {
       type: work.workType,
       unityId: academicDetails.acdUnityId,
-      courseId: academicDetails.courseId
+      // courseId: academicDetails.courseId
+      courseName: academicDetailNames.programName
     }
     const newCatalogCard = await CatalogCard.forge(payload).save()
     ctx.set('Content-Type', 'application/pdf')
@@ -186,7 +188,7 @@ async function catalogQueries(ctx) {
   // ano é obrigatório (ex: 2019 (number))
   // semester = 0 ou 1 (1º ou 2º semestre, respectivamente)
   // month = número em [0, ..., 11]
-  const { year, semester, month, unityId, type, courseId } = params
+  const { year, semester, month, unityId, type, courseName } = params
 
   console.log('Semester:' + semester)
 
@@ -194,7 +196,7 @@ async function catalogQueries(ctx) {
   const optionalFilters = {
     ...(unityId && { unityId }),
     ...(type && { type }),
-    ...(courseId && { courseId })
+    ...(courseName && { courseName })
   }
 
   // months = [0, ..., 11]
@@ -222,7 +224,7 @@ async function catalogQueries(ctx) {
 
     const initialMonth = groupedMonths[semesterIndex][0]
 
-    console.log('Course ID: ' + courseId)
+    console.log('Course Name: ' + courseName)
     if (!isNaN(unityId)) {
       const count = await fetchMonthGroupCount(
         query,
@@ -241,6 +243,7 @@ async function catalogQueries(ctx) {
       )
     }
   } else if (!isNaN(unityId) || searchType === 'monthly') {
+    console.log('heeere')
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
       const f = await fetchMonthGroupCount(
@@ -304,7 +307,6 @@ function fetchMonthCount(query, year, month, filters) {
     .count()
 }
 
-// TODO
 async function fetchSemesterGroupByAcdUnity(
   query,
   year,
@@ -341,6 +343,8 @@ async function fetchAllGroupByAcdUnity(query, year, filters) {
   console.log('aight')
   const firstDayOfYear = new Date(year, 0).toISOString()
   const lastDayOfYear = new Date(year, 12, 0).toISOString()
+
+  // TODO: There is no courseName field...
   const all = await query
     .where({ ...filters })
     .where('datetime', '>=', firstDayOfYear)

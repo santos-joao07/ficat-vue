@@ -39,7 +39,7 @@ function generateReport(queryData, hasChoosenAcdUnity) {
     semester: 'Semestre',
     unityId: 'Unidade acadêmica',
     type: 'Tipo de curso',
-    courseId: 'Curso'
+    courseName: 'Curso'
   }
 
   const paramList = Object.entries(params)

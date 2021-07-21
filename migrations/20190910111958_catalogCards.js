@@ -7,9 +7,11 @@ exports.up = function(knex) {
       .defaultTo('tccGraduation')
     table.timestamp('datetime').defaultTo(knex.fn.now())
     table.integer('unityId').unsigned()
-    table.integer('courseId').unsigned()
+    // table.integer('courseId').unsigned()
+    table.string('courseName', 120).notNullable()
+    table.foreign('courseName').references('courses.name')
     table.foreign('unityId').references('academicUnities.id')
-    table.foreign('courseId').references('courses.id')
+    // table.foreign('courseId').references('courses.id')
   })
 }
 

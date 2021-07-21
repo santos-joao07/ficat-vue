@@ -179,7 +179,7 @@
               use-component="b-select"
             >
               <template #component>
-                <option v-for="c in courses" :key="c.id" :value="'' + c.id">
+                <option v-for="c in courses" :key="c.id" :value="'' + c.name">
                   {{ c.name }}
                 </option>
               </template>

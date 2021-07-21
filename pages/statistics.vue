@@ -133,7 +133,7 @@
                 <option
                   v-for="course in courses"
                   :key="course.id"
-                  :value="course.id"
+                  :value="course.name"
                 >
                   {{ course.name }}
                 </option>
@@ -266,7 +266,8 @@ export default {
       return null
     },
     onSubmit() {
-      // console.log(this.searchPeriod)
+      console.log(this.selectedCourse) // already id
+      // console.log(this.selectedAcdUnity.id)
       this.$axios
         .post(
           '/api/catalogCards/q',
@@ -279,7 +280,7 @@ export default {
               'unityId',
               this.selectedAcdUnity && this.selectedAcdUnity.id
             ),
-            // ...maybe('courseId', this.selectedCourse.id),
+            ...maybe('courseName', this.selectedCourse),
             ...maybe('type', this.searchCourseType)
           },
           {
