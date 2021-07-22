@@ -204,7 +204,7 @@ export default {
         catalogFont
       } = form
 
-      console.log(work)
+      console.log(work.selectedAcdUnity)
       const totalPages =
         work.numberType === 'roman'
           ? romanize(+work.totalPages)
@@ -233,7 +233,7 @@ export default {
           },
           advisors,
           academicDetails: {
-            acdUnityId: work.selectedAcdUnity.id,
+            acdUnityName: work.selectedAcdUnity.name,
             knAreaId: work.selectedKnArea.id,
             courseName: work.course
           },

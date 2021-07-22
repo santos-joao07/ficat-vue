@@ -14,6 +14,16 @@ const courseNames = [
   'Programa de Pós-Graduação em Letras'
 ]
 
+const unityNames = [
+  'Instituto de Ciências da Saúde',
+  'Instituto de Tecnologia',
+  'Instituto de Letras e Comunicação',
+  'Instituto de Ciências Biológicas',
+  'Instituto de Ciências da Arte',
+  'Instituto de Geociências',
+  'Instituto de Ciências Jurídicas'
+]
+
 function generate(length = 1000) {
   return Array.from({ length }, (_, i) => ({
     id: i,
@@ -23,7 +33,8 @@ function generate(length = 1000) {
       rand(0, 11),
       rand(1, 31)
     ).toISOString(),
-    unityId: rand(1, 10),
+    unityName: unityNames[rand(0, 7)],
+    // unityId: rand(1, 10),
     // courseId: rand(1, 10)
     courseName: courseNames[rand(0, 8)]
   }))

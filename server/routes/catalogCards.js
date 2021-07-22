@@ -82,7 +82,7 @@ async function create(ctx) {
   }).fetch()
 
   const acdUnity = await AcademicUnity.where({
-    id: academicDetails.acdUnityId
+    name: academicDetails.acdUnityName
   }).fetch()
 
   const academicDetailNames = {
@@ -91,11 +91,11 @@ async function create(ctx) {
   }
 
   const cutter = cutterFetch(authors.authorSurname, work.workTitle)
-  console.log(academicDetails)
   try {
     const payload = {
       type: work.workType,
-      unityId: academicDetails.acdUnityId,
+      unityName: academicDetails.acdUnityName,
+      // unityId: academicDetails.acdUnityId,
       // courseId: academicDetails.courseId
       courseName: academicDetailNames.programName
     }
@@ -188,13 +188,11 @@ async function catalogQueries(ctx) {
   // ano é obrigatório (ex: 2019 (number))
   // semester = 0 ou 1 (1º ou 2º semestre, respectivamente)
   // month = número em [0, ..., 11]
-  const { year, semester, month, unityId, type, courseName } = params
-
-  console.log('Semester:' + semester)
+  const { year, month, unityName, type, courseName } = params
 
   // Primeiro filtrar por tipo, programa ou unidade acadêmica
   const optionalFilters = {
-    ...(unityId && { unityId }),
+    ...(unityName && { unityName }),
     ...(type && { type }),
     ...(courseName && { courseName })
   }
@@ -216,16 +214,13 @@ async function catalogQueries(ctx) {
     searchType === 'firstSemester' ||
     searchType === 'secondSemester'
   ) {
-    console.log('called')
-
     const semesterIndex = searchType === 'firstSemester' ? 0 : 1
 
     const groupedMonths = chunks(months, chunkSizeConvert.semiannually)
 
     const initialMonth = groupedMonths[semesterIndex][0]
 
-    console.log('Course Name: ' + courseName)
-    if (!isNaN(unityId)) {
+    if (unityName) {
       const count = await fetchMonthGroupCount(
         query,
         year,
@@ -242,8 +237,7 @@ async function catalogQueries(ctx) {
         optionalFilters
       )
     }
-  } else if (!isNaN(unityId) || searchType === 'monthly') {
-    console.log('heeere')
+  } else if (searchType === 'monthly') {
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
       const f = await fetchMonthGroupCount(
@@ -255,11 +249,25 @@ async function catalogQueries(ctx) {
       // increment KEY to prevent left shifting and guarantee that 1 -> jan, 2 -> fev etc
       responseObj[parseInt(groupIdx) + 1 + ''] = f
     }
+  } else if (unityName) {
+    // TODO: Fix this please
+    console.log('here')
+
+    const groupedMonths = chunks(months, chunkSizeConvert.annually)
+    console.log(groupedMonths)
+    const count = await fetchMonthGroupCount(
+      query,
+      year,
+      groupedMonths,
+      optionalFilters
+    )
+    console.log(count)
+    responseObj = { '1': count }
   } else {
+    console.log('here 1')
     responseObj = await fetchAllGroupByAcdUnity(query, year, optionalFilters)
   }
 
-  console.log(responseObj)
   const user = ctx.cookies.get('user')
   const xsrfToken = ctx.headers['x-xsrf-token']
   const pdfToken = sha256(user + xsrfToken + Date.now())
@@ -327,12 +335,13 @@ async function fetchSemesterGroupByAcdUnity(
     .where('datetime', '<=', lastDayOfSemester)
     .fetchAll()
 
-  const group = all.groupBy('unityId')
+  const group = all.groupBy('unityName')
   const payload = {}
   const acdUnities = await AcademicUnity.fetchAll()
 
   for (const i in acdUnities.toJSON()) {
-    const key = parseInt(i) + 1 + ''
+    // const key = parseInt(i) + 1 + ''
+    const key = acdUnities.toJSON()[i].name
 
     payload[key] = group[key] ? group[key].length : 0
   }
@@ -340,25 +349,25 @@ async function fetchSemesterGroupByAcdUnity(
 }
 
 async function fetchAllGroupByAcdUnity(query, year, filters) {
-  console.log('aight')
   const firstDayOfYear = new Date(year, 0).toISOString()
   const lastDayOfYear = new Date(year, 12, 0).toISOString()
 
-  // TODO: There is no courseName field...
   const all = await query
     .where({ ...filters })
     .where('datetime', '>=', firstDayOfYear)
     .where('datetime', '<=', lastDayOfYear)
     .fetchAll()
-  const group = all.groupBy('unityId')
+
+  const group = all.groupBy('unityName')
   const payload = {}
   const acdUnities = await AcademicUnity.fetchAll()
 
   for (const i in acdUnities.toJSON()) {
-    const key = parseInt(i) + 1 + ''
+    const key = acdUnities.toJSON()[i].name
 
     payload[key] = group[key] ? group[key].length : 0
   }
+
   return payload
 }
 
@@ -440,34 +449,38 @@ async function getReportPdf(ctx) {
 
   const table = []
 
-  console.log('search type:' + searchType)
+  console.log(searchType)
 
   const labels = labelMap(acdUnities)[searchType] // [ name, acronym]
 
+  console.log(labels)
+
   for (const i in labels) {
-    const data_key = parseInt(i) + 1 + ''
+    // const data_key = parseInt(i) + 1 + ''
+    const data_key = labels[i][0]
 
     const row = Array.isArray(labels[i])
       ? [...labels[i], '' + data[data_key]]
       : [labels[i], '' + data[data_key]]
     table.push(row)
   }
+
+  // console.log(table)
+
   // Sort descending first
   const last = table[0].length - 1
   queryResult.table = table.sort((rowA, rowB) => rowB[last] - rowA[last])
-  if (!(searchType === 'annually') || !queryResult.params.unityId) {
+  if (!(searchType === 'annually') || !queryResult.params.unityName) {
     const values = Object.values(data)
     queryResult.total = values.reduce((acc, cur) => acc + cur)
-    if (searchType === 'monthly' || !queryResult.params.unityId) {
+    if (searchType === 'monthly' || !queryResult.params.unityName) {
       queryResult.mean = (queryResult.total / values.length).toPrecision(3)
     }
   }
 
-  console.log(queryResult)
-
   const htmlTemplate = generatePdfReport(
     queryResult,
-    !!queryResult.params.unityId
+    !!queryResult.params.unityName
   )
   const stream = await new Promise((resolve, reject) => {
     htmlPdf.create(htmlTemplate, globalPdfConfig).toStream((err, stream) => {

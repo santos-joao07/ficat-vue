@@ -266,8 +266,6 @@ export default {
       return null
     },
     onSubmit() {
-      console.log(this.selectedCourse) // already id
-      // console.log(this.selectedAcdUnity.id)
       this.$axios
         .post(
           '/api/catalogCards/q',
@@ -277,8 +275,8 @@ export default {
             ...maybe('semester', this.getSemesterIndex()),
             // semester: 0,
             ...maybe(
-              'unityId',
-              this.selectedAcdUnity && this.selectedAcdUnity.id
+              'unityName',
+              this.selectedAcdUnity && this.selectedAcdUnity.name
             ),
             ...maybe('courseName', this.selectedCourse),
             ...maybe('type', this.searchCourseType)

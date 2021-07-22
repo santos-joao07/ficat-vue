@@ -19,7 +19,10 @@ const { readFileSync } = require('fs')
 */
 function generateReport(queryData, hasChoosenAcdUnity) {
   const { searchType, params, table, total, mean } = queryData
-  console.log(params)
+  // console.log(params)
+
+  console.log('hasChoosenAcdUnity: ' + hasChoosenAcdUnity)
+
   const tableHeaders = {
     monthly: ['Mês', 'Quantidade'],
     semiannually: ['Unidade Acadêmica', 'Quantidade'],
@@ -37,7 +40,7 @@ function generateReport(queryData, hasChoosenAcdUnity) {
   const paramsPrettyNames = {
     // month: 'Mês',withTableFooter
     semester: 'Semestre',
-    unityId: 'Unidade acadêmica',
+    unityName: 'Unidade acadêmica',
     type: 'Tipo de curso',
     courseName: 'Curso'
   }
