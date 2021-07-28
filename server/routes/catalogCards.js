@@ -208,6 +208,7 @@ async function catalogQueries(ctx) {
 
   let responseObj = {}
   // Filtre e conte por mês, semestre ou ano inteiro.
+
   if (!isNaN(month)) {
     responseObj = await fetchMonthCount(query, year, month, optionalFilters)
   } else if (
@@ -238,6 +239,7 @@ async function catalogQueries(ctx) {
       )
     }
   } else if (searchType === 'monthly') {
+    console.log('monthly option')
     const groupedMonths = chunks(months, chunkSizeConvert[searchType])
     for (const groupIdx in groupedMonths) {
       const f = await fetchMonthGroupCount(
@@ -249,16 +251,15 @@ async function catalogQueries(ctx) {
       // increment KEY to prevent left shifting and guarantee that 1 -> jan, 2 -> fev etc
       responseObj[parseInt(groupIdx) + 1 + ''] = f
     }
+    console.log(responseObj)
   } else if (unityName) {
-    // TODO: Fix this please
-    console.log('here')
-
+    console.log('here 0')
     const groupedMonths = chunks(months, chunkSizeConvert.annually)
     console.log(groupedMonths)
     const count = await fetchMonthGroupCount(
       query,
       year,
-      groupedMonths,
+      groupedMonths[0],
       optionalFilters
     )
     console.log(count)
@@ -288,6 +289,7 @@ async function catalogQueries(ctx) {
  */
 async function fetchMonthGroupCount(query, year, monthList, filters) {
   let count = 0
+  console.log('monthlist (1): ' + monthList[1])
   for (let i = 0; i < monthList.length; i++) {
     const t = await fetchMonthCount(query, year, monthList[i], filters)
     count += t
@@ -306,7 +308,6 @@ async function fetchMonthGroupCount(query, year, monthList, filters) {
 function fetchMonthCount(query, year, month, filters) {
   month = +month
   const monthInitialDay = new Date(year, month).toISOString()
-  // console.log(monthInitialDay)
   const monthFinalDay = new Date(year, month + 1, 0).toISOString()
   return query
     .where({ ...filters })
@@ -325,9 +326,7 @@ async function fetchSemesterGroupByAcdUnity(
   const finalMonth = initialMonth === 0 ? 6 : 12
 
   const firstDayOfSemester = new Date(year, initialMonth).toISOString()
-  // console.log(firstDayOfSemester)
   const lastDayOfSemester = new Date(year, finalMonth, 0).toISOString()
-  // console.log(lastDayOfSemester)
 
   const all = await query
     .where({ ...filters })
@@ -449,15 +448,29 @@ async function getReportPdf(ctx) {
 
   const table = []
 
-  console.log(searchType)
+  // console.log(searchType)
 
-  const labels = labelMap(acdUnities)[searchType] // [ name, acronym]
+  let labels = ''
 
-  console.log(labels)
+  if (queryResult.params.unityName) {
+    console.log(queryResult.params.unityName)
+    labels = labelMap(acdUnities, true)[searchType]
+  } else {
+    labels = labelMap(acdUnities, false)[searchType] // [ name, acronym]
+  }
+
+  // console.log(labels)
+  // console.log(data)
 
   for (const i in labels) {
-    // const data_key = parseInt(i) + 1 + ''
-    const data_key = labels[i][0]
+    let data_key = ''
+
+    if (searchType === 'monthly' || queryResult.params.unityName) {
+      data_key = parseInt(i) + 1 + ''
+    } else {
+      data_key = labels[i][0]
+    }
+    // console.log(data_key)
 
     const row = Array.isArray(labels[i])
       ? [...labels[i], '' + data[data_key]]

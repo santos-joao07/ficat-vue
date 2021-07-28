@@ -189,7 +189,7 @@ function capit(word) {
  *
  * @param {Array[]} acdUnities
  */
-function labelMap(acdUnities) {
+function labelMap(acdUnities, hasChoosenAcdUnity) {
   return {
     monthly: [
       'Janeiro',
@@ -206,13 +206,13 @@ function labelMap(acdUnities) {
       'Dezembro'
     ],
     semiannually: ['1º semestre', '2º semestre'],
-    firstSemester: acdUnities.length
+    firstSemester: !hasChoosenAcdUnity
       ? acdUnities.map(u => [u.name, u.acronym])
       : ['1º semestre'],
-    secondSemester: acdUnities.length
+    secondSemester: !hasChoosenAcdUnity
       ? acdUnities.map(u => [u.name, u.acronym])
       : ['2º semestre'],
-    annually: acdUnities.length
+    annually: !hasChoosenAcdUnity
       ? acdUnities.map(u => [u.name, u.acronym])
       : ['Total Anual']
   }

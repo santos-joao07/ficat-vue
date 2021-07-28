@@ -21,6 +21,7 @@ function generateReport(queryData, hasChoosenAcdUnity) {
   const { searchType, params, table, total, mean } = queryData
   // console.log(params)
 
+  // console.log(table)
   console.log('hasChoosenAcdUnity: ' + hasChoosenAcdUnity)
 
   const tableHeaders = {
