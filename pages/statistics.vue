@@ -200,6 +200,12 @@ export default {
     }
   },
 
+  watch: {
+    selectedAcdUnity() {
+      this.selectedCourse = undefined
+    }
+  },
+
   mounted() {
     this.$axios.setHeader('x-xsrf-token', this.$cookies.get('xsrfToken'))
     this.getYears()

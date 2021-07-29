@@ -81,7 +81,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const advisorsArray = advisors
   const advisorsHeadersArray = []
-  const coadvisorsHeaderArray = ['Coorientador(a): ']
+  const coadvisorsHeaderArray = []
 
   for (
     let advisorIndex = 0;
@@ -92,7 +92,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     const advisorGender = advisor.advisorGender === 'female' ? 1 : 0
 
     if (advisor.advisorType === 'advisor') {
-      console.log('entrou em advisor')
       advisorsHeadersArray.push(
         `<p class="ml advisor">Orientador(a): ${
           title[advisor.advisorTitle][advisorGender]
@@ -106,6 +105,12 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
         }, ` // o final sempre vai ser ,\s
       )
     }
+  }
+
+  if (coadvisorsHeaderArray.length > 1) {
+    coadvisorsHeaderArray.unshift('Coorientadores: ')
+  } else {
+    coadvisorsHeaderArray.unshift('Coorientador(a): ')
   }
 
   const advisorHeader = ''.concat(...advisorsHeadersArray)
@@ -182,9 +187,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')
 
-  console.log('begin server')
-  console.log(advisorHeader)
-  console.log(withCoadvisorHeader)
   return (
     htmlTemplate
       .replace('__fontFamily__', fontFamily)

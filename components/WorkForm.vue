@@ -238,6 +238,9 @@ export default {
       handler($v) {
         replace('form', { work: this.$data })
       }
+    },
+    workType() {
+      this.acdUnity = ''
     }
   },
 
@@ -371,7 +374,7 @@ export default {
     },
 
     getCoursesByAcdAcronym(unityAcronym) {
-      // console.log(this.workTyp)
+      // console.log(this.translateWorkType(this.workType))
       this.$axios
         .get('/api/courses', {
           params: {
