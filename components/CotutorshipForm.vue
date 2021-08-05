@@ -30,7 +30,6 @@
                 :v="$v"
                 :tooltip-label="$tr('layout.genderTooltip', ['lowAdvisor'])"
                 :validations="$options.validations.cotutorshipAdvisorGender"
-                @input="onChangeType"
                 placeholder="Selecione"
                 label="Gênero"
                 field-name="cotutorshipAdvisorGender"
@@ -181,7 +180,7 @@ export default {
       const { validations } = this.$options
       this.$v.$touch()
       for (const field in validations) {
-        console.log(this.$v[field])
+        // console.log(this.$v[field])
         if (this.$v[field].$invalid && !this.$v[field].$each) {
           this.$refs[field].focus()
 
@@ -238,7 +237,6 @@ export default {
 <style scoped>
 .input-float {
   display: flex;
-
   margin-left: 15%;
   justify-content: flex-start;
 }
@@ -257,8 +255,16 @@ export default {
 }
 
 .campo-instituicao {
+  /* width: 78%; */
   margin-right: 5%;
 }
+/* 
+@media screen and (max-width: 1200px) {
+  .campo-instituicao {
+    width: 100%;
+    margin-right: 0;
+  }
+} */
 
 @media screen and (max-width: 900px) {
   .input-float {
@@ -271,6 +277,7 @@ export default {
   }
 
   .campo-instituicao {
+    width: 100%;
     margin-right: 0;
   }
 }

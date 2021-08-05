@@ -28,15 +28,14 @@ function generate(length = 1000) {
   return Array.from({ length }, (_, i) => ({
     id: i,
     type: types[rand(0, 4)],
-    datetime: new Date(
-      rand(2000, 2019),
-      rand(0, 11),
-      rand(1, 31)
-    ).toISOString(),
+    datetime: new Date(rand(2000, 2019), rand(0, 11), rand(1, 31))
+      .toISOString()
+      .slice(0, 19)
+      .replace('T', ' '),
     unityName: unityNames[rand(0, 7)],
     // unityId: rand(1, 10),
     // courseId: rand(1, 10)
-    courseName: courseNames[rand(0, 8)]
+    courseName: courseNames[rand(0, 7)]
   }))
 }
 

@@ -3,7 +3,7 @@ const consola = require('consola')
 const cors = require('@koa/cors')
 // const { resolve } = require('path')
 // const serve = require('koa-static')
-
+const serve = require('koa-static')
 const config = require('./config')
 const { errorHandler } = require('./util/middlewares')
 
@@ -23,6 +23,8 @@ app.use(cors())
 app.use(errorHandler)
 // app.use(serve(resolve(__dirname, '../assets')))
 app.use(router.routes())
+
+app.use(serve('../dist'))
 
 app.listen(port, host)
 consola.ready({

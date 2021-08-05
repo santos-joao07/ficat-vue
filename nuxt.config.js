@@ -74,9 +74,9 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    baseUrl: config.HOST
-  },
+  // axios: {
+  //   headers: { }
+  // },
 
   recaptcha: {
     hideBadge: true, // Hide badge element (v3 & v2 via size=invisible)

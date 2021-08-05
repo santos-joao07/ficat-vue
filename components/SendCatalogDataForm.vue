@@ -204,7 +204,7 @@ export default {
         catalogFont
       } = form
 
-      console.log(work.selectedAcdUnity)
+      // console.log(work.selectedAcdUnity)
       const totalPages =
         work.numberType === 'roman'
           ? romanize(+work.totalPages)

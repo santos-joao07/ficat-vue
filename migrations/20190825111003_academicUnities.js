@@ -5,6 +5,7 @@ exports.up = function(knex) {
       .string('name', 120)
       .notNullable()
       .defaultTo('')
+      .unique()
     table
       .string('acronym', 10)
       .notNullable()

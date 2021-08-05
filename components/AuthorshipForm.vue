@@ -135,7 +135,7 @@ export default {
       const { authorName } = this.$refs
       this.$v.$touch()
       for (const i in authorName) {
-        console.log(i, this.$refs.authorName[i])
+        // console.log(i, this.$refs.authorName[i])
 
         if (this.$v.authors.$each[i].$invalid) {
           this.$refs.authorName[i].focus()

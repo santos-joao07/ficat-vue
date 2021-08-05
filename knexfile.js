@@ -9,13 +9,18 @@ const seeds = {
   directory: './seeds'
 }
 
+console.log(config.DATABASE_TYPE)
+
 const genericConnection = {
   host: config.DATABASE_HOST,
   user: config.DATABASE_USER,
   password: config.DATABASE_PASS,
   database: config.DATABASE_NAME,
+  port: 3306,
   charset: 'utf8'
 }
+
+console.log(genericConnection)
 
 const sqliteConnection = {
   filename: path.join(__dirname, config.DATABASE_FILE)
@@ -61,5 +66,7 @@ const obj = {
     useNullAsDefault
   }
 }
+
+console.log(obj.production)
 
 module.exports = obj
