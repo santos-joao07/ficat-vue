@@ -96,6 +96,7 @@ export default {
             username: this.username,
             xsrfToken: this.$cookies.get('xsrfToken', { withCredentials: true })
           })
+
           const to = this.$route.query.to
             ? atob(this.$route.query.to)
             : '/admin/cursos'

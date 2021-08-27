@@ -53,12 +53,22 @@ async function auth(ctx) {
   }
 }
 
+function getCookie(name, cookies) {
+  const value = `; ${cookies}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2)
+    return parts
+      .pop()
+      .split(';')
+      .shift()
+}
+
 // Autorização - Obter acesso a recursos da API
 function authz(ctx, next) {
   const token = ctx.cookies.get('accessToken', { withCredentials: true })
-  // const xsrfToken = ctx.headers['x-xsrf-token']
-  const xsrfToken = Object.entries(ctx.headers)
-  // console.log('headers: ' + xsrfToken)
+
+  const xsrfToken = getCookie('xsrfToken', ctx.headers.cookie)
+
   if (!token || !xsrfToken) {
     ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errNotAuthorized)
   }
