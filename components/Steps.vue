@@ -45,18 +45,20 @@
           <b-button
             :disabled="previous.disabled"
             @click.prevent="previous.action"
-            type="is-primary"
-            icon-left="arrow-left-thick"
+            class="app-button"
+            icon-left="chevron-left"
           >
             Anterior
           </b-button>
           <b-button
             :disabled="next.disabled"
             @click.prevent="validate(next.action)"
-            type="is-primary"
-            icon-right="arrow-right-thick"
+            class="app-button"
+            icon-right="chevron-right"
           >
             Próximo
+            <!-- <b-icon class="app-icon" icon="chevron-right" size="is-medium">
+            </b-icon> -->
           </b-button>
         </div>
       </template>
@@ -137,6 +139,20 @@ export default {
 <style scoped>
 .test {
   text-align: center;
+}
+
+.app-button {
+  background-color: #595867;
+  color: white;
+}
+
+.button-content {
+  justify-content: space-between;
+}
+
+.app-icon {
+  vertical-align: middle;
+  color: white;
 }
 
 .cotutela-switch-label {

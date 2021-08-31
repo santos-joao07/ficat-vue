@@ -7,6 +7,7 @@ export default {
   layout: {
     about: 'Sobre',
     talkToUs: 'Fale conosco',
+    tutorial: 'Tutorial',
     next: 'Próximo passo',
     previous: 'Passo anterior',
     author: 'autor',

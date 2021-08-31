@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar class="has-background-dark app-navbar">
+    <b-navbar class="bg-dark app-navbar" transparent="true" centered="true">
       <template slot="brand">
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
@@ -17,27 +17,29 @@
           :aria-roledescription="path"
           :aria-label="path"
         >
-          <b-navbar-item :to="key" tag="router-link" class="has-text-primary">
+          <b-navbar-item :to="key" tag="router-link" class="text-white">
             {{ path }}
           </b-navbar-item>
         </b-navbar-item>
       </template>
 
       <template slot="end">
-        <b-navbar-item class="has-text-primary" tag="nuxt-link" to="/login"
+        <b-navbar-item class="text-white" tag="nuxt-link" to="/login"
           >Log in</b-navbar-item
         >
         <b-navbar-item tag="div">
-          <b-navbar-item>
-            <a @click="setLang('pt')" :class="{ selectedClass: isSelected }">
-              pt
-            </a>
+          <b-navbar-item
+            @click="setLang('pt')"
+            :class="{ selectedClass: !isSelected, 'text-white': true }"
+          >
+            pt
           </b-navbar-item>
           <div class="vl"></div>
-          <b-navbar-item>
-            <a @click="setLang('en')" :class="{ selectedClass: !isSelected }">
-              en
-            </a>
+          <b-navbar-item
+            @click="setLang('en')"
+            :class="{ selectedClass: !isSelected, 'text-white': true }"
+          >
+            en
           </b-navbar-item>
         </b-navbar-item>
       </template>
@@ -74,7 +76,8 @@ export default {
     paths() {
       return {
         about: this.$tr('layout.about'),
-        talk: this.$tr('layout.talkToUs')
+        talk: this.$tr('layout.talkToUs'),
+        tutotrial: this.$tr('layout.tutorial')
       }
     }
   },
@@ -130,12 +133,27 @@ export default {
   color: white;
 } */
 
+@font-face {
+  font-family: 'Atlantic Cruise';
+  src: url('~assets/fonts/Atlantic_Cruise-Medium.ttf') format('truetype');
+}
+
+.text-white {
+  color: white;
+  font-family: 'Atlantic Cruise', sans-serif;
+  font-size: 1.5rem;
+}
+
+.bg-dark {
+  background-color: #444352;
+}
+
 .selectedClass {
   text-decoration: underline;
 }
 
 .app-navbar {
-  border-bottom: 2px solid #7957d5;
+  border-bottom: 2px solid #a54b4b;
 }
 
 .vl {
