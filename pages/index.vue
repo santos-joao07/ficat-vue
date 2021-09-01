@@ -1,11 +1,11 @@
 <template>
-  <section class="section vcenter">
-    <div class="columns is-centered">
-      <div class="column is-10">
-        <Steps />
-      </div>
-    </div>
-  </section>
+  <div>
+    <b-image
+      :src="require('@/assets/img/ficat-logo-nobg.png')"
+      class="app-logo"
+    ></b-image>
+    <Steps class="steps" />
+  </div>
 </template>
 
 <script>
@@ -25,23 +25,19 @@ export default {
 </script>
 
 <style scoped>
-.vcenter {
-  display: flex;
-  height: 90vh;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.columns {
-  margin: auto;
-  flex: 1 0 auto;
-  width: 100%;
-}
-
 .bodyClass,
 .htmlClass {
   overflow-y: hidden;
+}
+
+.app-logo {
+  width: 16%;
+  margin: 5em auto 2em auto;
+}
+
+.steps {
+  width: 80%;
+  margin: 0 auto;
 }
 </style>
 

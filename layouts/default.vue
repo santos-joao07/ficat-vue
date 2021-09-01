@@ -18,28 +18,28 @@
           :aria-label="path"
         >
           <b-navbar-item :to="key" tag="router-link" class="text-white">
-            {{ path }}
+            {{ path.toUpperCase() }}
           </b-navbar-item>
         </b-navbar-item>
       </template>
 
       <template slot="end">
         <b-navbar-item class="text-white" tag="nuxt-link" to="/login"
-          >Log in</b-navbar-item
+          >LOG IN</b-navbar-item
         >
         <b-navbar-item tag="div">
           <b-navbar-item
             @click="setLang('pt')"
             :class="{ selectedClass: !isSelected, 'text-white': true }"
           >
-            pt
+            PT
           </b-navbar-item>
           <div class="vl"></div>
           <b-navbar-item
             @click="setLang('en')"
             :class="{ selectedClass: !isSelected, 'text-white': true }"
           >
-            en
+            EN
           </b-navbar-item>
         </b-navbar-item>
       </template>
