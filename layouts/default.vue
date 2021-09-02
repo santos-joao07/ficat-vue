@@ -4,8 +4,9 @@
       <template slot="brand">
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
-            src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-            alt="Lightweight UI components for Vue.js based on Bulma"
+            :src="require('@/assets/img/ficat-logo-white2.png')"
+            alt="Logo FICAT"
+            class="logo-white"
           />
         </b-navbar-item>
       </template>
@@ -136,6 +137,10 @@ export default {
 @font-face {
   font-family: 'Atlantic Cruise';
   src: url('~assets/fonts/Atlantic_Cruise-Medium.ttf') format('truetype');
+}
+
+.logo-white {
+  width: 3.4em;
 }
 
 .text-white {
