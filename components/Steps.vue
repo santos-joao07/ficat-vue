@@ -2,11 +2,12 @@
   <section>
     <b-steps
       v-model="activeStep"
-      :animated="isAnimated"
       :rounded="isRounded"
       :has-navigation="hasNavigation"
       :label-position="labelPosition"
       :mobile-mode="mobileMode"
+      class="steps-color"
+      type="is-ficat"
     >
       <b-step-item icon="account">
         <AuthorshipForm ref="section-0" />
@@ -135,6 +136,37 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~bulma/sass/utilities/_all';
+
+// Set your colors
+// $primary: #8c67ef;
+// $primary-light: findLightColor($primary);
+// $primary-dark: findDarkColor($primary);
+// $primary-invert: findColorInvert($primary);
+$ficat: #444352;
+$ficat-invert: findColorInvert($ficat);
+
+// Lists and maps
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+  (
+    'ficat': (
+      $ficat,
+      $ficat-invert
+    )
+  ),
+  $custom-colors
+);
+
+// Import Bulma and Buefy styles
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+</style>
 
 <style scoped>
 .test {

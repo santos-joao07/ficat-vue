@@ -32,7 +32,9 @@
                 :disabled="keywords.length > 4"
                 @click="keywords.push({ text: '' })"
                 icon-right="plus"
-                class="is-success is-round is-outlined btn"
+                class="app-btn btn"
+                type="is-success"
+                outlined
               >
               </b-button>
             </WithTooltip>
@@ -41,7 +43,9 @@
                 v-if="i > 0"
                 @click="keywords.splice(i, 1)"
                 icon-right="minus"
-                class="is-danger is-round btn-margin is-outlined btn"
+                class="app-btn btn"
+                type="is-danger"
+                outlined
               ></b-button>
             </WithTooltip>
           </div>

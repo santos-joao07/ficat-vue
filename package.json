@@ -35,7 +35,7 @@
     "bcrypt": "^3.0.6",
     "bookshelf": "^0.15.1",
     "bookshelf-secure-password": "^4.0.0",
-    "buefy": "^0.9.4",
+    "buefy": "^0.9.10",
     "chart.js": "^2.9.4",
     "dotenv": "^8.0.0",
     "googleapis": "^83.0.0",
@@ -74,8 +74,10 @@
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.1.0",
+    "node-sass": "^6.0.1",
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
+    "sass-loader": "^10",
     "vue-jest": "^4.0.1"
   }
 }

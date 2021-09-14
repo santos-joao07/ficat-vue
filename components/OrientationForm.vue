@@ -135,7 +135,9 @@
                   })
                 "
                 icon-right="plus"
-                class="is-success is-round is-outlined btn"
+                class="btn"
+                type="is-success"
+                outlined
               >
               </b-button>
             </WithTooltip>
@@ -144,7 +146,9 @@
                 v-if="i > 0"
                 @click="advisors.splice(i, 1)"
                 icon-right="minus"
-                class="is-danger is-round btn-margin is-outlined btn"
+                class="btn"
+                type="is-danger"
+                outlined
               ></b-button>
             </WithTooltip>
           </div>

@@ -149,6 +149,10 @@ export default {
   font-size: 1.5rem;
 }
 
+.text-white:hover {
+  color: #a54b4b;
+}
+
 .bg-dark {
   background-color: #444352;
 }

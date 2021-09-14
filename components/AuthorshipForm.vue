@@ -62,7 +62,9 @@
                 :disabled="authors.length > 1"
                 @click="authors.push({ authorName: '', authorSurname: '' })"
                 icon-right="plus"
-                class="is-success is-round is-outlined btn"
+                class="btn"
+                type="is-success"
+                outlined
               >
               </b-button>
             </WithTooltip>
@@ -71,7 +73,9 @@
                 v-if="i > 0"
                 @click="authors.splice(i, 1)"
                 icon-right="minus"
-                class="is-danger is-round btn-margin is-outlined btn"
+                class="btn"
+                type="is-danger"
+                outlined
               ></b-button>
             </WithTooltip>
           </div>
@@ -186,6 +190,12 @@ export default {
   display: flex;
   margin-left: 1em;
   justify-content: space-between;
+}
+
+.btn {
+  flex: 0 1 auto;
+  margin: 0 0.3em;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 900px) {
