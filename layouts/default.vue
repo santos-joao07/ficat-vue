@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-navbar class="bg-dark app-navbar" transparent="true" centered="true">
-      <template slot="brand">
+    <b-navbar :transparent="true" class="bg-dark app-navbar" centered="true">
+      <template #brand>
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
             :src="require('@/assets/img/ficat-logo-white2.png')"
@@ -11,16 +11,15 @@
         </b-navbar-item>
       </template>
 
-      <template slot="start">
+      <template #start>
         <b-navbar-item
           v-for="(path, key) in paths"
           :key="key"
-          :aria-roledescription="path"
-          :aria-label="path"
+          :to="key"
+          tag="nuxt-link"
+          class="text-white"
         >
-          <b-navbar-item :to="key" tag="router-link" class="text-white">
-            {{ path.toUpperCase() }}
-          </b-navbar-item>
+          {{ path.toUpperCase() }}
         </b-navbar-item>
       </template>
 
@@ -149,24 +148,25 @@ export default {
   font-size: 1.5rem;
 }
 
-.text-white:hover {
+a.nuxt-link-exact-active {
   color: #a54b4b;
 }
 
-.bg-dark {
-  background-color: #444352;
-}
+/* a.nuxt-link-active {
+  color: #a54b4b;
+} */
 
 .selectedClass {
   text-decoration: underline;
 }
 
 .app-navbar {
+  background-color: #444352;
   border-bottom: 2px solid #a54b4b;
 }
 
 .vl {
-  border-left: 2px solid lightgrey;
+  border-left: 2px solid rgb(247, 217, 217);
   height: 1em;
 }
 

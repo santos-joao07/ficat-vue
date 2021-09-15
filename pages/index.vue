@@ -13,7 +13,6 @@ import { persist } from '~/front/persistence'
 import Steps from '~/components/Steps'
 
 export default {
-  name: 'Index',
   components: {
     Steps
   },
@@ -50,6 +49,12 @@ export default {
 
 a.dropdown-item {
   text-align: left;
+}
+
+.btn {
+  flex: 0 1 auto;
+  margin: 0 0.3em;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 900px) {

@@ -145,6 +145,7 @@ export default {
 // $primary-light: findLightColor($primary);
 // $primary-dark: findDarkColor($primary);
 // $primary-invert: findColorInvert($primary);
+$ficat-red: #a54b4b;
 $ficat: #444352;
 $ficat-invert: findColorInvert($ficat);
 
@@ -162,6 +163,11 @@ $colors: mergeColorMaps(
   ),
   $custom-colors
 );
+
+// Links
+$link: $ficat-red;
+// $link-invert: $primary-invert;
+// $link-focus-border: $primary;
 
 // Import Bulma and Buefy styles
 @import '~bulma';

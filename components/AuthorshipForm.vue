@@ -192,12 +192,6 @@ export default {
   justify-content: space-between;
 }
 
-.btn {
-  flex: 0 1 auto;
-  margin: 0 0.3em;
-  border-radius: 50%;
-}
-
 @media screen and (max-width: 900px) {
   .input-float {
     flex-direction: column;

@@ -1,16 +1,9 @@
 <template>
-  <div class="admin-homepage">
-    <index-navbar></index-navbar>
-  </div>
+  <div class="admin-homepage"></div>
 </template>
 <script>
-import Navbar from '../../components/index/Navbar'
-
 export default {
-  layout: 'adminLayout',
-  components: {
-    'index-navbar': Navbar
-  }
+  layout: 'adminLayout'
 }
 </script>
 <style scoped>

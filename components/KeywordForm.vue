@@ -32,7 +32,7 @@
                 :disabled="keywords.length > 4"
                 @click="keywords.push({ text: '' })"
                 icon-right="plus"
-                class="app-btn btn"
+                class="btn"
                 type="is-success"
                 outlined
               >
@@ -43,7 +43,7 @@
                 v-if="i > 0"
                 @click="keywords.splice(i, 1)"
                 icon-right="minus"
-                class="app-btn btn"
+                class="btn"
                 type="is-danger"
                 outlined
               ></b-button>
@@ -140,11 +140,6 @@ export default {
   justify-content: space-between;
 }
 
-.btn {
-  flex: 0 1 auto;
-  margin: 0 0.3em;
-  border-radius: 50%;
-}
 /*
 .tooltip.tt-btn,
 .tooltip.tt-btn:hover {
