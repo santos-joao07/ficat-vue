@@ -47,6 +47,13 @@
                 ><b-icon></b-icon
               ></b-menu-item>
               <b-menu-item
+                icon="chart-bar"
+                label="Estatísticas"
+                tag="nuxt-link"
+                to="/statistics"
+                ><b-icon></b-icon
+              ></b-menu-item>
+              <b-menu-item
                 icon="logout"
                 label="Sair"
                 tag="nuxt-link"
@@ -119,12 +126,12 @@ body {
 }
 
 .app-menu a.nuxt-link-exact-active {
-  background-color: #7957d5;
+  background-color: #444352;
   color: white;
 }
 
 .app-menu a.nuxt-link-exact-active:hover {
-  background-color: #7957d5;
+  background-color: #444352;
   color: white;
 }
 

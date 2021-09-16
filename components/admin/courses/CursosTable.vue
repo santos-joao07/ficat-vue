@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="column">
-      <b-tabs v-model="activeTab" type="is-boxed">
+      <b-tabs v-model="activeTab" type="is-boxed is-primary">
         <template v-for="courseType in courseTypes">
           <b-tab-item :key="courseType" :label="courseType">
             <b-table
@@ -56,7 +56,8 @@
 
               <b-table-column v-slot="props" field="edit">
                 <a @click="editCourse(props.row.id)">
-                  <b-icon icon="pencil" size="is-small"> </b-icon>
+                  <b-icon icon="pencil" size="is-small" type="is-primary">
+                  </b-icon>
                 </a>
               </b-table-column>
 
@@ -157,4 +158,5 @@ export default {
   }
 }
 </script>
+
 <style scoped></style>

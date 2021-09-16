@@ -45,7 +45,7 @@
 
         <b-table-column v-slot="props" field="edit">
           <a @click="editKnowledgeArea(props.row.id)">
-            <b-icon icon="pencil" size="is-small"> </b-icon>
+            <b-icon icon="pencil" size="is-small" type="is-primary"> </b-icon>
           </a>
         </b-table-column>
 

@@ -45,7 +45,7 @@
       </section>
       <footer class="modal-card-foot">
         <b-button @click="$emit('close')" label="Fechar janela" />
-        <b-button @click="submitForm" label="Atualizar" type="is-primary" />
+        <b-button @click="submitForm" label="Atualizar" type="is-ficat" />
       </footer>
     </div>
   </form>

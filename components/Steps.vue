@@ -6,7 +6,6 @@
       :has-navigation="hasNavigation"
       :label-position="labelPosition"
       :mobile-mode="mobileMode"
-      class="steps-color"
       type="is-ficat"
     >
       <b-step-item icon="account">
@@ -141,11 +140,7 @@ export default {
 @import '~bulma/sass/utilities/_all';
 
 // Set your colors
-// $primary: #8c67ef;
-// $primary-light: findLightColor($primary);
-// $primary-dark: findDarkColor($primary);
-// $primary-invert: findColorInvert($primary);
-$ficat-red: #a54b4b;
+
 $ficat: #444352;
 $ficat-invert: findColorInvert($ficat);
 
@@ -164,12 +159,8 @@ $colors: mergeColorMaps(
   $custom-colors
 );
 
-// Links
-$link: $ficat-red;
-// $link-invert: $primary-invert;
-// $link-focus-border: $primary;
+$link: $ficat;
 
-// Import Bulma and Buefy styles
 @import '~bulma';
 @import '~buefy/src/scss/buefy';
 </style>

@@ -13,7 +13,7 @@
     <template #end>
       <b-navbar-item tag="div">
         <div class="buttons">
-          <a @click="addClicked" class="button is-primary">
+          <a @click="addClicked" class="button is-ficat">
             Adicionar nova
           </a>
         </div>

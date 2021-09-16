@@ -30,7 +30,7 @@
         <b-navbar-item tag="div">
           <b-navbar-item
             @click="setLang('pt')"
-            :class="{ selectedClass: !isSelected, 'text-white': true }"
+            :class="{ selectedClass: isSelected, 'text-white': true }"
           >
             PT
           </b-navbar-item>
@@ -128,6 +128,40 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+@import '~bulma/sass/utilities/_all';
+
+// Set your colors
+
+$ficat-red: #a54b4b;
+$ficat: #444352;
+$ficat-invert: findColorInvert($ficat);
+
+// Lists and maps
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+  (
+    'ficat': (
+      $ficat,
+      $ficat-invert
+    )
+  ),
+  $custom-colors
+);
+
+// Links
+$link: $ficat-red;
+// $link-invert: $primary-invert;
+// $link-focus-border: $primary;
+
+// Import Bulma and Buefy styles
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+</style>
+
 <style scoped>
 /* .test {
   color: white;
@@ -152,9 +186,9 @@ a.nuxt-link-exact-active {
   color: #a54b4b;
 }
 
-/* a.nuxt-link-active {
+a.nuxt-link-active {
   color: #a54b4b;
-} */
+}
 
 .selectedClass {
   text-decoration: underline;

@@ -51,9 +51,9 @@
           </span>
         </b-table-column>
 
-        <b-table-column v-slot="props" field="edit">
+        <!-- <b-table-column v-slot="props" field="edit">
           <a @click="editUser(props.row.id)">
-            <b-icon icon="pencil" size="is-small"> </b-icon>
+            <b-icon icon="pencil" size="is-small" type="is-primary"> </b-icon>
           </a>
         </b-table-column>
 
@@ -61,7 +61,7 @@
           <a @click="deleteUser(props.row.id)">
             <b-icon icon="delete" size="is-small" type="is-danger"> </b-icon>
           </a>
-        </b-table-column>
+        </b-table-column> -->
       </b-table>
     </div>
   </section>
@@ -126,7 +126,7 @@ export default {
       this.$props.getUserId(id)
       this.$emit('editClicked')
     },
-    deleteUsers(id) {
+    deleteUser(id) {
       this.$axios
         .delete(`/api/users/${id}`)
         .then(() => {
