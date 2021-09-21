@@ -50,7 +50,7 @@
               </b-checkbox>
             </div>
           </div>
-          <b-button class="is-primary" native-type="submit">Login</b-button>
+          <b-button class="is-ficat" native-type="submit">Login</b-button>
         </section>
       </form>
     </Card>

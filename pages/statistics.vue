@@ -32,6 +32,7 @@
                 v-model="searchPeriod"
                 size="is-small"
                 native-value="monthly"
+                type="is-info"
               >
                 Mensal
               </b-radio>
@@ -41,6 +42,7 @@
                 v-model="searchPeriod"
                 size="is-small"
                 native-value="firstSemester"
+                type="is-info"
               >
                 1º Semestre
               </b-radio>
@@ -48,6 +50,7 @@
                 v-model="searchPeriod"
                 size="is-small"
                 native-value="secondSemester"
+                type="is-info"
               >
                 2º Semestre
               </b-radio>
@@ -57,6 +60,7 @@
                 v-model="searchPeriod"
                 size="is-small"
                 native-value="annually"
+                type="is-info"
               >
                 Anual
               </b-radio>
