@@ -9,16 +9,19 @@
     </div>
     <div class="column">
       <b-table
+        @page-change="onPageChange"
         :data="filter"
-        :paginated="isPaginated"
         :per-page="perPage"
-        :current-page.sync="currentPage"
         :pagination-simple="isPaginationSimple"
         :pagination-position="paginationPosition"
         :default-sort-direction="defaultSortDirection"
         :pagination-rounded="isPaginationRounded"
         :sort-icon="sortIcon"
         :sort-icon-size="sortIconSize"
+        :total="total"
+        :loading="loading"
+        backend-pagination
+        paginated
         default-sort="user.first_name"
         aria-next-label="Next page"
         aria-previous-label="Previous page"
@@ -69,15 +72,16 @@ export default {
       activeTab: 0,
       filterText: '',
       knowledgeAreasData: [],
-      isPaginated: true,
-      isPaginationSimple: false,
+      isPaginationSimple: true,
       isPaginationRounded: false,
       paginationPosition: 'bottom',
       defaultSortDirection: 'asc',
       sortIcon: 'arrow-up',
       sortIconSize: 'is-small',
-      currentPage: 1,
-      perPage: 5
+      total: 20,
+      page: 1,
+      perPage: 10,
+      loading: false
     }
   },
   computed: {
@@ -97,6 +101,7 @@ export default {
   },
   created() {
     this.getKnowledgeAreasData()
+    this.getKnowledgeAreaDataCount()
   },
   mounted() {
     this.$root.$on('knowledge_area_added', () => {
@@ -109,13 +114,37 @@ export default {
     })
   },
   methods: {
-    getKnowledgeAreasData() {
+    onPageChange(page) {
+      this.page = page
+      this.getKnowledgeAreasData()
+    },
+    getKnowledgeAreaDataCount() {
       this.$axios
         .get('/api/knowledgeAreas')
         .then(response => {
-          this.knowledgeAreasData = response.data
+          this.total = response.data.length
+          console.log('total: ' + this.total)
         })
-        .catch(error => (this.knowledgeAreasData = error.data))
+        .catch(error => console.log(error))
+    },
+    getKnowledgeAreasData() {
+      console.log('fetching page: ' + this.page)
+      this.loading = true
+      this.$axios
+        .get('/api/knowledgeAreas', {
+          params: {
+            page: this.page,
+            size: 10 // get next page
+          }
+        })
+        .then(response => {
+          this.knowledgeAreasData = response.data
+          this.loading = false
+        })
+        .catch(error => {
+          this.knowledgeAreasData = error.data
+          this.loading = false
+        })
     },
     editKnowledgeArea(id) {
       this.$props.getKnowledgeAreaId(id)

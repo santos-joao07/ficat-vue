@@ -37,7 +37,6 @@
     "bookshelf-secure-password": "^4.0.0",
     "buefy": "^0.9.10",
     "chart.js": "^2.9.4",
-    "clusterize.js": "^0.18.1",
     "dotenv": "^8.0.0",
     "googleapis": "^83.0.0",
     "hooper": "^0.3.4",
