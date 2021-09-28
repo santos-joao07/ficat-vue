@@ -101,7 +101,6 @@ export default {
             description: this.formFields.description
           })
           .then(response => {
-            console.log('knowledge area edited!')
             this.snackbar(true)
             this.sendMessage()
             this.$emit('close')

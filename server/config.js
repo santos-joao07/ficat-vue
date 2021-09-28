@@ -1,7 +1,7 @@
 const path = require('path')
 const dotenv = require('dotenv')
 
-console.log('env => ' + process.env.NODE_ENV)
+// console.log('env => ' + process.env.NODE_ENV)
 
 const env = process.env.NODE_ENV || 'development'
 const tail = env === 'development' ? '' : `.${process.env.NODE_ENV}`

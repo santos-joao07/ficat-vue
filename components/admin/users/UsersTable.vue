@@ -69,7 +69,6 @@
 <script>
 export default {
   props: {
-    editClicked: { type: Function, required: true },
     getUserId: { type: Function, required: true }
   },
   data() {
@@ -106,11 +105,11 @@ export default {
   mounted() {
     this.$root.$on('user_added', () => {
       this.getUsersData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
     this.$root.$on('user_edited', () => {
       this.getUsersData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
   },
   methods: {

@@ -43,7 +43,7 @@ async function create(ctx) {
   } = ctx.request.body
 
   userEmailV = userEmail
-  console.log(userEmailV)
+
   const validations = [
     // validatePayload(
     //   authors,

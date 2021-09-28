@@ -108,7 +108,7 @@ export default {
           description: this.formFields.description
         })
         .then(response => {
-          console.log('Data posted!')
+          // console.log('Data posted!')
           this.isPostSuccess = true
           this.snackbar(true)
           this.sendMessage()

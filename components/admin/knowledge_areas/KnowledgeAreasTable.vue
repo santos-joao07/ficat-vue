@@ -3,21 +3,23 @@
     <div class="columns">
       <div class="column">
         <b-field label="Pesquisa por nome ou cdd">
-          <b-input v-model="filterText" placeholder="Pesquisar..."></b-input>
+          <b-input
+            v-model="filterText"
+            @input="getKnAreas"
+            placeholder="Pesquisar..."
+          ></b-input>
         </b-field>
       </div>
     </div>
     <div class="column">
       <b-table
         @page-change="onPageChange"
-        :data="filter"
+        :data="knowledgeAreasData"
         :per-page="perPage"
         :pagination-simple="isPaginationSimple"
         :pagination-position="paginationPosition"
         :default-sort-direction="defaultSortDirection"
         :pagination-rounded="isPaginationRounded"
-        :sort-icon="sortIcon"
-        :sort-icon-size="sortIconSize"
         :total="total"
         :loading="loading"
         backend-pagination
@@ -62,9 +64,10 @@
   </section>
 </template>
 <script>
+import pDebounce from 'p-debounce'
+
 export default {
   props: {
-    editClicked: { type: Function, required: true },
     getKnowledgeAreaId: { type: Function, required: true }
   },
   data() {
@@ -76,27 +79,11 @@ export default {
       isPaginationRounded: false,
       paginationPosition: 'bottom',
       defaultSortDirection: 'asc',
-      sortIcon: 'arrow-up',
-      sortIconSize: 'is-small',
       total: 20,
       page: 1,
       perPage: 10,
-      loading: false
-    }
-  },
-  computed: {
-    filter() {
-      const nameRe = new RegExp(this.filterText, 'i')
-      const data = []
-      for (const i in this.knowledgeAreasData) {
-        if (
-          this.knowledgeAreasData[i].description.match(nameRe) ||
-          this.knowledgeAreasData[i].code.match(nameRe)
-        ) {
-          data.push(this.knowledgeAreasData[i])
-        }
-      }
-      return data
+      loading: false,
+      searchMode: false
     }
   },
   created() {
@@ -106,29 +93,88 @@ export default {
   mounted() {
     this.$root.$on('knowledge_area_added', () => {
       this.getKnowledgeAreasData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
     this.$root.$on('knowledge_area_edited', () => {
       this.getKnowledgeAreasData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
   },
   methods: {
+    getKnAreas: pDebounce(function(term) {
+      if (!this.filterText) {
+        this.searchMode = false
+        this.getKnowledgeAreasData()
+        this.getKnowledgeAreaDataCount()
+      } else {
+        this.searchMode = true
+      }
+
+      if (!term.length) {
+        this.knAreas = []
+        return
+      }
+      if (term !== this.knAreaPreviousSearch) {
+        this.knAreaPreviousSearch = term
+
+        // check if term is a cdd code or if it is a description
+        if (this.hasNumber(term)) {
+          this.loading = true
+          this.$axios
+            .get('/api/knowledgeAreas', {
+              params: {
+                code: term
+              }
+            })
+            .then(response => {
+              this.knowledgeAreasData = response.data
+              this.total = this.knowledgeAreasData.length
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
+            .finally(() => (this.loading = false))
+        } else {
+          this.loading = true
+          this.$axios
+            .get('/api/knowledgeAreas', {
+              params: {
+                description: term
+              }
+            })
+            .then(response => {
+              this.knowledgeAreasData = response.data
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
+            .finally(() => (this.loading = false))
+
+          this.searchMode = false
+        }
+      }
+      // this.searchMode = false
+    }, 500),
+    hasNumber(term) {
+      return /\d/.test(term)
+    },
     onPageChange(page) {
       this.page = page
-      this.getKnowledgeAreasData()
+      if (!this.searchMode) {
+        this.getKnowledgeAreasData()
+      }
     },
     getKnowledgeAreaDataCount() {
       this.$axios
         .get('/api/knowledgeAreas')
         .then(response => {
           this.total = response.data.length
-          console.log('total: ' + this.total)
         })
         .catch(error => console.log(error))
     },
     getKnowledgeAreasData() {
-      console.log('fetching page: ' + this.page)
       this.loading = true
       this.$axios
         .get('/api/knowledgeAreas', {
@@ -140,10 +186,12 @@ export default {
         .then(response => {
           this.knowledgeAreasData = response.data
           this.loading = false
+          this.searchMode = false
         })
         .catch(error => {
           this.knowledgeAreasData = error.data
           this.loading = false
+          this.searchMode = false
         })
     },
     editKnowledgeArea(id) {
@@ -154,7 +202,7 @@ export default {
       this.$axios
         .delete(`/api/knowledgeAreas/${id}`)
         .then(() => {
-          console.log('Knowledge area deleted!')
+          // console.log('Knowledge area deleted!')
 
           this.$buefy.snackbar.open('Área do conhecimento removida!')
 

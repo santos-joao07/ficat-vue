@@ -61,7 +61,6 @@
 <script>
 export default {
   props: {
-    editClicked: { type: Function, required: true },
     getAcademicUnityId: { type: Function, required: true }
   },
   data() {
@@ -101,11 +100,11 @@ export default {
   mounted() {
     this.$root.$on('academic_unity_added', () => {
       this.getAcademicUnitiesData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
     this.$root.$on('academic_unity_edited', () => {
       this.getAcademicUnitiesData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
   },
   methods: {

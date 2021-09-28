@@ -374,7 +374,6 @@ export default {
     },
 
     getCoursesByAcdAcronym(unityAcronym) {
-      // console.log(this.translateWorkType(this.workType))
       this.$axios
         .get('/api/courses', {
           params: {

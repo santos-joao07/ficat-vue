@@ -22,8 +22,6 @@ const returnAccessToken = async function() {
     })
   })
 
-  console.log(accessToken)
-
   return accessToken
 }
 

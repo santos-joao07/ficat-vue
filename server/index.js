@@ -13,8 +13,6 @@ const router = require('./router')
 // Import and Set Nuxt.js options
 config.dev = app.env !== 'production'
 
-console.log(config.dev)
-
 const host = config.HOST
 const port = config.PORT
 const protocol = config.PROTOCOL

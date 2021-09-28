@@ -107,7 +107,7 @@ export default {
           acronym: this.formFields.acronym
         })
         .then(response => {
-          console.log('Data posted!')
+          // console.log('Data posted!')
           this.isPostSuccess = true
           this.snackbar(true)
           this.sendMessage()

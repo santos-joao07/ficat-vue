@@ -77,7 +77,6 @@
 <script>
 export default {
   props: {
-    editClicked: { type: Function, required: true },
     getCourseId: { type: Function, required: true }
   },
   data() {
@@ -124,11 +123,11 @@ export default {
   mounted() {
     this.$root.$on('course_added', () => {
       this.getCourseData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
     this.$root.$on('course_edited', () => {
       this.getCourseData()
-      console.log('data fetched')
+      // console.log('data fetched')
     })
   },
   methods: {
@@ -148,7 +147,7 @@ export default {
       this.$axios
         .delete(`/api/courses/${id}`)
         .then(() => {
-          console.log('Course deleted!')
+          // console.log('Course deleted!')
           this.getCourseData()
         })
         .catch(error => {
