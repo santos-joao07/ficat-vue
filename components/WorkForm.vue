@@ -1,197 +1,205 @@
 <template>
-  <Card :title="$tr('layout.workData')" class="card-wf">
-    <div class="columns">
-      <div class="column is-half">
-        <div class="input-float-wf">
-          <input-validation
-            ref="workTitle"
-            v-model="$v.workTitle.$model"
-            :validations="$options.validations.workTitle"
-            :v="$v"
-            :label="$tr('layout.workTitle')"
-            :tooltip-label="$tr('layout.workTitleTooltip')"
-            field-name="workTitle"
-            placeholder="Ex.: Redes sociais em bibliotecas universitárias"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
-          <input-validation
-            ref="workSubtitle"
-            v-model="$v.workSubtitle.$model"
-            :validations="$options.validations.workSubtitle"
-            :v="$v"
-            :label="$tr('layout.workSubtitle')"
-            :tooltip-label="$tr('layout.workSubtitleTooltip')"
-            field-name="workSubtitle"
-            type="text"
-            placeholder="Ex.: estudo exploratório"
-          >
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
-          </input-validation>
-          <div class="columns">
-            <div class="column is-4">
-              <input-validation
-                ref="presentationYear"
-                v-model="$v.presentationYear.$model"
-                :validations="$options.validations.presentationYear"
-                :v="$v"
-                :label="$tr('layout.year')"
-                :tooltip-label="$tr('layout.yearTooltip')"
-                use-component="b-select"
-                field-name="presentationYear"
-              >
-                <template #component>
-                  <option v-for="y in 11" :key="y">
-                    {{ getYear(y - 1) }}
-                  </option>
-                </template>
-              </input-validation>
-            </div>
-            <div class="column is-8">
-              <input-validation
-                ref="totalPages"
-                v-model="$v.totalPages.$model"
-                :validations="$options.validations.totalPages"
-                :v="$v"
-                :label="$tr('layout.totalPages')"
-                :tooltip-label="$tr('layout.numberTypeTooltip')"
-                field-name="totalPages"
-                placeholder="Ex.: xxi, 70"
-              >
-                <template #required>
-                  {{ $tr('layout.required') }}
-                </template>
-              </input-validation>
+  <div>
+    <knowledge-areas-modal
+      :isKaModalActive="isKaModalActive"
+      @catClosed="closeKaModal"
+    ></knowledge-areas-modal>
+
+    <Card :title="$tr('layout.workData')" class="card-wf">
+      <div class="columns">
+        <div class="column is-half">
+          <div class="input-float-wf">
+            <input-validation
+              ref="workTitle"
+              v-model="$v.workTitle.$model"
+              :validations="$options.validations.workTitle"
+              :v="$v"
+              :label="$tr('layout.workTitle')"
+              :tooltip-label="$tr('layout.workTitleTooltip')"
+              field-name="workTitle"
+              placeholder="Ex.: Redes sociais em bibliotecas universitárias"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+            <input-validation
+              ref="workSubtitle"
+              v-model="$v.workSubtitle.$model"
+              :validations="$options.validations.workSubtitle"
+              :v="$v"
+              :label="$tr('layout.workSubtitle')"
+              :tooltip-label="$tr('layout.workSubtitleTooltip')"
+              field-name="workSubtitle"
+              type="text"
+              placeholder="Ex.: estudo exploratório"
+            >
+              <template #minLength="{ min }">
+                {{ $tr('layout.minLength', [min]) }}
+              </template>
+            </input-validation>
+            <div class="columns">
+              <div class="column is-4">
+                <input-validation
+                  ref="presentationYear"
+                  v-model="$v.presentationYear.$model"
+                  :validations="$options.validations.presentationYear"
+                  :v="$v"
+                  :label="$tr('layout.year')"
+                  :tooltip-label="$tr('layout.yearTooltip')"
+                  use-component="b-select"
+                  field-name="presentationYear"
+                >
+                  <template #component>
+                    <option v-for="y in 11" :key="y">
+                      {{ getYear(y - 1) }}
+                    </option>
+                  </template>
+                </input-validation>
+              </div>
+              <div class="column is-8">
+                <input-validation
+                  ref="totalPages"
+                  v-model="$v.totalPages.$model"
+                  :validations="$options.validations.totalPages"
+                  :v="$v"
+                  :label="$tr('layout.totalPages')"
+                  :tooltip-label="$tr('layout.numberTypeTooltip')"
+                  field-name="totalPages"
+                  placeholder="Ex.: xxi, 70"
+                >
+                  <template #required>
+                    {{ $tr('layout.required') }}
+                  </template>
+                </input-validation>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="column is-half">
-        <div class="input-float">
-          <input-validation
-            ref="workImagesType"
-            v-model="$v.workImagesType.$model"
-            :validations="$options.validations.workImagesType"
-            :v="$v"
-            :label="$tr('layout.pictures')"
-            :tooltip-label="$tr('layout.picturesTooltip')"
-            use-component="b-select"
-            field-name="workImagesType"
-          >
-            <template #component>
-              <option value="nocolor">{{ $tr('layout.nocolor') }}</option>
-              <option value="color">{{ $tr('layout.color') }}</option>
-              <option value="bw">{{ $tr('layout.bw') }}</option>
-            </template>
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-          </input-validation>
-          <input-validation
-            ref="workType"
-            v-model="$v.workType.$model"
-            :validations="$options.validations.workType"
-            :v="$v"
-            :label="$tr('layout.workType')"
-            :tooltip-label="$tr('layout.workTypeTooltip')"
-            field-name="workType"
-            use-component="b-select"
-          >
-            <template #component>
-              <option value="thesis">{{ $tr('layout.thesis') }}</option>
-              <option value="dissertation">
-                {{ $tr('layout.dissertation') }}
-              </option>
-              <option value="tccExpert">{{ $tr('layout.tccExpert') }}</option>
-              <option value="tccGraduation">
-                {{ $tr('layout.tccGraduation') }}
-              </option>
-            </template>
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-          </input-validation>
-          <input-validation
-            ref="knArea"
-            v-model="$v.knArea.$model"
-            :validations="$options.validations.knArea"
-            :v="$v"
-            :options="{
-              loading,
-              field: 'description',
-              data: knAreas,
-              icon: 'magnify'
-            }"
-            :wrapped-slots="h => renderTemplates(h, 'description')"
-            :label="$tr('layout.knArea')"
-            :tooltip-label="$tr('layout.knAreaTooltip')"
-            @typing="getKnAreas"
-            @select="option => (selectedKnArea = option)"
-            use-component="b-autocomplete"
-            field-name="knArea"
-            placeholder="Pesquisa por cdd ou descrição"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-          </input-validation>
-
-          <input-validation
-            ref="acdUnity"
-            v-model="$v.acdUnity.$model"
-            :validations="$options.validations.acdUnity"
-            :v="$v"
-            :options="{
-              loading,
-              field: 'name',
-              data: academicUnities,
-              icon: 'magnify'
-            }"
-            :wrapped-slots="h => renderTemplates(h, 'name')"
-            :label="$tr('layout.acdUnity')"
-            :tooltip-label="$tr('layout.acdUnityTooltip')"
-            @typing="getAcdUnities"
-            @select="onSelectedAcdUnity"
-            use-component="b-autocomplete"
-            field-name="acdUnity"
-            placeholder="Pesquisa por nome ou sigla"
-          >
-            <template #required>
-              {{ $tr('layout.required') }}
-            </template>
-          </input-validation>
-          <template v-if="selectedAcdUnity">
+        <div class="column is-half">
+          <div class="input-float">
             <input-validation
-              ref="course"
-              v-model="$v.course.$model"
-              :validations="$options.validations.course"
+              ref="workImagesType"
+              v-model="$v.workImagesType.$model"
+              :validations="$options.validations.workImagesType"
               :v="$v"
-              :label="$tr('layout.course')"
-              :tooltip-label="$tr('layout.course')"
-              field-name="course"
+              :label="$tr('layout.pictures')"
+              :tooltip-label="$tr('layout.picturesTooltip')"
+              use-component="b-select"
+              field-name="workImagesType"
+            >
+              <template #component>
+                <option value="nocolor">{{ $tr('layout.nocolor') }}</option>
+                <option value="color">{{ $tr('layout.color') }}</option>
+                <option value="bw">{{ $tr('layout.bw') }}</option>
+              </template>
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+            </input-validation>
+            <input-validation
+              ref="workType"
+              v-model="$v.workType.$model"
+              :validations="$options.validations.workType"
+              :v="$v"
+              :label="$tr('layout.workType')"
+              :tooltip-label="$tr('layout.workTypeTooltip')"
+              field-name="workType"
               use-component="b-select"
             >
               <template #component>
-                <option v-for="c in courses" :key="c.id" :value="'' + c.name">
-                  {{ c.name }}
+                <option value="thesis">{{ $tr('layout.thesis') }}</option>
+                <option value="dissertation">
+                  {{ $tr('layout.dissertation') }}
+                </option>
+                <option value="tccExpert">{{ $tr('layout.tccExpert') }}</option>
+                <option value="tccGraduation">
+                  {{ $tr('layout.tccGraduation') }}
                 </option>
               </template>
               <template #required>
                 {{ $tr('layout.required') }}
               </template>
             </input-validation>
-          </template>
+            <input-validation
+              ref="knArea"
+              v-model="$v.knArea.$model"
+              :validations="$options.validations.knArea"
+              :v="$v"
+              :options="{
+                loading,
+                field: 'description',
+                data: knAreas,
+                icon: 'magnify'
+              }"
+              :wrapped-slots="h => renderTemplates(h, 'description')"
+              :label="$tr('layout.knArea')"
+              :tooltip-label="$tr('layout.knAreaTooltip')"
+              @typing="getKnAreas"
+              @select="option => (selectedKnArea = option)"
+              @focus="showKaModal"
+              use-component="b-autocomplete"
+              field-name="knArea"
+              placeholder="Pesquisa por cdd ou descrição"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+            </input-validation>
+
+            <input-validation
+              ref="acdUnity"
+              v-model="$v.acdUnity.$model"
+              :validations="$options.validations.acdUnity"
+              :v="$v"
+              :options="{
+                loading,
+                field: 'name',
+                data: academicUnities,
+                icon: 'magnify'
+              }"
+              :wrapped-slots="h => renderTemplates(h, 'name')"
+              :label="$tr('layout.acdUnity')"
+              :tooltip-label="$tr('layout.acdUnityTooltip')"
+              @typing="getAcdUnities"
+              @select="onSelectedAcdUnity"
+              use-component="b-autocomplete"
+              field-name="acdUnity"
+              placeholder="Pesquisa por nome ou sigla"
+            >
+              <template #required>
+                {{ $tr('layout.required') }}
+              </template>
+            </input-validation>
+            <template v-if="selectedAcdUnity">
+              <input-validation
+                ref="course"
+                v-model="$v.course.$model"
+                :validations="$options.validations.course"
+                :v="$v"
+                :label="$tr('layout.course')"
+                :tooltip-label="$tr('layout.course')"
+                field-name="course"
+                use-component="b-select"
+              >
+                <template #component>
+                  <option v-for="c in courses" :key="c.id" :value="'' + c.name">
+                    {{ c.name }}
+                  </option>
+                </template>
+                <template #required>
+                  {{ $tr('layout.required') }}
+                </template>
+              </input-validation>
+            </template>
+          </div>
         </div>
       </div>
-    </div>
-  </Card>
+    </Card>
+  </div>
 </template>
 
 <script>
@@ -201,10 +209,11 @@ import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
 import InputValidation from '~/components/InputValidation.js'
+import KnowledgeAreasModal from '~/components/KnowledgeAreasModal'
 
 export default {
   name: 'WorkForm',
-  components: { Card, InputValidation },
+  components: { Card, InputValidation, KnowledgeAreasModal },
   mixins: [helper],
   data() {
     const { work } = recovery('form')
@@ -228,6 +237,7 @@ export default {
       knArea: work.knArea,
       knAreaPreviousSearch: '',
       acdUnityPreviousSearch: '',
+      isKaModalActive: false,
       initialRef: 'workTitle'
     }
   },
@@ -272,6 +282,13 @@ export default {
   },
 
   methods: {
+    showKaModal() {
+      this.isKaModalActive = true
+    },
+    closeKaModal() {
+      this.isKaModalActive = false
+    },
+
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },

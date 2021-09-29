@@ -19,6 +19,7 @@
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "migrate:prod": "cross-env NODE_ENV=production knex migrate:latest",
+    "rollback": "knex migrate:up",
     "makedb": "if test -f dev.sqlite3; then rm dev.sqlite3; fi; npm run migrate && npm run seed",
     "makedb:test": "if test -f test.sqlite3; then rm test.sqlite3; fi; npm run migrate && npm run seed",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
