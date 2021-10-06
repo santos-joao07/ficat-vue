@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar :transparent="true" class="bg-dark app-navbar" centered="true">
+    <b-navbar :transparent="true" :centered="true" class="bg-dark app-navbar">
       <template #brand>
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img

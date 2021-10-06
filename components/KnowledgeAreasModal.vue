@@ -9,9 +9,10 @@
       <header class="modal-card-head">
         <p class="modal-card-title">Selecione a área de conhecimento</p>
       </header>
-      <section class="modal-card-body">
+      <section ref="modalContent" class="modal-card-body">
+        <!-- <toggle-list></toggle-list> -->
         <b-collapse
-          v-for="(collapse, index) of collapses"
+          v-for="(category, index) of collapses"
           :key="index"
           :open="isOpen == index"
           @open="isOpen = index"
@@ -21,7 +22,7 @@
           <template #trigger="props">
             <div class="card-header" role="button">
               <p class="card-header-title">
-                {{ collapse.title }}
+                {{ category.description.trim() }}
               </p>
               <a class="card-header-icon">
                 <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
@@ -30,7 +31,7 @@
           </template>
           <div class="card-content">
             <div class="content">
-              {{ collapse.text }}
+              {{ category.description }}
             </div>
           </div>
         </b-collapse>
@@ -39,13 +40,18 @@
   </b-modal>
 </template>
 <script>
+// import ToggleList from './ToggleList.vue'
+import { knaCatArray } from '../server/util/knaCategories'
+
 export default {
+  // components: { ToggleList },
   props: {
     isKaModalActive: Boolean
   },
   data() {
     return {
       // filterText: '',
+      loadingComponent: null,
       kaData: [],
       kaCategoriesData: [],
       isOpen: 0,
@@ -64,6 +70,9 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    this.collapses = knaCatArray()
   },
   methods: {
     test() {
@@ -85,12 +94,13 @@ export default {
         })
     },
     getKaCategoriesData() {
-      for (const i in this.knowledgeAreasData) {
-        if (this.kaData[i].code.includes('.')) {
+      for (const i in this.kaData) {
+        if (!this.kaData[i].code.includes('.')) {
+          // console.log(this.kaData[i].description)
           this.kaCategoriesData.push(this.kaData[i])
         }
       }
-      console.log(this.kaCategoriesData.length)
+      // console.log(this.kaCategoriesData.length)
     }
   }
 }

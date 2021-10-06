@@ -2,6 +2,8 @@ const KnowledgeArea = require('../models/KnowledgeArea')
 const HttpCodes = require('../httpCodes')
 const MessageCodes = require('../../shared/messageCodes')
 const { paginateCtx } = require('../util/utils')
+const { knaCategories } = require('../util/knaCategories')
+// const { knaCategories } = require('../util/knaCategories')
 
 async function create(ctx) {
   const payload = ctx.request.body
@@ -22,14 +24,41 @@ async function create(ctx) {
 }
 
 async function list(ctx) {
+  console.log('this works')
   const pagination = ctx.state.pagination
   let query = KnowledgeArea
   const description = ctx.query.description
   const code = ctx.query.code
+
+  // const knaCat = knaCategories()
+
+  // console.log(knaCat)
+
+  const knaCatCodesArray = Object.keys(knaCategories())
+
+  // console.log(knaCatCodesArray)
+
+  const categoryCode = ctx.query.categoryCode
+
+  const catCodeId = knaCatCodesArray.indexOf(categoryCode)
+
+  console.log(catCodeId)
+
+  const nextCatId = catCodeId + 1
+
+  const nextCatCode = knaCatCodesArray[nextCatId]
+
   if (description) {
     query = query.where('description', 'like', `%${description}%`)
   } else if (code) {
     query = query.where('code', 'like', `%${code}%`)
+  } else if (categoryCode) {
+    console.log('code: ' + categoryCode)
+    console.log('nextCatCode: ' + nextCatCode)
+
+    query = query
+      .where('code', '>', `${categoryCode}`)
+      .where('code', '<', `${nextCatCode}`)
   }
   try {
     if (pagination) {
@@ -63,6 +92,29 @@ async function findById(ctx) {
     })
   }
 }
+
+// async function findByCategory(ctx) {
+//   console.log('ok0')
+//   let query = KnowledgeArea
+
+//   const knaCat = knaCategories()
+//   const knaCatCodesArray = Object.keys(knaCategories())
+//   const categoryCode = ctx.query.categoryCode
+
+//   const catCodeId = knaCatCodesArray.find(cat => cat === categoryCode)
+
+//   const nextCatId = catCodeId + 1
+
+//   const nextCatCode = knaCat[knaCatCodesArray[nextCatId]]
+
+//   console.log('ok')
+
+//   query = query
+//     .where('code', '>=', `%${categoryCode}%`)
+//     .andWhere('code', '<', `%${nextCatCode}%`)
+
+//   ctx.body = await query.fetchAll()
+// }
 
 async function update(ctx) {
   const id = +ctx.params.id

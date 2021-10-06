@@ -133,13 +133,17 @@ api.post(
 // list
 api.get(
   '/knowledgeAreas/',
-  query(['page', 'size', 'description', 'code']),
+  query(['page', 'size', 'description', 'code', 'categoryCode']),
   pageableEntity,
   kaRoutes.list
 )
 
 // find by id
 api.get('/knowledgeAreas/:id', kaRoutes.findById)
+
+// find by cdd category
+
+// api.get('/knowledgeAreas/cat', query(['categoryCode']), kaRoutes.findByCategory)
 
 // update
 api.put(
