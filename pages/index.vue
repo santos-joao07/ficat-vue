@@ -31,7 +31,7 @@ export default {
 
 .app-logo {
   width: 16%;
-  margin: 5em auto 2em auto;
+  margin: 3.5em auto 2em;
 }
 
 .steps {
