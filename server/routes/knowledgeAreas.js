@@ -24,25 +24,16 @@ async function create(ctx) {
 }
 
 async function list(ctx) {
-  console.log('this works')
   const pagination = ctx.state.pagination
   let query = KnowledgeArea
   const description = ctx.query.description
   const code = ctx.query.code
 
-  // const knaCat = knaCategories()
-
-  // console.log(knaCat)
-
   const knaCatCodesArray = Object.keys(knaCategories())
-
-  // console.log(knaCatCodesArray)
 
   const categoryCode = ctx.query.categoryCode
 
   const catCodeId = knaCatCodesArray.indexOf(categoryCode)
-
-  console.log(catCodeId)
 
   const nextCatId = catCodeId + 1
 
@@ -53,9 +44,6 @@ async function list(ctx) {
   } else if (code) {
     query = query.where('code', 'like', `%${code}%`)
   } else if (categoryCode) {
-    console.log('code: ' + categoryCode)
-    console.log('nextCatCode: ' + nextCatCode)
-
     query = query
       .where('code', '>', `${categoryCode}`)
       .where('code', '<', `${nextCatCode}`)
