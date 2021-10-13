@@ -2,7 +2,9 @@
   <b-modal @close="closeModal" v-model="isKaModalActive" has-modal-card>
     <div class="modal-card" style="width: auto">
       <header class="modal-card-head">
-        <p class="modal-card-title">Selecione a área de conhecimento</p>
+        <h1 class="modal-card-title">
+          SELECIONE A <span class="title-bold">ÁREA DE CONHECIMENTO</span>
+        </h1>
       </header>
       <section ref="modalContent" class="modal-card-body">
         <!-- <toggle-list></toggle-list> -->
@@ -102,6 +104,16 @@ export default {
 }
 </script>
 <style scoped>
+.modal-card-title {
+  margin: 5px 0;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+.title-bold {
+  font-weight: 500;
+}
+
 .card-content {
   width: 100%;
 }
