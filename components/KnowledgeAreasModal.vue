@@ -1,10 +1,5 @@
 <template>
-  <b-modal
-    @close="closeModal"
-    @after-enter="test"
-    v-model="isKaModalActive"
-    has-modal-card
-  >
+  <b-modal @close="closeModal" v-model="isKaModalActive" has-modal-card>
     <div class="modal-card" style="width: auto">
       <header class="modal-card-head">
         <p class="modal-card-title">Selecione a área de conhecimento</p>
@@ -15,7 +10,7 @@
           v-for="(category, index) of collapses"
           :key="index"
           :open="isOpen == index"
-          @open="isOpen = index"
+          @open="getCategoriesItems(index)"
           class="card"
           animation="slide"
         >
@@ -30,8 +25,13 @@
             </div>
           </template>
           <div class="card-content">
-            <div class="content">
-              {{ category.description }}
+            <div ref="content" class="content">
+              <div v-for="item in kaData" :key="item.id">
+                <a href="#">
+                  {{ item.description }}
+                </a>
+              </div>
+              <b-loading :is-full-page="false" v-model="isLoading"></b-loading>
             </div>
           </div>
         </b-collapse>
@@ -53,54 +53,49 @@ export default {
       // filterText: '',
       loadingComponent: null,
       kaData: [],
-      kaCategoriesData: [],
       isOpen: 0,
-      collapses: [
-        {
-          title: 'Generalidades',
-          text: 'Text 1'
-        },
-        {
-          title: 'Conhecimento',
-          text: 'Text 2'
-        },
-        {
-          title: 'O livro',
-          text: 'Text 3'
-        }
-      ]
+      collapses: [],
+      isLoading: false
     }
   },
   created() {
     this.collapses = knaCatArray()
   },
   methods: {
+    open() {
+      const loadingComponent = this.$buefy.loading.open({
+        container: this.$refs.content.$el
+      })
+      setTimeout(() => loadingComponent.close(), 1 * 1000)
+    },
     test() {
-      console.log(42)
-      this.getKnowledgeAreasData()
+      // console.log(42)
+      // this.getKnowledgeAreasData()
+    },
+    getCategoriesItems(index) {
+      this.isOpen = index
+      this.open()
+      const cat = this.collapses[index].code
+      console.log('cat : ' + cat)
+      this.getKnowledgeAreasData(cat)
     },
     closeModal() {
       this.$emit('catClosed')
     },
-    getKnowledgeAreasData() {
-      this.$axios
-        .get('/api/knowledgeAreas')
+    async getKnowledgeAreasData(category) {
+      await this.$axios
+        .get('/api/knowledgeAreas', {
+          params: {
+            categoryCode: category
+          }
+        })
         .then(response => {
           this.kaData = response.data
-          this.getKaCategoriesData()
+          console.log(this.kaData)
         })
         .catch(error => {
           this.kaData = error.data
         })
-    },
-    getKaCategoriesData() {
-      for (const i in this.kaData) {
-        if (!this.kaData[i].code.includes('.')) {
-          // console.log(this.kaData[i].description)
-          this.kaCategoriesData.push(this.kaData[i])
-        }
-      }
-      // console.log(this.kaCategoriesData.length)
     }
   }
 }
