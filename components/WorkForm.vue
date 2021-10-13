@@ -2,6 +2,7 @@
   <div>
     <knowledge-areas-modal
       :isKaModalActive="isKaModalActive"
+      :selectedKna="selectedKna"
       @catClosed="closeKaModal"
     ></knowledge-areas-modal>
 
@@ -282,6 +283,11 @@ export default {
   },
 
   methods: {
+    selectedKna(kna) {
+      this.selectedKnArea = kna
+      this.knArea = kna.description
+      this.closeKaModal()
+    },
     showKaModal() {
       this.isKaModalActive = true
     },

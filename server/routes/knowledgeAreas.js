@@ -59,6 +59,7 @@ async function list(ctx) {
     query = query
       .where('code', '>', `${categoryCode}`)
       .where('code', '<', `${nextCatCode}`)
+      .orderBy('description')
   }
   try {
     if (pagination) {

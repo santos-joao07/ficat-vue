@@ -26,8 +26,9 @@
           </template>
           <div class="card-content">
             <div ref="content" class="content">
-              <div v-for="item in kaData" :key="item.id">
-                <a href="#">
+              <div v-for="item in kaData" :key="item.id" class="category-item">
+                <b-icon icon="book-plus" size="is-small"> </b-icon>
+                <a @click="selectedKna(item)" class="category-item-title">
                   {{ item.description }}
                 </a>
               </div>
@@ -46,14 +47,20 @@ import { knaCatArray } from '../server/util/knaCategories'
 export default {
   // components: { ToggleList },
   props: {
-    isKaModalActive: Boolean
+    isKaModalActive: Boolean,
+    selectedKna: {
+      type: Function,
+      default() {
+        return { errMessage: 'Not working' }
+      }
+    }
   },
   data() {
     return {
       // filterText: '',
       loadingComponent: null,
       kaData: [],
-      isOpen: 0,
+      isOpen: -1,
       collapses: [],
       isLoading: false
     }
@@ -68,15 +75,10 @@ export default {
       })
       setTimeout(() => loadingComponent.close(), 1 * 1000)
     },
-    test() {
-      // console.log(42)
-      // this.getKnowledgeAreasData()
-    },
     getCategoriesItems(index) {
       this.isOpen = index
       this.open()
       const cat = this.collapses[index].code
-      console.log('cat : ' + cat)
       this.getKnowledgeAreasData(cat)
     },
     closeModal() {
@@ -91,7 +93,6 @@ export default {
         })
         .then(response => {
           this.kaData = response.data
-          console.log(this.kaData)
         })
         .catch(error => {
           this.kaData = error.data
@@ -100,4 +101,16 @@ export default {
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.card-content {
+  width: 100%;
+}
+
+.category-item {
+  margin-bottom: 4px;
+}
+
+.category-item-title:hover {
+  text-decoration: underline;
+}
+</style>
