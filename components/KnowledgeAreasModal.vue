@@ -1,49 +1,81 @@
 <template>
   <b-modal @close="closeModal" v-model="isKaModalActive" has-modal-card>
-    <div class="modal-card" style="width: auto">
+    <div class="modal-card" style="width: 100%; height: 90vh">
       <header class="modal-card-head">
-        <h1 class="modal-card-title">
+        <p class="subtitle is-4">
           SELECIONE A <span class="title-bold">ÁREA DE CONHECIMENTO</span>
-        </h1>
+        </p>
       </header>
-      <section ref="modalContent" class="modal-card-body">
-        <!-- <toggle-list></toggle-list> -->
-        <b-collapse
-          v-for="(category, index) of collapses"
-          :key="index"
-          :open="isOpen == index"
-          @open="getCategoriesItems(index)"
-          class="card"
-          animation="slide"
+      <section
+        ref="modalContent"
+        v-if="mode === 'menu'"
+        class="modal-card-body"
+      >
+        <h1 class="category-title">CATEGORIAS</h1>
+        <hr class="category-divider" />
+        <div class="category-list">
+          <a
+            @click="getCategoryList(category)"
+            v-for="category of categories"
+            :key="categories.indexOf(category)"
+            class="list-item"
+            link
+          >
+            <b-icon icon="plus" size="is-small"></b-icon>
+            {{ category.description }}
+          </a>
+        </div>
+      </section>
+      <section
+        ref="modalContent"
+        v-if="mode === 'list'"
+        class="modal-card-body"
+      >
+        <div class="list-header">
+          <a @click="goToMenu"
+            ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+          >
+          <hr class="list-header-divider" />
+          <p class="list-category">
+            CATEGORIA:
+            <span style="font-weight: 500">{{ getSelectedCategory }}</span>
+          </p>
+        </div>
+
+        <!-- <a
+            @click="getCategoryCode(category)"
+            v-for="item of categoryData"
+            :key="item.id"
+            class="list-item"
+            link
+          >
+            <b-icon icon="minus" size="is-small"></b-icon>
+            {{ item.description }}
+          </a> -->
+        <div ref="knaList">
+          <a
+            @click="selectedKna(item)"
+            v-for="item in categoryData"
+            :key="item.code"
+            class="list-item"
+            link
+          >
+            <b-icon icon="minus" size="is-small"></b-icon>
+            {{ item.description }}
+          </a>
+        </div>
+        <b-pagination
+          @change="handlePageChange"
+          :total="total"
+          :per-page="10"
+          v-model="currentPage"
         >
-          <template #trigger="props">
-            <div class="card-header" role="button">
-              <p class="card-header-title">
-                {{ category.description.trim() }}
-              </p>
-              <a class="card-header-icon">
-                <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
-              </a>
-            </div>
-          </template>
-          <div class="card-content">
-            <div ref="content" class="content">
-              <div v-for="item in kaData" :key="item.id" class="category-item">
-                <b-icon icon="book-plus" size="is-small"> </b-icon>
-                <a @click="selectedKna(item)" class="category-item-title">
-                  {{ item.description }}
-                </a>
-              </div>
-              <b-loading :is-full-page="false" v-model="isLoading"></b-loading>
-            </div>
-          </div>
-        </b-collapse>
+        </b-pagination>
       </section>
     </div>
   </b-modal>
 </template>
 <script>
-// import ToggleList from './ToggleList.vue'
 import { knaCatArray } from '../server/util/knaCategories'
 
 export default {
@@ -61,43 +93,76 @@ export default {
     return {
       // filterText: '',
       loadingComponent: null,
-      kaData: [],
+      categoryData: [],
       isOpen: -1,
-      collapses: [],
-      isLoading: false
+      categories: [],
+      selectedCategory: {},
+      isLoading: false,
+      mode: 'menu',
+      currentPage: 1,
+      total: 0
+    }
+  },
+  computed: {
+    getSelectedCategory() {
+      return this.selectedCategory.description
     }
   },
   created() {
-    this.collapses = knaCatArray()
+    this.categories = knaCatArray()
   },
   methods: {
+    handlePageChange() {
+      this.getKnowledgeAreasData(this.selectedCategory.code)
+    },
+    goToMenu() {
+      this.mode = 'menu'
+      this.categoryData = []
+      this.currentPage = 1
+    },
+    getCategoryList(category) {
+      this.selectedCategory = category
+      this.mode = 'list'
+
+      this.getCategoryDataCount(category.code)
+      this.open()
+      this.getKnowledgeAreasData(category.code)
+    },
     open() {
       const loadingComponent = this.$buefy.loading.open({
-        container: this.$refs.content.$el
+        container: this.$refs.modalContent.$el
       })
-      setTimeout(() => loadingComponent.close(), 1 * 1000)
-    },
-    getCategoriesItems(index) {
-      this.isOpen = index
-      this.open()
-      const cat = this.collapses[index].code
-      this.getKnowledgeAreasData(cat)
+      setTimeout(() => loadingComponent.close(), 0.8 * 1000)
     },
     closeModal() {
       this.$emit('catClosed')
     },
-    async getKnowledgeAreasData(category) {
-      await this.$axios
+    getCategoryDataCount(category) {
+      this.$axios
         .get('/api/knowledgeAreas', {
           params: {
             categoryCode: category
           }
         })
         .then(response => {
-          this.kaData = response.data
+          this.total = response.data.length
+        })
+    },
+    getKnowledgeAreasData(category) {
+      this.$axios
+        .get('/api/knowledgeAreas', {
+          params: {
+            categoryCode: category,
+            page: this.currentPage,
+            size: 10
+          }
+        })
+        .then(response => {
+          this.categoryData = response.data
+          console.log('no of items in this page: ' + this.categoryData.length)
         })
         .catch(error => {
-          this.kaData = error.data
+          this.categoryData = error.data
         })
     }
   }
@@ -106,23 +171,44 @@ export default {
 <style scoped>
 .modal-card-title {
   margin: 5px 0;
-  font-size: 1.5em;
+  font-size: 1rem;
   font-weight: 300;
 }
 
 .title-bold {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .card-content {
   width: 100%;
 }
 
-.category-item {
-  margin-bottom: 4px;
+.category-title {
+  font-size: 1rem;
+  font-weight: 500;
+  /* letter-spacing: 0.05em; */
 }
 
-.category-item-title:hover {
+/* .knowledge-areas-list {
+} */
+
+.list-item {
+  display: block;
+  margin: 0.6rem 0;
+}
+.category:hover {
   text-decoration: underline;
+}
+
+.category-divider {
+  margin: 0.6rem 0 1.2rem;
+}
+
+.list-header-divider {
+  margin: 0.6rem 0 0.8rem;
+}
+
+.list-category {
+  margin-bottom: 1rem;
 }
 </style>
