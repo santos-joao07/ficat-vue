@@ -139,7 +139,6 @@
               :wrapped-slots="h => renderTemplates(h, 'description')"
               :label="$tr('layout.knArea')"
               :tooltip-label="$tr('layout.knAreaTooltip')"
-              @typing="getKnAreas"
               @select="option => (selectedKnArea = option)"
               @focus="showKaModal"
               use-component="b-autocomplete"
@@ -204,7 +203,6 @@
 </template>
 
 <script>
-import pDebounce from 'p-debounce'
 import { required, minLength } from 'vuelidate/lib/validators'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
@@ -314,66 +312,6 @@ export default {
         )
       ]
     },
-
-    getKnAreas: pDebounce(function(term) {
-      if (!term.length) {
-        this.knAreas = []
-        return
-      }
-      if (term !== this.knAreaPreviousSearch) {
-        this.knAreaPreviousSearch = term
-
-        // check if term is a cdd code or if it is a description
-        if (this.hasNumber(term)) {
-          this.$axios
-            .get('/api/knowledgeAreas', {
-              params: {
-                code: term
-              }
-            })
-            .then(response => {
-              this.knAreas = response.data
-            })
-            .catch()
-            .finally(() => (this.loading = false))
-        } else {
-          this.$axios
-            .get('/api/knowledgeAreas', {
-              params: {
-                description: term
-              }
-            })
-            .then(response => {
-              this.knAreas = response.data
-            })
-            .catch()
-            .finally(() => (this.loading = false))
-        }
-      }
-    }, 500),
-
-    getAcdUnities: pDebounce(function(term) {
-      if (!term.length) {
-        this.academicUnities = []
-        return
-      }
-      // Evitar que consultas iguais sejam repetidas
-      if (term !== this.acdUnityPreviousSearch) {
-        this.loading = true
-        this.acdUnityPreviousSearch = term
-        this.$axios
-          .get('/api/academicUnities', {
-            params: {
-              term
-            }
-          })
-          .then(response => {
-            this.academicUnities = response.data
-          })
-          .catch()
-          .finally(() => (this.loading = false))
-      }
-    }, 500),
 
     onSelectedAcdUnity(option) {
       this.selectedAcdUnity = option
