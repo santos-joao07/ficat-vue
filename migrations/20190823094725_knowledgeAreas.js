@@ -2,14 +2,13 @@ exports.up = function(knex) {
   return knex.schema.createTable('knowledgeAreas', table => {
     table.increments('id').primary()
     table
-      .string('code', 15)
+      .string('code', 30)
       .notNullable()
       .defaultTo('')
     table
-      .string('description', 50)
+      .string('description', 257)
       .notNullable()
       .defaultTo('')
-    table.unique('code')
   })
 }
 

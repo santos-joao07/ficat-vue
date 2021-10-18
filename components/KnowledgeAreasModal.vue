@@ -1,6 +1,6 @@
 <template>
   <b-modal @close="closeModal" v-model="isKaModalActive" has-modal-card>
-    <div class="modal-card" style="width: 100%; height: 90vh">
+    <div class="modal-card" style="height: 90vh">
       <header class="modal-card-head">
         <p class="subtitle is-4">
           SELECIONE A <span class="title-bold">ÁREA DE CONHECIMENTO</span>
@@ -11,6 +11,24 @@
         v-if="mode === 'menu'"
         class="modal-card-body"
       >
+        <!-- searchbox -->
+        <b-field
+          class="searchbox"
+          message="Pesquise sua área de conhecimento"
+          grouped
+        >
+          <b-input
+            v-model="term"
+            placeholder="Ex.: Aprendizado de Máquina"
+            type="search"
+            expanded
+          ></b-input>
+          <p class="control">
+            <b-button @click="search" class="is-ficat">Pesquisar</b-button>
+          </p>
+        </b-field>
+
+        <!-- categories -->
         <h1 class="category-title">CATEGORIAS</h1>
         <hr class="category-divider" />
         <div class="category-list">
@@ -41,22 +59,42 @@
             <span style="font-weight: 500">{{ getSelectedCategory }}</span>
           </p>
         </div>
-
-        <!-- <a
-            @click="getCategoryCode(category)"
-            v-for="item of categoryData"
+        <div ref="knaList">
+          <a
+            @click="selectedKna(item)"
+            v-for="item in categoryData"
             :key="item.id"
             class="list-item"
             link
           >
             <b-icon icon="minus" size="is-small"></b-icon>
             {{ item.description }}
-          </a> -->
-        <div ref="knaList">
+          </a>
+        </div>
+        <b-pagination
+          @change="handlePageChange"
+          :total="total"
+          :per-page="10"
+          v-model="currentPage"
+        >
+        </b-pagination>
+      </section>
+      <section
+        ref="modalContent"
+        v-if="mode === 'search'"
+        class="modal-card-body"
+      >
+        <div class="list-header">
+          <a @click="goToMenu"
+            ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+          >
+          <hr class="list-header-divider" />
+        </div>
+        <div ref="searchList">
           <a
             @click="selectedKna(item)"
-            v-for="item in categoryData"
-            :key="item.code"
+            v-for="item in searchData"
+            :key="item.id"
             class="list-item"
             link
           >
@@ -76,6 +114,7 @@
   </b-modal>
 </template>
 <script>
+// import InputValidation from '~/components/InputValidation.js'
 import { knaCatArray } from '../server/util/knaCategories'
 
 export default {
@@ -92,9 +131,11 @@ export default {
   data() {
     return {
       // filterText: '',
+      term: '',
       loadingComponent: null,
+      searchData: [],
+      previousSearch: '',
       categoryData: [],
-      isOpen: -1,
       categories: [],
       selectedCategory: {},
       isLoading: false,
@@ -112,12 +153,55 @@ export default {
     this.categories = knaCatArray()
   },
   methods: {
+    search() {
+      this.mode = 'search'
+
+      this.getSearchDataCount(this.term)
+      this.open()
+      this.getSearchData(this.term)
+    },
+    getSearchDataCount(term) {
+      this.$axios
+        .get('/api/knowledgeAreas', {
+          params: {
+            description: term
+          }
+        })
+        .then(response => {
+          this.total = response.data.length
+        })
+        .catch(err => console.log(err))
+    },
+    getSearchData(term) {
+      if (!term.length) {
+        this.searchData = []
+        return
+      }
+
+      this.$axios
+        .get('/api/knowledgeAreas', {
+          params: {
+            description: term,
+            page: this.currentPage,
+            size: 10
+          }
+        })
+        .then(response => {
+          this.searchData = response.data
+        })
+        .catch(err => console.log(err))
+    },
     handlePageChange() {
-      this.getKnowledgeAreasData(this.selectedCategory.code)
+      if (this.mode === 'search') {
+        this.getSearchData(this.term)
+      } else {
+        this.getKnowledgeAreasData(this.selectedCategory.code)
+      }
     },
     goToMenu() {
       this.mode = 'menu'
       this.categoryData = []
+      this.searchData = []
       this.currentPage = 1
     },
     getCategoryList(category) {
@@ -159,7 +243,6 @@ export default {
         })
         .then(response => {
           this.categoryData = response.data
-          console.log('no of items in this page: ' + this.categoryData.length)
         })
         .catch(error => {
           this.categoryData = error.data
@@ -179,6 +262,20 @@ export default {
   font-weight: 600;
 }
 
+.searchbox {
+  margin-top: 0;
+}
+
+.app-button {
+  background-color: #595867;
+  color: white;
+}
+
+.app-button:hover {
+  text-decoration: none;
+  color: white;
+}
+
 .card-content {
   width: 100%;
 }
@@ -186,11 +283,8 @@ export default {
 .category-title {
   font-size: 1rem;
   font-weight: 500;
-  /* letter-spacing: 0.05em; */
+  margin-top: 1.8rem;
 }
-
-/* .knowledge-areas-list {
-} */
 
 .list-item {
   display: block;
