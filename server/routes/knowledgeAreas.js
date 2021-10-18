@@ -45,7 +45,7 @@ async function list(ctx) {
     query = query.where('code', 'like', `%${code}%`)
   } else if (categoryCode) {
     query = query
-      .where('code', '>', `${categoryCode}`)
+      .where('code', '>=', `${categoryCode}`)
       .where('code', '<', `${nextCatCode}`)
       .orderBy('description')
   }

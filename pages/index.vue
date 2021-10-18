@@ -38,6 +38,12 @@ export default {
   width: 80%;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 480px) {
+  .steps {
+    width: 100%;
+  }
+}
 </style>
 
 <!-- muda cor do placeholder no escopo global -->
