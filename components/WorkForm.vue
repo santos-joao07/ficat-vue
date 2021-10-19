@@ -139,7 +139,6 @@
               :wrapped-slots="h => renderTemplates(h, 'description')"
               :label="$tr('layout.knArea')"
               :tooltip-label="$tr('layout.knAreaTooltip')"
-              @typing="getKnAreas"
               @select="option => (selectedKnArea = option)"
               @focus="showKaModal"
               use-component="b-autocomplete"
@@ -314,43 +313,6 @@ export default {
         )
       ]
     },
-
-    getKnAreas: pDebounce(function(term) {
-      if (!term.length) {
-        this.knAreas = []
-        return
-      }
-      if (term !== this.knAreaPreviousSearch) {
-        this.knAreaPreviousSearch = term
-
-        // check if term is a cdd code or if it is a description
-        if (this.hasNumber(term)) {
-          this.$axios
-            .get('/api/knowledgeAreas', {
-              params: {
-                code: term
-              }
-            })
-            .then(response => {
-              this.knAreas = response.data
-            })
-            .catch()
-            .finally(() => (this.loading = false))
-        } else {
-          this.$axios
-            .get('/api/knowledgeAreas', {
-              params: {
-                description: term
-              }
-            })
-            .then(response => {
-              this.knAreas = response.data
-            })
-            .catch()
-            .finally(() => (this.loading = false))
-        }
-      }
-    }, 500),
 
     getAcdUnities: pDebounce(function(term) {
       if (!term.length) {
