@@ -203,6 +203,7 @@
 </template>
 
 <script>
+import pDebounce from 'p-debounce'
 import { required, minLength } from 'vuelidate/lib/validators'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
@@ -312,6 +313,29 @@ export default {
         )
       ]
     },
+
+    getAcdUnities: pDebounce(function(term) {
+      if (!term.length) {
+        this.academicUnities = []
+        return
+      }
+      // Evitar que consultas iguais sejam repetidas
+      if (term !== this.acdUnityPreviousSearch) {
+        this.loading = true
+        this.acdUnityPreviousSearch = term
+        this.$axios
+          .get('/api/academicUnities', {
+            params: {
+              term
+            }
+          })
+          .then(response => {
+            this.academicUnities = response.data
+          })
+          .catch()
+          .finally(() => (this.loading = false))
+      }
+    }, 500),
 
     onSelectedAcdUnity(option) {
       this.selectedAcdUnity = option
