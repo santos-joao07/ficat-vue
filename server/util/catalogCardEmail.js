@@ -17,7 +17,15 @@ const mailer = async function(emailAddres, pdfName, stream) {
   const accessToken = await new Promise((resolve, reject) => {
     oauth2Client.getAccessToken((err, token) => {
       if (err) {
-        reject()
+        console.log('test')
+        reject(new Error(err))
+        // fs.unlink('./assets/pdf_location/ficha.pdf', err => {
+        //   if (err) {
+        //     console.error(err)
+        //   } else {
+        //     console.log('cleared')
+        //   }
+        // })
       }
       resolve(token)
     })
@@ -34,13 +42,8 @@ const mailer = async function(emailAddres, pdfName, stream) {
       clientSecret: process.env.CLIENT_SECRET,
       refreshToken: process.env.REFRESH_TOKEN
     }
-    // auth: {
-    //   user: process.env.EMAIL_USER,
-    //   pass: process.env.EMAIL_PASSWD
-    // }
   })
 
-  // send mail with defined transport object
   await transporter.sendMail(
     {
       from: '"SEDEPTI" <sedepti.suporte@gmail.com>', // sender address
@@ -60,6 +63,7 @@ const mailer = async function(emailAddres, pdfName, stream) {
       if (err) {
         console.log(err)
       }
+      console.log('before unlink')
       fs.unlink('./assets/pdf_location/ficha.pdf', err => {
         if (err) {
           console.error(err)

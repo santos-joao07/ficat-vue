@@ -1,7 +1,7 @@
 <template>
   <Card :title="$tr('layout.prepareCard')">
     <div class="columns is-centered">
-      <div class="column is-center is-5">
+      <div class="column is-center is-6">
         <form @submit.prevent="onSubmit">
           <b-field :label="$tr('layout.font')" label-position="on-border">
             <WithTooltip :text="$tr('layout.fontFamilyTooltip')">
@@ -40,25 +40,6 @@
               </template>
             </input-validation>
           </b-field>
-
-          <!-- <b-field
-            v-if="sendEmailCopy"
-            class="email-input"
-            label="Digite seu email"
-            label-position="on-border"
-            expanded
-          >
-            <b-input
-              :v="$v"
-              :validations="$options.validations.email"
-              v-model="email"
-              placeholder="Ex.: seu.email@exemplo.com"
-              rounded
-              expanded
-            >
-            </b-input>
-          </b-field> -->
-
           <b-field class="email-box">
             <WithTooltip :text="$tr('layout.receiveEmailTooltip')">
               <b-checkbox v-model="sendEmailCopy" class="email-checkbox">
@@ -68,7 +49,7 @@
           </b-field>
 
           <div class="recaptcha-box">
-            <WithTooltip :text="$tr('layout.solveCaptcha')" class="recaptcha">
+            <WithTooltip :text="$tr('layout.solveCaptcha')">
               <div style="margin:auto">
                 <recaptcha
                   @success="onSuccess"
@@ -279,13 +260,10 @@ export default {
 }
 </script>
 <style scoped>
-.recaptcha {
-  margin: 0 auto;
-}
-
 .recaptcha-box {
-  margin: 0.5em;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .email-input {
@@ -305,8 +283,6 @@ export default {
   .g-recaptcha {
     transform: scale(0.77);
     -webkit-transform: scale(0.77);
-    transform-origin: 0 0;
-    -webkit-transform-origin: 0 0;
   }
 }
 </style>

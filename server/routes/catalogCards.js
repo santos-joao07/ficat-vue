@@ -159,8 +159,10 @@ async function getPdfResult(ctx) {
           stream.close()
           reject(err)
         }
-        stream.pipe(fs.createWriteStream('./assets/pdf_location/ficha.pdf'))
-        mailer(userEmailV, 'ficha.pdf', './assets/pdf_location/ficha.pdf')
+        if (userEmailV) {
+          stream.pipe(fs.createWriteStream('./assets/pdf_location/ficha.pdf'))
+          mailer(userEmailV, 'ficha.pdf', './assets/pdf_location/ficha.pdf')
+        }
         resolve(stream)
       })
   })
