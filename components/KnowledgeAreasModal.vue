@@ -19,7 +19,7 @@
         >
           <b-input
             v-model="term"
-            placeholder="Ex.: Aprendizado de Máquina"
+            placeholder="Ex.: Aprendizagem de Máquina"
             type="search"
             expanded
           ></b-input>
