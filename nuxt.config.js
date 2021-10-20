@@ -28,7 +28,7 @@ module.exports = {
       class: 'htmlClass'
     },
     bodyAttrs: {
-      class: 'bodyClass has-navbar-fixed-top'
+      class: 'bodyClass'
     }
   },
 
