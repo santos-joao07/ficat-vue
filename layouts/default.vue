@@ -1,10 +1,9 @@
 <template>
   <div>
     <b-navbar
-      :fixed-top="true"
       :transparent="true"
       :centered="true"
-      class="bg-dark app-navbar"
+      class="bg-dark navbar is-fixed-top app-navbar"
     >
       <template #brand>
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
@@ -52,12 +51,6 @@
 
     <div class="container">
       <nuxt />
-      <div
-        class="fb-customerchat"
-        attribution="setup_tool"
-        page_id="103822584563032"
-        theme_color="#0d2167"
-      ></div>
     </div>
   </div>
 </template>
@@ -171,6 +164,10 @@ $link: $ficat-red;
 /* .test {
   color: white;
 } */
+
+.container {
+  margin-top: 20px;
+}
 
 @font-face {
   font-family: 'Atlantic Cruise';
