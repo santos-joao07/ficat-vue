@@ -1,6 +1,11 @@
 <template>
   <div>
-    <b-navbar :transparent="true" :centered="true" class="bg-dark app-navbar">
+    <b-navbar
+      :fixed-top="true"
+      :transparent="true"
+      :centered="true"
+      class="bg-dark app-navbar"
+    >
       <template #brand>
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
@@ -77,7 +82,7 @@ export default {
       return {
         about: this.$tr('layout.about'),
         talk: this.$tr('layout.talkToUs'),
-        tutotrial: this.$tr('layout.tutorial')
+        tutorial: this.$tr('layout.tutorial')
       }
     }
   },
