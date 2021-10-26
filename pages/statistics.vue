@@ -178,7 +178,7 @@ import { maybe } from '@/shared/frontUtils'
 
 export default {
   name: 'Statistics',
-  layout: 'empty',
+  layout: 'adminLayout',
   middleware: 'auth',
 
   components: {

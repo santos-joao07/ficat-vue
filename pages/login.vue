@@ -50,7 +50,7 @@
               </b-checkbox>
             </div>
           </div>
-          <b-button class="is-ficat" native-type="submit">Login</b-button>
+          <b-button class="is-primary" native-type="submit">Login</b-button>
         </section>
       </form>
     </Card>
@@ -125,9 +125,9 @@ export default {
 .app-center {
   margin: 0;
   position: absolute;
-  left: 30%;
+  left: 32%;
   top: 50%;
-  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   transform: translateY(-50%);
 }
 
