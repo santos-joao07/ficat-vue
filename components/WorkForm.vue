@@ -384,7 +384,7 @@ export default {
           translatedWorkType = 'doutorado'
           break
         case 'dissertation':
-          translatedWorkType = 'dissertação'
+          translatedWorkType = 'mestrado'
           break
         case 'tccGraduation':
           translatedWorkType = 'graduação'
