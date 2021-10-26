@@ -79,6 +79,13 @@ export default {
       }
     }
   },
+  head() {
+    return {
+      bodyAttrs: {
+        class: 'has-navbar-fixed-top'
+      }
+    }
+  },
 
   mounted() {
     // Add init FB SDK function
