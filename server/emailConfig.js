@@ -16,7 +16,7 @@ const returnAccessToken = async function() {
   const accessToken = await new Promise((resolve, reject) => {
     oauth2Client.getAccessToken((err, token) => {
       if (err) {
-        reject()
+        reject(new Error('Failed to fetch access token'))
       }
       resolve(token)
     })
