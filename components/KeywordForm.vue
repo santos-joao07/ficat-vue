@@ -32,9 +32,6 @@
             <template #required>
               {{ $tr('layout.required') }}
             </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
-            </template>
           </input-validation>
           <div class="btn-block">
             <WithTooltip :text="$tr('layout.addKeyword')">
@@ -135,7 +132,7 @@ export default {
       $each: {
         text: {
           required,
-          minLength: minLength(5)
+          minLength: minLength(2)
         }
       }
     }

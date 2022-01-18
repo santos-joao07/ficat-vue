@@ -23,9 +23,6 @@
               <template #required>
                 {{ $tr('layout.required') }}
               </template>
-              <template #minLength="{ min }">
-                {{ $tr('layout.minLength', [min]) }}
-              </template>
             </input-validation>
             <input-validation
               ref="workSubtitle"
@@ -38,9 +35,6 @@
               type="text"
               placeholder="Ex.: estudo exploratório"
             >
-              <template #minLength="{ min }">
-                {{ $tr('layout.minLength', [min]) }}
-              </template>
             </input-validation>
             <div class="columns">
               <div class="column is-4">
@@ -204,7 +198,7 @@
 
 <script>
 import pDebounce from 'p-debounce'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
@@ -403,12 +397,9 @@ export default {
 
   validations: {
     workTitle: {
-      required,
-      minLength: minLength(10)
+      required
     },
-    workSubtitle: {
-      minLength: minLength(10)
-    },
+    workSubtitle: {},
     totalPages: {
       required
     },
