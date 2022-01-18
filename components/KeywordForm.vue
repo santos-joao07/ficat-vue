@@ -2,6 +2,16 @@
   <card :title="$tr('layout.keywords')">
     <div class="columns is-centered">
       <div class="column is-half">
+        <b-button
+          tag="a"
+          href="http://bibcentral.ufpa.br/pergamum/biblioteca/autoridade.php"
+          type="is-ficat"
+          icon-left="book"
+          class="vocab-button"
+          target="_blank"
+          rounded
+          >Consultar vocabulário controlado</b-button
+        >
         <div
           v-for="(kw, i) in $v.keywords.$each.$iter"
           :key="i"
@@ -134,6 +144,10 @@ export default {
 </script>
 
 <style>
+.vocab-button {
+  margin-bottom: 1.5rem;
+}
+
 .btn-block {
   display: flex;
   margin-left: 1em;
