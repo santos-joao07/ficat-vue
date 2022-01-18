@@ -8,7 +8,7 @@
       <template #brand>
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
-            :src="require('@/assets/img/ficat-logo-white2.png')"
+            :src="require('@/assets/img/ficat-logo-white.png')"
             alt="Logo FICAT"
             class="logo-white"
           />
