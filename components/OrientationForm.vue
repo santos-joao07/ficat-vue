@@ -177,7 +177,7 @@ export default {
     return {
       advisors,
       placeholderNames: [
-        'Diego Bil Silva Barros',
+        'Benedito Nunes',
         'Aline Santiago Borges',
         'Ramon da Gama Cordeiro'
       ]
@@ -225,7 +225,6 @@ export default {
           return false
         }
         if (this.$v[field].$each) {
-          // se houver $each, só pode dizer q é a array adicional de coorientador
           if (this.$v[field].$each.$invalid) {
             return false
           }
