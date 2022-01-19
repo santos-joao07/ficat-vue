@@ -13,7 +13,7 @@
               v-model="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
-              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :tooltip-label="$tr('layout.advisorTooltip')"
               :placeholder="'Ex.: ' + placeholderNames[i]"
               :label="$tr('layout.advisorName')"
               field-name="advisorName"
@@ -106,7 +106,7 @@
                 :validations="$options.validations.advisors.$each.advisorTitle"
                 :v="kw"
                 :label="$tr('layout.title')"
-                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :tooltip-label="$tr('layout.advisorTitle')"
                 field-name="advisorTitle"
                 use-component="b-select"
               >

@@ -15,7 +15,9 @@
               :validations="$options.validations.authors.$each.authorName"
               :v="kw"
               :tooltip-label="
-                $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
+                $tr(
+                  +i === 0 ? 'layout.nameTooltip' : 'layout.secondNameTooltip'
+                )
               "
               :placeholder="'Ex.: ' + placeholderNames[i][0]"
               field-name="authorName"
@@ -37,9 +39,11 @@
               :label="$tr('layout.whosSurname', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorSurname"
               :tooltip-label="
-                $tr('layout.surnameTooltip', [
-                  { pt: 'author', en: 'lowAuthor' }
-                ])
+                $tr(
+                  +i === 0
+                    ? 'layout.surnameTooltip'
+                    : 'layout.secondSurnameTooltip'
+                )
               "
               :v="kw"
               :placeholder="'Ex.: ' + placeholderNames[i][1]"
