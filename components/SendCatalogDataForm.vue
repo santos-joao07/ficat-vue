@@ -21,7 +21,7 @@
           <b-field v-if="sendEmailCopy" class="email-input">
             <input-validation
               ref="email"
-              v-model="$v.email.$model"
+              v-model.trim="$v.email.$model"
               :validations="$options.validations.email"
               :v="$v"
               :tooltip-label="

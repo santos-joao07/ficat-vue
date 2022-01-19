@@ -12,7 +12,7 @@
           <div class="input-float-wf">
             <input-validation
               ref="workTitle"
-              v-model="$v.workTitle.$model"
+              v-model.trim="$v.workTitle.$model"
               :validations="$options.validations.workTitle"
               :v="$v"
               :label="$tr('layout.workTitle')"
@@ -26,7 +26,7 @@
             </input-validation>
             <input-validation
               ref="workSubtitle"
-              v-model="$v.workSubtitle.$model"
+              v-model.trim="$v.workSubtitle.$model"
               :validations="$options.validations.workSubtitle"
               :v="$v"
               :label="$tr('layout.workSubtitle')"
@@ -58,7 +58,7 @@
               <div class="column is-8">
                 <input-validation
                   ref="totalPages"
-                  v-model="$v.totalPages.$model"
+                  v-model.trim="$v.totalPages.$model"
                   :validations="$options.validations.totalPages"
                   :v="$v"
                   :label="$tr('layout.totalPages')"
@@ -244,7 +244,9 @@ export default {
       }
     },
     workType() {
+      // limpa as variaveis de unidade academica e curso quando o tipo de curso for modificado.
       this.acdUnity = ''
+      this.course = ''
     }
   },
 

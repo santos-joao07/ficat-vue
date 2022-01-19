@@ -21,7 +21,7 @@
         >
           <input-validation
             ref="keywords"
-            v-model="kw.text.$model"
+            v-model.trim="kw.text.$model"
             :label="$tr('layout.keyword') + (+i + 1)"
             :validations="$options.validations.keywords.$each.text"
             :v="kw"

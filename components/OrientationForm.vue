@@ -10,7 +10,7 @@
           <div v-if="!isMobile()">
             <input-validation
               ref="advisorName"
-              v-model="kw.advisorName.$model"
+              v-model.trim="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
               :tooltip-label="$tr('layout.advisorTooltip')"
@@ -43,7 +43,7 @@
           <div v-if="isMobile()">
             <input-validation
               ref="advisorName"
-              v-model="kw.advisorName.$model"
+              v-model.trim="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"

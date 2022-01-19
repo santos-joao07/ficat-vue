@@ -123,7 +123,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
           .slice(0, -1)
       : ''
 
-  // const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
   const cotutorshipAdvisorGender =
     cotutorship.cotutorshipAdvisorGender === 'female' ? 1 : 0
 
@@ -135,7 +134,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     } ${cotutorship.cotutorshipAdvisorName}`
   }
 
-  const fontSize = 10 // catalogFont === 'times' ? 9 : 10
+  const fontSize = 11 // catalogFont === 'times' ? 9 : 10
 
   const withCotutorshipAdvisorHeader = cotutorshipHeader
     ? `<p class="ml">${cotutorshipHeader}</p>`
@@ -147,7 +146,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const workTypes = {
     thesis: 'Tese (Doutorado)',
-    dissertation: 'Dissertação',
+    dissertation: 'Dissertação (Mestrado)',
     tccExpert: 'TCC (Especialização)',
     tccGraduation: 'TCC (Graduação)'
   }
@@ -167,22 +166,22 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const workHeader =
     `${workTypes[work.workType]} - Universidade Federal do Pará, ${
-      academicDetailNames.programName
-    }` +
+      academicDetailNames.acdUnityName
+    }, ${academicDetailNames.programName}` +
     cotutorshipWorkHeader +
     localHeader
 
   let kws = ''
   for (const kn in keywords) {
-    kws += `${+kn + 1}. ${keywords[kn]} `
+    kws += `${+kn + 1}. ${keywords[kn]}. `
   }
   kws = kws.substring(0, kws.length - 1)
-  const keywordHeader = `${kws}. I. Título.`
+  const keywordHeader = `${kws} I. Título.`
 
   const templatePath = join(__dirname, 'catalogCard.html')
 
   const fontFamily =
-    catalogFont === 'times' ? "'Nimbus Roman', serif" : "'Arimo', sans-serif"
+    catalogFont === 'times' ? "'Noto Serif', serif" : "'Arimo', sans-serif"
 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')

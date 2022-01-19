@@ -10,7 +10,7 @@
           <div class="app-author-input">
             <input-validation
               ref="authorName"
-              v-model="kw.authorName.$model"
+              v-model.trim="kw.authorName.$model"
               :label="$tr('layout.whosName', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorName"
               :v="kw"
@@ -35,7 +35,7 @@
             </input-validation>
             <input-validation
               ref="authorSurname"
-              v-model="kw.authorSurname.$model"
+              v-model.trim="kw.authorSurname.$model"
               :label="$tr('layout.whosSurname', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorSurname"
               :tooltip-label="
