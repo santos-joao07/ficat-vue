@@ -89,7 +89,7 @@
               <template #component>
                 <option value="nocolor">{{ $tr('layout.nocolor') }}</option>
                 <option value="color">{{ $tr('layout.color') }}</option>
-                <option value="bw">{{ $tr('layout.bw') }}</option>
+                <option value="pb">{{ $tr('layout.bw') }}</option>
               </template>
               <template #required>
                 {{ $tr('layout.required') }}
