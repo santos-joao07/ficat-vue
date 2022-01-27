@@ -29,7 +29,7 @@
 
       <template slot="end">
         <b-navbar-item class="text-white" tag="nuxt-link" to="/login"
-          >LOG IN</b-navbar-item
+          >ADMIN</b-navbar-item
         >
         <b-navbar-item tag="div">
           <b-navbar-item

@@ -35,9 +35,6 @@
               <template #email>
                 {{ $tr('layout.email') }}
               </template>
-              <template #required>
-                {{ $tr('layout.required') }}
-              </template>
             </input-validation>
           </b-field>
           <b-field class="email-box">
@@ -79,7 +76,7 @@
 </template>
 
 <script>
-import { email, required } from 'vuelidate/lib/validators'
+import { email } from 'vuelidate/lib/validators'
 import Card from '~/components/Card'
 import WithTooltip from '~/components/WithTooltip'
 import helper from '~/mixins/helper'
@@ -253,8 +250,7 @@ export default {
 
   validations: {
     email: {
-      email,
-      required
+      email
     }
   }
 }
