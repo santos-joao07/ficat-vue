@@ -175,7 +175,7 @@
                 :validations="$options.validations.course"
                 :v="$v"
                 :label="$tr('layout.course')"
-                :tooltip-label="$tr('layout.course')"
+                :tooltip-label="$tr('layout.courseTooltip')"
                 field-name="course"
                 use-component="b-select"
               >
