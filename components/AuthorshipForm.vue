@@ -47,7 +47,6 @@
               "
               :v="kw"
               :placeholder="'Ex.: ' + placeholderNames[i][1]"
-              @focus="test"
               field-name="authorSurname"
             >
               <template #required>
@@ -138,11 +137,6 @@ export default {
       })
   },
   methods: {
-    test() {
-      console.log('test')
-      // const mouseoverEvent = new Event('mouseover')
-      this.aux = true
-    },
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },

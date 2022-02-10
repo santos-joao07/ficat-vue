@@ -288,6 +288,7 @@ export default {
     },
     closeKaModal() {
       this.isKaModalActive = false
+      this.$refs.acdUnity.focus()
     },
 
     filterModels() {
