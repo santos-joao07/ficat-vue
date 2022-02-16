@@ -2,7 +2,7 @@ exports.up = function(knex) {
   return knex.schema.createTable('courses', table => {
     table.increments('id').primary()
     table
-      .string('name', 120)
+      .string('name', 255)
       .notNullable()
       .unique()
     table

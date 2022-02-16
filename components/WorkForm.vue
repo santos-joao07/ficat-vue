@@ -12,7 +12,7 @@
           <div class="input-float-wf">
             <input-validation
               ref="workTitle"
-              v-model="$v.workTitle.$model"
+              v-model.trim="$v.workTitle.$model"
               :validations="$options.validations.workTitle"
               :v="$v"
               :label="$tr('layout.workTitle')"
@@ -23,13 +23,10 @@
               <template #required>
                 {{ $tr('layout.required') }}
               </template>
-              <template #minLength="{ min }">
-                {{ $tr('layout.minLength', [min]) }}
-              </template>
             </input-validation>
             <input-validation
               ref="workSubtitle"
-              v-model="$v.workSubtitle.$model"
+              v-model.trim="$v.workSubtitle.$model"
               :validations="$options.validations.workSubtitle"
               :v="$v"
               :label="$tr('layout.workSubtitle')"
@@ -38,9 +35,6 @@
               type="text"
               placeholder="Ex.: estudo exploratório"
             >
-              <template #minLength="{ min }">
-                {{ $tr('layout.minLength', [min]) }}
-              </template>
             </input-validation>
             <div class="columns">
               <div class="column is-4">
@@ -64,7 +58,7 @@
               <div class="column is-8">
                 <input-validation
                   ref="totalPages"
-                  v-model="$v.totalPages.$model"
+                  v-model.trim="$v.totalPages.$model"
                   :validations="$options.validations.totalPages"
                   :v="$v"
                   :label="$tr('layout.totalPages')"
@@ -95,7 +89,7 @@
               <template #component>
                 <option value="nocolor">{{ $tr('layout.nocolor') }}</option>
                 <option value="color">{{ $tr('layout.color') }}</option>
-                <option value="bw">{{ $tr('layout.bw') }}</option>
+                <option value="pb">{{ $tr('layout.bw') }}</option>
               </template>
               <template #required>
                 {{ $tr('layout.required') }}
@@ -181,7 +175,7 @@
                 :validations="$options.validations.course"
                 :v="$v"
                 :label="$tr('layout.course')"
-                :tooltip-label="$tr('layout.course')"
+                :tooltip-label="$tr('layout.courseTooltip')"
                 field-name="course"
                 use-component="b-select"
               >
@@ -204,7 +198,7 @@
 
 <script>
 import pDebounce from 'p-debounce'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
@@ -250,7 +244,9 @@ export default {
       }
     },
     workType() {
+      // limpa as variaveis de unidade academica e curso quando o tipo de curso for modificado.
       this.acdUnity = ''
+      this.course = ''
     }
   },
 
@@ -292,6 +288,7 @@ export default {
     },
     closeKaModal() {
       this.isKaModalActive = false
+      this.$refs.acdUnity.focus()
     },
 
     filterModels() {
@@ -403,12 +400,9 @@ export default {
 
   validations: {
     workTitle: {
-      required,
-      minLength: minLength(10)
+      required
     },
-    workSubtitle: {
-      minLength: minLength(10)
-    },
+    workSubtitle: {},
     totalPages: {
       required
     },

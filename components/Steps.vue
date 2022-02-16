@@ -57,8 +57,6 @@
             icon-right="chevron-right"
           >
             Próximo
-            <!-- <b-icon class="app-icon" icon="chevron-right" size="is-medium">
-            </b-icon> -->
           </b-button>
         </div>
       </template>
@@ -73,6 +71,7 @@ import OrientationForm from '~/components/OrientationForm'
 import KeywordForm from '~/components/KeywordForm'
 import SendCatalogDataForm from '~/components/SendCatalogDataForm'
 import CotutorshipForm from '~/components/CotutorshipForm'
+
 export default {
   name: 'Steps',
   components: {

@@ -21,7 +21,7 @@
           <b-field v-if="sendEmailCopy" class="email-input">
             <input-validation
               ref="email"
-              v-model="$v.email.$model"
+              v-model.trim="$v.email.$model"
               :validations="$options.validations.email"
               :v="$v"
               :tooltip-label="
@@ -34,9 +34,6 @@
             >
               <template #email>
                 {{ $tr('layout.email') }}
-              </template>
-              <template #required>
-                {{ $tr('layout.required') }}
               </template>
             </input-validation>
           </b-field>
@@ -79,7 +76,7 @@
 </template>
 
 <script>
-import { email, required } from 'vuelidate/lib/validators'
+import { email } from 'vuelidate/lib/validators'
 import Card from '~/components/Card'
 import WithTooltip from '~/components/WithTooltip'
 import helper from '~/mixins/helper'
@@ -253,8 +250,7 @@ export default {
 
   validations: {
     email: {
-      email,
-      required
+      email
     }
   }
 }

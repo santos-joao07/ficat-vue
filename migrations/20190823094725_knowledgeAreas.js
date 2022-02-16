@@ -6,7 +6,7 @@ exports.up = function(knex) {
       .notNullable()
       .defaultTo('')
     table
-      .string('description', 257)
+      .string('description', 255)
       .notNullable()
       .defaultTo('')
   })

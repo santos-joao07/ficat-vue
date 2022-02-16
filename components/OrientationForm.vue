@@ -10,10 +10,10 @@
           <div v-if="!isMobile()">
             <input-validation
               ref="advisorName"
-              v-model="kw.advisorName.$model"
+              v-model.trim="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
-              :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
+              :tooltip-label="$tr('layout.advisorTooltip')"
               :placeholder="'Ex.: ' + placeholderNames[i]"
               :label="$tr('layout.advisorName')"
               field-name="advisorName"
@@ -43,7 +43,7 @@
           <div v-if="isMobile()">
             <input-validation
               ref="advisorName"
-              v-model="kw.advisorName.$model"
+              v-model.trim="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
@@ -106,7 +106,7 @@
                 :validations="$options.validations.advisors.$each.advisorTitle"
                 :v="kw"
                 :label="$tr('layout.title')"
-                :tooltip-label="$tr('layout.whosTitle', ['lowCoadvisor'])"
+                :tooltip-label="$tr('layout.advisorTitle')"
                 field-name="advisorTitle"
                 use-component="b-select"
               >
@@ -177,7 +177,7 @@ export default {
     return {
       advisors,
       placeholderNames: [
-        'Diego Bil Silva Barros',
+        'Benedito Nunes',
         'Aline Santiago Borges',
         'Ramon da Gama Cordeiro'
       ]
@@ -225,7 +225,6 @@ export default {
           return false
         }
         if (this.$v[field].$each) {
-          // se houver $each, só pode dizer q é a array adicional de coorientador
           if (this.$v[field].$each.$invalid) {
             return false
           }

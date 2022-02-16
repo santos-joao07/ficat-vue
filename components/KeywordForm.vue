@@ -2,6 +2,18 @@
   <card :title="$tr('layout.keywords')">
     <div class="columns is-centered">
       <div class="column is-half">
+        <WithTooltip :text="$tr('layout.vocabulary')">
+          <b-button
+            tag="a"
+            href="http://bibcentral.ufpa.br/pergamum/biblioteca/autoridade.php"
+            type="is-ficat"
+            icon-left="book"
+            class="vocab-button"
+            target="_blank"
+            rounded
+            >Consultar vocabulário controlado</b-button
+          ></WithTooltip
+        >
         <div
           v-for="(kw, i) in $v.keywords.$each.$iter"
           :key="i"
@@ -9,7 +21,7 @@
         >
           <input-validation
             ref="keywords"
-            v-model="kw.text.$model"
+            v-model.trim="kw.text.$model"
             :label="$tr('layout.keyword') + (+i + 1)"
             :validations="$options.validations.keywords.$each.text"
             :v="kw"
@@ -21,9 +33,6 @@
           >
             <template #required>
               {{ $tr('layout.required') }}
-            </template>
-            <template #minLength="{ min }">
-              {{ $tr('layout.minLength', [min]) }}
             </template>
           </input-validation>
           <div class="btn-block">
@@ -125,7 +134,7 @@ export default {
       $each: {
         text: {
           required,
-          minLength: minLength(5)
+          minLength: minLength(2)
         }
       }
     }
@@ -134,6 +143,10 @@ export default {
 </script>
 
 <style>
+.vocab-button {
+  margin-bottom: 1rem;
+}
+
 .btn-block {
   display: flex;
   margin-left: 1em;

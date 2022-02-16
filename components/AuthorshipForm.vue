@@ -10,12 +10,14 @@
           <div class="app-author-input">
             <input-validation
               ref="authorName"
-              v-model="kw.authorName.$model"
+              v-model.trim="kw.authorName.$model"
               :label="$tr('layout.whosName', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorName"
               :v="kw"
               :tooltip-label="
-                $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
+                $tr(
+                  +i === 0 ? 'layout.nameTooltip' : 'layout.secondNameTooltip'
+                )
               "
               :placeholder="'Ex.: ' + placeholderNames[i][0]"
               field-name="authorName"
@@ -33,13 +35,15 @@
             </input-validation>
             <input-validation
               ref="authorSurname"
-              v-model="kw.authorSurname.$model"
+              v-model.trim="kw.authorSurname.$model"
               :label="$tr('layout.whosSurname', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorSurname"
               :tooltip-label="
-                $tr('layout.surnameTooltip', [
-                  { pt: 'author', en: 'lowAuthor' }
-                ])
+                $tr(
+                  +i === 0
+                    ? 'layout.surnameTooltip'
+                    : 'layout.secondSurnameTooltip'
+                )
               "
               :v="kw"
               :placeholder="'Ex.: ' + placeholderNames[i][1]"
@@ -100,6 +104,7 @@ export default {
   data() {
     const { authors } = recovery('form')
     return {
+      aux: false,
       authors,
       placeholderNames: [
         ['Samantha Luíza Athayde', 'Silva'],
