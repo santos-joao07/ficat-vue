@@ -90,27 +90,38 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   ) {
     const advisor = advisorsArray[advisorIndex]
     const advisorGender = advisor.advisorGender === 'female' ? 1 : 0
+    let coadvisorGender
 
     if (advisor.advisorType === 'advisor') {
-      advisorsHeadersArray.push(
-        `<p class="ml advisor">Orientador(a): ${
-          title[advisor.advisorTitle][advisorGender]
-        }${advisor.advisorName}</p>`
-      )
+      if (advisorGender) {
+        advisorsHeadersArray.push(
+          `<p class="ml advisor">Orientadora: ${
+            title[advisor.advisorTitle][advisorGender]
+          }${advisor.advisorName}</p>`
+        )
+      } else {
+        advisorsHeadersArray.push(
+          `<p class="ml advisor">Orientador: ${
+            title[advisor.advisorTitle][advisorGender]
+          }${advisor.advisorName}</p>`
+        )
+      }
     } else {
-      const coadvisorGender = advisor.advisorGender === 'female' ? 1 : 0
+      coadvisorGender = advisorGender
       coadvisorsHeaderArray.push(
-        `${title[advisor.advisorTitle][coadvisorGender]}${
-          advisor.advisorName
-        }, ` // o final sempre vai ser ,\s
+        `${title[advisor.advisorTitle][advisorGender]}${advisor.advisorName}, ` // o final sempre vai ser ,\s
       )
     }
-  }
 
-  if (coadvisorsHeaderArray.length > 1) {
-    coadvisorsHeaderArray.unshift('Coorientadores: ')
-  } else {
-    coadvisorsHeaderArray.unshift('Coorientador(a): ')
+    if (advisorIndex === advisorsArray.length - 1) {
+      if (coadvisorsHeaderArray.length > 1) {
+        coadvisorsHeaderArray.unshift('Coorientadores: ')
+      } else if (coadvisorGender) {
+        coadvisorsHeaderArray.unshift('Coorientadora: ')
+      } else {
+        coadvisorsHeaderArray.unshift('Coorientador: ')
+      }
+    }
   }
 
   const advisorHeader = ''.concat(...advisorsHeadersArray)
