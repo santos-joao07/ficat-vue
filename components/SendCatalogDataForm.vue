@@ -45,15 +45,13 @@
             </WithTooltip>
           </b-field>
 
-          <div class="recaptcha-box">
+          <div>
             <WithTooltip :text="$tr('layout.solveCaptcha')">
-              <div style="margin:auto">
-                <recaptcha
-                  @success="onSuccess"
-                  @error="onSomeError('error')"
-                  @expired="onSomeError('exp')"
-                />
-              </div>
+              <recaptcha
+                @success="onSuccess"
+                @error="onSomeError('error')"
+                @expired="onSomeError('exp')"
+              />
             </WithTooltip>
           </div>
           <b-field>
@@ -256,10 +254,9 @@ export default {
 }
 </script>
 <style scoped>
-.recaptcha-box {
+.g-recaptcha {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .email-input {

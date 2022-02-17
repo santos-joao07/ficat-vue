@@ -151,6 +151,19 @@ function cutterFetch(surname, workTitle) {
     }
   }
 
+  // impedindo que artigos sejam considerados no cutter da ficha
+  const artigos = ['o', 'os', 'a', 'as', 'um', 'uns', 'uma', 'umas']
+
+  const workTitleArray = workTitle.replace(/['"]+/g, '').split(' ')
+  let w
+
+  for (const word of workTitleArray) {
+    if (!artigos.includes(word.toLowerCase())) {
+      w = word[0].toLowerCase()
+      break
+    }
+  }
+
   const file = path.resolve(__dirname, '../../static/cutter.txt')
 
   /**
@@ -168,9 +181,7 @@ function cutterFetch(surname, workTitle) {
     )
     if (code) {
       // e.g. 'S' + 677 + 't', para surname = 'Sobrenome' e workTitle = 'Trabalho'
-      return (
-        s[0].toUpperCase() + code.substring(0, 3) + workTitle[0].toLowerCase()
-      )
+      return s[0].toUpperCase() + code.substring(0, 3) + w
     } else s = s.substring(0, s.length - 1)
   }
 }
