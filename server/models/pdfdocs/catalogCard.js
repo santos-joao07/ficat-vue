@@ -145,7 +145,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     } ${cotutorship.cotutorshipAdvisorName}`
   }
 
-  const fontSize = 11 // catalogFont === 'times' ? 9 : 10
+  const fontSize = catalogFont === 'times' ? '11px' : '10px'
 
   const withCotutorshipAdvisorHeader = cotutorshipHeader
     ? `<p class="ml">${cotutorshipHeader}</p>`
@@ -191,8 +191,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const templatePath = join(__dirname, 'catalogCard.html')
 
-  const fontFamily =
-    catalogFont === 'times' ? "'Noto Serif', serif" : "'Arimo', sans-serif"
+  const fontFamily = catalogFont === 'times' ? "'Tinos'" : "'Arimo'"
 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')

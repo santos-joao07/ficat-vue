@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer')
 const { google } = require('googleapis')
 const OAuth2 = google.auth.OAuth2
 
-const mailer = async function(emailAddres, pdfName, stream) {
+const mailer = async function(emailAddress, pdfName, stream) {
   const oauth2Client = new OAuth2(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
@@ -19,13 +19,6 @@ const mailer = async function(emailAddres, pdfName, stream) {
       if (err) {
         console.log('test')
         reject(new Error(err))
-        // fs.unlink('./assets/pdf_location/ficha.pdf', err => {
-        //   if (err) {
-        //     console.error(err)
-        //   } else {
-        //     console.log('cleared')
-        //   }
-        // })
       }
       resolve(token)
     })
@@ -44,10 +37,10 @@ const mailer = async function(emailAddres, pdfName, stream) {
     }
   })
 
-  await transporter.sendMail(
+  transporter.sendMail(
     {
       from: '"SEDEPTI" <sedepti.suporte@gmail.com>', // sender address
-      to: emailAddres, // list of receivers
+      to: emailAddress, // list of receivers
       subject: 'Ficha catalográfica - FICAT', // Subject line
       text:
         'Olá! Segue em anexo a cópia requisitada da sua ficha catalográfica.', // plain text body

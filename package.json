@@ -22,11 +22,8 @@
     "migrate": "knex migrate:latest",
     "migrate:prod": "cross-env NODE_ENV=production knex migrate:latest",
     "rollback": "knex migrate:up",
-    "makedb": "if test -f dev.sqlite3; then rm dev.sqlite3; fi; npm run migrate && npm run seed",
-    "makedb:test": "if test -f test.sqlite3; then rm test.sqlite3; fi; npm run migrate && npm run seed",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
-    "test": "jest --maxWorkers=4 --force-exit",
-    "ci": "npm test && npm run lint"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix"
+
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
@@ -58,7 +55,6 @@
     "nuxt-fontawesome": "^0.4.0",
     "p-debounce": "^2.1.0",
     "pdfkit": "^0.10.0",
-    "sqlite3": "^4.1.0",
     "vue-cookies": "^1.5.13",
     "vuelidate": "^0.7.5"
   },
@@ -76,7 +72,6 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.0.1",
-    "jest": "^24.1.0",
     "node-sass": "^6.0.1",
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
