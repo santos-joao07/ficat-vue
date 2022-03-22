@@ -2,8 +2,6 @@
 
 > Nuxt-Vue.js Ficat version.
 
-[![Build Status](https://travis-ci.org/Lakshamana/ficat-vue.svg?branch=master)](https://travis-ci.org/Lakshamana/ficat-vue)
-
 ## Build Setup
 
 ``` bash
