@@ -23,7 +23,6 @@
     "migrate:prod": "cross-env NODE_ENV=production knex migrate:latest",
     "rollback": "knex migrate:up",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix"
-
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
@@ -35,7 +34,7 @@
     "bcrypt": "^3.0.6",
     "bookshelf": "^0.15.1",
     "bookshelf-secure-password": "^4.0.0",
-    "buefy": "^0.9.10",
+    "buefy": "^0.9.19",
     "chart.js": "^2.9.4",
     "dotenv": "^8.0.0",
     "googleapis": "^83.0.0",

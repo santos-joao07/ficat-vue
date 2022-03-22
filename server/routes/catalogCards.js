@@ -148,32 +148,40 @@ async function getPdfResult(ctx) {
         border: {
           top: '4.25cm',
           bottom: '4.25cm',
-          // Deixando que o HTML decida as margens horizontal para melhor
-          // controle da largura do `card-body`
           right: '0',
           left: '0'
         }
       })
-      .toStream((err, stream) => {
+      .toStream(async (err, stream) => {
         if (err) {
           stream.close()
           reject(err)
         }
         if (userEmailV) {
           stream.pipe(fs.createWriteStream('./assets/pdf_location/ficha.pdf'))
-          mailer(userEmailV, 'ficha.pdf', './assets/pdf_location/ficha.pdf')
+          await mailer('indexCardCopy', {
+            from: process.env.EMAIL_USER,
+            to: userEmailV,
+            subject: 'Ficha catalográfica - FICAT',
+            text:
+              'Olá! Segue em anexo a cópia requisitada da sua ficha catalográfica.',
+
+            attachments: [
+              {
+                filename: 'ficha.pdf',
+                path: './assets/pdf_location/ficha.pdf'
+              }
+            ]
+          })
         }
         resolve(stream)
       })
   })
 
-  // delete pdfResults[id]
   ctx.body = stream
   ctx.status = HttpCodes.OK
 }
 
-// Usado para guardar as queries realizadas por cada usuário no sistema
-// Previne condições de corrida
 const queryResults = {}
 
 async function catalogQueries(ctx) {

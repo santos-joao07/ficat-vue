@@ -1,36 +1,25 @@
 const { readFileSync } = require('fs')
 const { resolve } = require('path')
 const axios = require('axios').default
-const mailer = require('../emailConfig')
 const { formatDate } = require('../util/utils')
 const HttpCodes = require('../httpCodes')
 const MessageCodes = require('../../shared/messageCodes')
+const mailer = require('../util/catalogCardEmail')
 
 async function send(ctx) {
-  const { body, files } = ctx.request
-  const { uploads } = files
+  const { body } = ctx.request
 
-  // uploads pode ser um File[] ou File
   try {
-    await mailer.sendMail({
+    await mailer('contact', {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_RCV_ADDRESS,
       subject: `Chamado FICAT ${body.name} - ${formatDate()}`,
-      html: makeEmailContent(body),
-      ...(uploads && {
-        attachments: Array.isArray(uploads)
-          ? uploads.map(file => ({
-              filename: file.name,
-              content: file
-            }))
-          : uploads
-      })
+      html: makeEmailContent(body)
     })
-    ctx.status = 200
-  } catch (e) {
+  } catch (error) {
     ctx.throw(HttpCodes.INT_SRV_ERROR, {
       code: MessageCodes.error.errOnEmailSend,
-      message: e.message
+      message: error.message
     })
   }
 }
