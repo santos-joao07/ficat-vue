@@ -277,7 +277,18 @@ export default {
       })
   },
 
+  // mounted() {
+  //   this.$root.$on('nextFormSection', msg => {
+  //     if (msg === 'section-0') {
+  //       this.$refs.workTitle.focus()
+  //     }
+  //   })
+  // },
+
   methods: {
+    focus() {
+      this.$refs.workTitle.focus()
+    },
     selectedKna(kna) {
       this.selectedKnArea = kna
       this.knArea = kna.description

@@ -68,6 +68,7 @@
                 icon-right="plus"
                 class="btn"
                 type="is-success"
+                aria-label="Adicionar mais um campo de autor."
                 outlined
               >
               </b-button>

@@ -193,10 +193,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.$refs.advisorName[0].focus()
-  },
-
   beforeCreate() {
     if (!recovery('form').advisors)
       replace('form', {
@@ -212,6 +208,9 @@ export default {
   },
 
   methods: {
+    focus() {
+      this.$refs.advisorName[0].focus()
+    },
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },

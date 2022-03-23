@@ -4,6 +4,7 @@
       <div class="column is-half">
         <WithTooltip :text="$tr('layout.vocabulary')">
           <b-button
+            ref="vocabButton"
             tag="a"
             href="http://bibcentral.ufpa.br/pergamum/biblioteca/autoridade.php"
             type="is-ficat"
@@ -104,11 +105,18 @@ export default {
       })
   },
 
-  mounted() {
-    this.$refs.keywords[0].focus()
-  },
+  // mounted() {
+  //   this.$root.$on('nextFormSection', msg => {
+  //     if (msg === 'section-2') {
+  //       this.$refs.workTitle.focus()
+  //     }
+  //   })
+  // },
 
   methods: {
+    focus() {
+      this.$refs.vocabButton.focus()
+    },
     onHover(evt, action) {
       const btn = evt.target
       btn.classList.add('tt-btn-visible')
