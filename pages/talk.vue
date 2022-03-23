@@ -193,7 +193,6 @@ export default {
           }
         })
         .then(async res => {
-          console.log('heeeeeeere')
           this.toast()
           await this.resetState()
         })

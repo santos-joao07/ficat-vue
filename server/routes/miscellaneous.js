@@ -16,6 +16,9 @@ async function send(ctx) {
       subject: `Chamado FICAT ${body.name} - ${formatDate()}`,
       html: makeEmailContent(body)
     })
+
+    ctx.response.status = 200
+    return ctx.response
   } catch (error) {
     ctx.throw(HttpCodes.INT_SRV_ERROR, {
       code: MessageCodes.error.errOnEmailSend,

@@ -21,6 +21,7 @@ function validator(validateObj) {
     const validation = validatePayload(ctx.request.body, mandatory, optional)
     if (!validation) {
       // Validação vazia (undefined)
+      console.log(ctx.request.body)
       ctx.throw(HttpCodes.BAD_REQUEST, MessageCodes.error.errEmptyPayload)
     } else if (validation.valid) {
       return next()
