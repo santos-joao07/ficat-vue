@@ -2,8 +2,8 @@
   <b-modal
     @close="closeModal"
     v-model="isKaModalActive"
+    :aria-modal="true"
     aria-role="dialog"
-    aria-modal="true"
     aria-label="Selecione a área de conhecimento"
     has-modal-card
   >
@@ -22,6 +22,7 @@
             grouped
           >
             <b-input
+              @keydown.native.enter="search"
               v-model="term"
               placeholder="Digite o titulo da área de conhecimento a ser pesquisada"
               type="search"
@@ -39,11 +40,14 @@
             aria-role="list"
             aria-label="Lista de categorias"
             class="category-list"
+            tabindex="0"
           >
             <a
+              @keypress.enter="getCategoryList(category)"
               @click="getCategoryList(category)"
               v-for="category of categories"
               :key="categories.indexOf(category)"
+              tabindex="0"
               class="list-item"
               link
             >
@@ -54,7 +58,12 @@
         </div>
         <div ref="modalContent" v-if="mode === 'list'" class="">
           <div class="list-header">
-            <a @click="goToMenu"
+            <a
+              @keypress.enter="goToMenu"
+              @click="goToMenu"
+              aria-label="Voltar para a lista de categorias"
+              role="button"
+              tabindex="0"
               ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
             >
             <hr class="list-header-divider" />
@@ -63,11 +72,19 @@
               <span style="font-weight: 500">{{ getSelectedCategory }}</span>
             </p>
           </div>
-          <div ref="knaList">
+          <div
+            ref="knaList"
+            :aria-label="
+              'Lista de assuntos da categoria ' + getSelectedCategory
+            "
+            tabindex="0"
+          >
             <a
+              @keypress="selectedKna(item)"
               @click="selectedKna(item)"
               v-for="item in categoryData"
               :key="item.id"
+              tabindex="0"
               class="list-item"
               link
             >
@@ -85,16 +102,25 @@
         </div>
         <div ref="modalContent" v-if="mode === 'search'" class="">
           <div class="list-header">
-            <a @click="goToMenu"
+            <a
+              @keypress.enter="goToMenu"
+              @click="goToMenu"
+              role="button"
+              tabindex="0"
               ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
             >
             <hr class="list-header-divider" />
           </div>
-          <div ref="searchList">
+          <div
+            ref="searchList"
+            aria-label="Lista de resultados da pesquisa"
+            tabindex="0"
+          >
             <a
               @click="selectedKna(item)"
               v-for="item in searchData"
               :key="item.id"
+              tabindex="0"
               class="list-item"
               link
             >
@@ -115,11 +141,9 @@
   </b-modal>
 </template>
 <script>
-// import InputValidation from '~/components/InputValidation.js'
 import { knaCatArray } from '../server/util/knaCategories'
 
 export default {
-  // components: { ToggleList },
   props: {
     isKaModalActive: Boolean,
     selectedKna: {
@@ -131,7 +155,6 @@ export default {
   },
   data() {
     return {
-      // filterText: '',
       term: '',
       loadingComponent: null,
       searchData: [],

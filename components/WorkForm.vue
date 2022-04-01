@@ -180,7 +180,12 @@
                 use-component="b-select"
               >
                 <template #component>
-                  <option v-for="c in courses" :key="c.id" :value="'' + c.name">
+                  <option
+                    :aria-label="c.name"
+                    v-for="c in courses"
+                    :key="c.id"
+                    :value="'' + c.name"
+                  >
                     {{ c.name }}
                   </option>
                 </template>
@@ -276,14 +281,6 @@ export default {
         }
       })
   },
-
-  // mounted() {
-  //   this.$root.$on('nextFormSection', msg => {
-  //     if (msg === 'section-0') {
-  //       this.$refs.workTitle.focus()
-  //     }
-  //   })
-  // },
 
   methods: {
     focus() {
