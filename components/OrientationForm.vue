@@ -134,6 +134,7 @@
                     advisorType: 'advisor'
                   })
                 "
+                aria-label="Adicionar mais um campo de orientador ou coorientador."
                 icon-right="plus"
                 class="btn"
                 type="is-success"
@@ -145,6 +146,7 @@
               <b-button
                 v-if="i > 0"
                 @click="advisors.splice(i, 1)"
+                aria-label="Remover um campo de orientador ou coorientador."
                 icon-right="minus"
                 class="btn"
                 type="is-danger"

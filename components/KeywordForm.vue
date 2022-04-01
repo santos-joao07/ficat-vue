@@ -4,7 +4,7 @@
       <div class="column is-half">
         <WithTooltip :text="$tr('layout.vocabulary')">
           <b-button
-            ref="vocabButton"
+            :focused="vocabButtonFocused"
             tag="a"
             href="http://bibcentral.ufpa.br/pergamum/biblioteca/autoridade.php"
             type="is-ficat"
@@ -85,7 +85,8 @@ export default {
         'Universidades e faculdades',
         '',
         ''
-      ]
+      ],
+      vocabButtonFocused: false
     }
   },
 
@@ -115,7 +116,7 @@ export default {
 
   methods: {
     focus() {
-      this.$refs.vocabButton.focus()
+      this.vocabButtonFocused = true
     },
     onHover(evt, action) {
       const btn = evt.target

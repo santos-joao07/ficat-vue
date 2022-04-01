@@ -141,7 +141,7 @@ export default {
               vModel={this.iptValue}
               aria-label={tooltipLabel}
               aria-required={!!validations.required}
-              aria-describedby="errormsg"
+              aria-describedby={'errormsg' + fieldName}
               placeholder={placeholder}
               rounded
               expanded
@@ -167,7 +167,7 @@ export default {
             {this.$tr('layout.optional')}
           </div>
         ) : (
-          <span id="errormsg" aria-live="assertive" class="error">
+          <span id={'errormsg' + fieldName} aria-live="assertive" class="error">
             {scopedSlots}
           </span>
         )}

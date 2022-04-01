@@ -3,7 +3,7 @@
     <div class="card rounded">
       <template v-if="title">
         <header class="card-header">
-          <p class="card-header-title has-text-grey">
+          <p class="card-header-title has-text-grey-dark">
             {{ title }}
           </p>
         </header>

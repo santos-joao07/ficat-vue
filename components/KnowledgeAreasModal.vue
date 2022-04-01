@@ -1,114 +1,115 @@
 <template>
-  <b-modal @close="closeModal" v-model="isKaModalActive" has-modal-card>
+  <b-modal
+    @close="closeModal"
+    v-model="isKaModalActive"
+    aria-role="dialog"
+    aria-modal="true"
+    aria-label="Selecione a área de conhecimento"
+    has-modal-card
+  >
     <div class="modal-card" style="height: 90vh">
       <header class="modal-card-head">
-        <p class="subtitle is-4">
+        <h1 id="modal_header" class="subtitle is-4">
           SELECIONE A <span class="title-bold">ÁREA DE CONHECIMENTO</span>
-        </p>
+        </h1>
       </header>
-      <section
-        ref="modalContent"
-        v-if="mode === 'menu'"
-        class="modal-card-body"
-      >
-        <!-- searchbox -->
-        <b-field
-          class="searchbox"
-          message="Pesquise sua área de conhecimento"
-          grouped
-        >
-          <b-input
-            v-model="term"
-            placeholder="Ex.: Aprendizagem de Máquina"
-            type="search"
-            expanded
-          ></b-input>
-          <p class="control">
-            <b-button @click="search" class="is-ficat">Pesquisar</b-button>
-          </p>
-        </b-field>
+      <section :aria-busy="busy" class="modal-card-body">
+        <div ref="modalContent" v-if="mode === 'menu'" class="">
+          <!-- searchbox -->
+          <b-field
+            class="searchbox"
+            message="Pesquise sua área de conhecimento"
+            grouped
+          >
+            <b-input
+              v-model="term"
+              placeholder="Digite o titulo da área de conhecimento a ser pesquisada"
+              type="search"
+              expanded
+            ></b-input>
+            <p class="control">
+              <b-button @click="search" class="is-ficat">Pesquisar</b-button>
+            </p>
+          </b-field>
 
-        <!-- categories -->
-        <h1 class="category-title">CATEGORIAS</h1>
-        <hr class="category-divider" />
-        <div class="category-list">
-          <a
-            @click="getCategoryList(category)"
-            v-for="category of categories"
-            :key="categories.indexOf(category)"
-            class="list-item"
-            link
+          <!-- categories -->
+          <h2 class="category-title">CATEGORIAS</h2>
+          <hr class="category-divider" />
+          <div
+            aria-role="list"
+            aria-label="Lista de categorias"
+            class="category-list"
           >
-            <b-icon icon="plus" size="is-small"></b-icon>
-            {{ category.description }}
-          </a>
+            <a
+              @click="getCategoryList(category)"
+              v-for="category of categories"
+              :key="categories.indexOf(category)"
+              class="list-item"
+              link
+            >
+              <b-icon icon="plus" size="is-small"></b-icon>
+              {{ category.description }}
+            </a>
+          </div>
         </div>
-      </section>
-      <section
-        ref="modalContent"
-        v-if="mode === 'list'"
-        class="modal-card-body"
-      >
-        <div class="list-header">
-          <a @click="goToMenu"
-            ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+        <div ref="modalContent" v-if="mode === 'list'" class="">
+          <div class="list-header">
+            <a @click="goToMenu"
+              ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+            >
+            <hr class="list-header-divider" />
+            <p class="list-category">
+              CATEGORIA:
+              <span style="font-weight: 500">{{ getSelectedCategory }}</span>
+            </p>
+          </div>
+          <div ref="knaList">
+            <a
+              @click="selectedKna(item)"
+              v-for="item in categoryData"
+              :key="item.id"
+              class="list-item"
+              link
+            >
+              <b-icon icon="minus" size="is-small"></b-icon>
+              {{ item.description }}
+            </a>
+          </div>
+          <b-pagination
+            @change="handlePageChange"
+            :total="total"
+            :per-page="10"
+            v-model="currentPage"
           >
-          <hr class="list-header-divider" />
-          <p class="list-category">
-            CATEGORIA:
-            <span style="font-weight: 500">{{ getSelectedCategory }}</span>
-          </p>
+          </b-pagination>
         </div>
-        <div ref="knaList">
-          <a
-            @click="selectedKna(item)"
-            v-for="item in categoryData"
-            :key="item.id"
-            class="list-item"
-            link
+        <div ref="modalContent" v-if="mode === 'search'" class="">
+          <div class="list-header">
+            <a @click="goToMenu"
+              ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+            >
+            <hr class="list-header-divider" />
+          </div>
+          <div ref="searchList">
+            <a
+              @click="selectedKna(item)"
+              v-for="item in searchData"
+              :key="item.id"
+              class="list-item"
+              link
+            >
+              <b-icon icon="minus" size="is-small"></b-icon>
+              {{ item.description }}
+            </a>
+          </div>
+          <b-pagination
+            @change="handlePageChange"
+            :total="total"
+            :per-page="10"
+            v-model="currentPage"
           >
-            <b-icon icon="minus" size="is-small"></b-icon>
-            {{ item.description }}
-          </a>
+          </b-pagination>
         </div>
-        <b-pagination
-          @change="handlePageChange"
-          :total="total"
-          :per-page="10"
-          v-model="currentPage"
-        >
-        </b-pagination>
-      </section>
-      <section
-        ref="modalContent"
-        v-if="mode === 'search'"
-        class="modal-card-body"
-      >
-        <div class="list-header">
-          <a @click="goToMenu"
-            ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
-          >
-          <hr class="list-header-divider" />
-        </div>
-        <div ref="searchList">
-          <a
-            @click="selectedKna(item)"
-            v-for="item in searchData"
-            :key="item.id"
-            class="list-item"
-            link
-          >
-            <b-icon icon="minus" size="is-small"></b-icon>
-            {{ item.description }}
-          </a>
-        </div>
-        <b-pagination
-          @change="handlePageChange"
-          :total="total"
-          :per-page="10"
-          v-model="currentPage"
-        >
-        </b-pagination>
       </section>
     </div>
   </b-modal>
@@ -141,7 +142,8 @@ export default {
       isLoading: false,
       mode: 'menu',
       currentPage: 1,
-      total: 0
+      total: 0,
+      busy: true
     }
   },
   computed: {
@@ -243,6 +245,7 @@ export default {
         })
         .then(response => {
           this.categoryData = response.data
+          this.busy = false
         })
         .catch(error => {
           this.categoryData = error.data

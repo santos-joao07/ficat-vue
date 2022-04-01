@@ -80,6 +80,7 @@
                 icon-right="minus"
                 class="btn"
                 type="is-danger"
+                aria-label="Remover um campo de autor."
                 outlined
               ></b-button>
             </WithTooltip>
