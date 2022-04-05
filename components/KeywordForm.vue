@@ -4,7 +4,7 @@
       <div class="column is-half">
         <WithTooltip :text="$tr('layout.vocabulary')">
           <b-button
-            :focused="vocabButtonFocused"
+            ref="vocabBtn"
             tag="a"
             href="http://bibcentral.ufpa.br/pergamum/biblioteca/autoridade.php"
             type="is-ficat"
@@ -28,7 +28,7 @@
             :v="kw"
             :tooltip-label="$tr('layout.keywordTooltip')"
             :placeholder="
-              placeholderKeywords[i] ? 'Ex.: ' + placeholderKeywords[i] : ''
+              placeholderKeywords[i] ? 'Exemplo: ' + placeholderKeywords[i] : ''
             "
             field-name="text"
           >
@@ -41,6 +41,7 @@
               <b-button
                 :disabled="keywords.length > 4"
                 @click="keywords.push({ text: '' })"
+                aria-label="Adicionar mais um campo de palavra-chave"
                 icon-right="plus"
                 class="btn"
                 type="is-success"
@@ -52,6 +53,7 @@
               <b-button
                 v-if="i > 0"
                 @click="keywords.splice(i, 1)"
+                aria-label="Remover um campo de palavra-chave"
                 icon-right="minus"
                 class="btn"
                 type="is-danger"
@@ -106,17 +108,9 @@ export default {
       })
   },
 
-  // mounted() {
-  //   this.$root.$on('nextFormSection', msg => {
-  //     if (msg === 'section-2') {
-  //       this.$refs.workTitle.focus()
-  //     }
-  //   })
-  // },
-
   methods: {
     focus() {
-      this.vocabButtonFocused = true
+      this.$refs.keywords[0].focus()
     },
     onHover(evt, action) {
       const btn = evt.target

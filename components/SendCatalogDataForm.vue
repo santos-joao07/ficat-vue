@@ -140,6 +140,11 @@ export default {
   },
 
   methods: {
+    focus() {
+      // console.log(this.$refs)
+      this.$refs.font.focus()
+    },
+
     isEmailValid() {
       const { validations } = this.$options
       this.$v.$touch()

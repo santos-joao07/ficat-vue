@@ -43,7 +43,7 @@ export default {
     arabic: 'Arábicos',
     roman: 'Romanos',
     numberTypeTooltip:
-      'Digite a quantidade de folhas de seu trabalho. Deve informar o número de páginas pré-textuais em algarismos romanos, seguido por uma vírgula e pelo número de páginas textuais em algarismos arábicos (Ex.: xxi, 70); ou somente em algarismos arábicos com o total de páginas (Ex.: 70).',
+      'Digite a quantidade de folhas de seu trabalho. Deve informar o número de páginas pré-textuais em algarismos romanos, seguido por uma vírgula e pelo número de páginas textuais em algarismos arábicos; ou somente em algarismos arábicos com o total de páginas.',
     minValue: min => `Não pode ser menor que ${min}`,
     pictures: 'Ilustração',
     picturesTooltip:

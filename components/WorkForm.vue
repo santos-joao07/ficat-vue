@@ -18,7 +18,7 @@
               :label="$tr('layout.workTitle')"
               :tooltip-label="$tr('layout.workTitleTooltip')"
               field-name="workTitle"
-              placeholder="Ex.: Redes sociais em bibliotecas universitárias"
+              placeholder="Exemplo: Redes sociais em bibliotecas universitárias"
             >
               <template #required>
                 {{ $tr('layout.required') }}
@@ -33,7 +33,7 @@
               :tooltip-label="$tr('layout.workSubtitleTooltip')"
               field-name="workSubtitle"
               type="text"
-              placeholder="Ex.: estudo exploratório"
+              placeholder="Exemplo: estudo exploratório"
             >
             </input-validation>
             <div class="columns">
@@ -64,7 +64,7 @@
                   :label="$tr('layout.totalPages')"
                   :tooltip-label="$tr('layout.numberTypeTooltip')"
                   field-name="totalPages"
-                  placeholder="Ex.: xxi, 70"
+                  placeholder="Exemplo: xxi, 70"
                 >
                   <template #required>
                     {{ $tr('layout.required') }}
@@ -137,7 +137,7 @@
               @focus="showKaModal"
               use-component="b-autocomplete"
               field-name="knArea"
-              placeholder="Pesquisa por cdd ou descrição"
+              placeholder="Pesquisa por descrição"
             >
               <template #required>
                 {{ $tr('layout.required') }}

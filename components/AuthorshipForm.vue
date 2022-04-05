@@ -19,7 +19,7 @@
                   +i === 0 ? 'layout.nameTooltip' : 'layout.secondNameTooltip'
                 )
               "
-              :placeholder="'Ex.: ' + placeholderNames[i][0]"
+              :placeholder="'Exemplo: ' + placeholderNames[i][0]"
               field-name="authorName"
               class="author-first-input"
             >
@@ -46,7 +46,7 @@
                 )
               "
               :v="kw"
-              :placeholder="'Ex.: ' + placeholderNames[i][1]"
+              :placeholder="'Exemplo: ' + placeholderNames[i][1]"
               field-name="authorSurname"
             >
               <template #required>
