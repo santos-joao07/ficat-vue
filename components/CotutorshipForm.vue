@@ -51,7 +51,7 @@
                 :validations="$options.validations.advisorTitle"
                 :v="$v"
                 :label="$tr('layout.title')"
-                :tooltip-label="$tr('layout.whosTitle', ['lowAdvisor'])"
+                :tooltip-label="$tr('layout.advisorTitle')"
                 field-name="advisorTitle"
                 use-component="b-select"
               >
@@ -151,11 +151,6 @@ export default {
       }
     }
   },
-  //   ,
-
-  //   mounted() {
-  //     this.$refs.advisorName.focus()
-  //   },
 
   beforeCreate() {
     if (!recovery('form').cotutorship)
@@ -172,6 +167,9 @@ export default {
   },
 
   methods: {
+    focus() {
+      this.$refs.cotutorshipAdvisorName.focus()
+    },
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },

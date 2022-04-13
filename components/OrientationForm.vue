@@ -9,7 +9,7 @@
         >
           <div v-if="!isMobile()">
             <input-validation
-              ref="advisorName"
+              :ref="'advisorName-' + i"
               v-model.trim="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
@@ -126,14 +126,7 @@
             <WithTooltip :text="$tr('layout.addCoadvisor')">
               <b-button
                 :disabled="advisors.length > 2"
-                @click="
-                  advisors.push({
-                    advisorName: '',
-                    advisorGender: null,
-                    advisorTitle: 'doctor',
-                    advisorType: 'advisor'
-                  })
-                "
+                @click="addAdvisor"
                 aria-label="Adicionar mais um campo de orientador ou coorientador."
                 icon-right="plus"
                 class="btn"
@@ -210,15 +203,25 @@ export default {
   },
 
   methods: {
+    addAdvisor() {
+      this.advisors.push({
+        advisorName: '',
+        advisorGender: null,
+        advisorTitle: 'doctor',
+        advisorType: 'advisor'
+      })
+      this.$nextTick(() => {
+        this.$refs['advisorName-' + (this.advisors.length - 1)][0].focus()
+      })
+    },
     focus() {
-      this.$refs.advisorName[0].focus()
+      this.$refs['advisorName-0'][0].focus()
     },
 
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },
     checkNext() {
-      // const { coadvisorName } = this.$refs
       const { validations } = this.$options
       this.$v.$touch()
       for (const field in validations) {

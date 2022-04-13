@@ -17,9 +17,19 @@
 
     <b-step-item icon="account-multiple">
       <OrientationForm ref="section-2" />
-      <div class="cotutela-switch">
-        <p class="cotutela-switch-label">Interinstitucional</p>
-        <b-switch v-model="showCotutela"> </b-switch>
+      <div class="advisor-footer">
+        <b-tooltip
+          class="is-ficat"
+          label="Ative essa opção caso a modalidade do seu curso seja interinstitucional"
+          multilined
+          size="is-medium"
+        >
+          <div class="cotutela-switch">
+            <p class="cotutela-switch-label">Interinstitucional</p>
+
+            <b-switch v-model="showCotutela"> </b-switch>
+          </div>
+        </b-tooltip>
       </div>
     </b-step-item>
 
@@ -69,6 +79,7 @@ import OrientationForm from '~/components/OrientationForm'
 import KeywordForm from '~/components/KeywordForm'
 import SendCatalogDataForm from '~/components/SendCatalogDataForm'
 import CotutorshipForm from '~/components/CotutorshipForm'
+// import WithTooltip from '~/components/WithTooltip'
 
 export default {
   name: 'Steps',
@@ -180,6 +191,11 @@ $link: $ficat;
 .app-icon {
   vertical-align: middle;
   color: white;
+}
+
+.advisor-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .cotutela-switch-label {

@@ -15,10 +15,11 @@ export default {
     authorshipData: 'Dados do Autor',
     whosName: who => `Nome do ${who}`,
     whosSurname: who => `Sobrenome do ${who}`,
-    nameTooltip: 'Digite seu prenome, nome e primeiro sobrenome, se houver.',
+    nameTooltip:
+      'Digite seu prenome, nome e primeiro sobrenome, se houver. Lembre-se de utilizar letra maiúscula na primeira letra de nomes próprios.',
     surnameTooltip:
       'Digite seu último sobrenome. Lembre-se de incluir sobrenomes compostos (exemplo: Castelo Branco) e agnomes (exemplos: Filho, Neto, Júnior, Segundo), caso tenha.',
-    secondNameTooltip: 'Digite o nome do 2º autor, caso exista.',
+    secondNameTooltip: 'Digite o nome do 2º autor.',
     secondSurnameTooltip: 'Digite o sobrenome do 2º autor.',
     institutionTooltip: 'Escreva o nome da instituição',
     facultyTooltip: 'Escreva o nome da faculdade',
