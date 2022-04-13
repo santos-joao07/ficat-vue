@@ -160,6 +160,7 @@
               :tooltip-label="$tr('layout.acdUnityTooltip')"
               @typing="getAcdUnities"
               @select="onSelectedAcdUnity"
+              aria-autocomplete="list"
               use-component="b-autocomplete"
               field-name="acdUnity"
               placeholder="Pesquisa por nome ou sigla"
@@ -276,7 +277,6 @@ export default {
           selectedCourse: undefined,
           acdUnity: '',
           knArea: '',
-          testKnAreas: [],
           initialRef: 'workTitle'
         }
       })

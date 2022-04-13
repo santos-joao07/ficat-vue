@@ -17,7 +17,7 @@ export default {
     whosSurname: who => `Sobrenome do ${who}`,
     nameTooltip: 'Digite seu prenome, nome e primeiro sobrenome, se houver.',
     surnameTooltip:
-      'Digite seu último sobrenome. Lembre-se de incluir sobrenomes compostos e agnomes, caso tenha.',
+      'Digite seu último sobrenome. Lembre-se de incluir sobrenomes compostos (exemplo: Castelo Branco) e agnomes (exemplos: Filho, Neto, Júnior, Segundo), caso tenha.',
     secondNameTooltip: 'Digite o nome do 2º autor, caso exista.',
     secondSurnameTooltip: 'Digite o sobrenome do 2º autor.',
     institutionTooltip: 'Escreva o nome da instituição',
@@ -33,7 +33,7 @@ export default {
     workData: 'Dados do Trabalho',
     workTitle: 'Título do trabalho',
     workTitleTooltip:
-      'Digite o título do trabalho. Lembre-se de usar letras maiúsculas somente na primeira palavra do título e em nomes próprios. O subtítulo deve ser digitado no campo seguinte, caso exista.',
+      'Digite o título do trabalho. Lembre-se de usar letra maiúscula somente na primeira letra da primeira palavra do título e na primeira letra de nomes próprios. O subtítulo deve ser digitado no campo seguinte, caso exista.',
     workSubtitle: 'Subtítulo do trabalho',
     workSubtitleTooltip:
       'Digite o subtítulo do trabalho iniciando com letra minúscula e utilizando letras maiúsculas somente para nomes próprios.',

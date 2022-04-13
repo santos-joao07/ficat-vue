@@ -9,22 +9,24 @@
   >
     <div class="modal-card" style="height: 90vh">
       <header class="modal-card-head">
-        <h1 id="modal_header" class="subtitle is-4">
+        <h1 class="modal-card-title app-modal-title">
           SELECIONE A <span class="title-bold">ÁREA DE CONHECIMENTO</span>
         </h1>
+        <button
+          @click="$emit('catClosed')"
+          aria-label="Sair"
+          type="button"
+          class="delete"
+        ></button>
       </header>
       <section :aria-busy="busy" class="modal-card-body">
         <div ref="modalContent" v-if="mode === 'menu'" class="">
           <!-- searchbox -->
-          <b-field
-            class="searchbox"
-            message="Pesquise sua área de conhecimento"
-            grouped
-          >
+          <b-field class="searchbox" grouped>
             <b-input
               @keydown.native.enter="search"
               v-model="term"
-              placeholder="Digite o titulo da área de conhecimento a ser pesquisada"
+              placeholder="Digite o titulo da área de conhecimento a ser pesquisada ou selecione manualmente a seguir"
               type="search"
               expanded
             ></b-input>
@@ -34,13 +36,12 @@
           </b-field>
 
           <!-- categories -->
-          <h2 class="category-title">CATEGORIAS</h2>
+          <h2 class="category-title">LISTA DE CATEGORIAS</h2>
           <hr class="category-divider" />
           <div
             aria-role="list"
             aria-label="Lista de categorias"
             class="category-list"
-            tabindex="0"
           >
             <a
               @keypress.enter="getCategoryList(category)"
@@ -49,7 +50,6 @@
               :key="categories.indexOf(category)"
               tabindex="0"
               class="list-item"
-              link
             >
               <b-icon icon="plus" size="is-small"></b-icon>
               {{ category.description }}
@@ -77,7 +77,6 @@
             :aria-label="
               'Lista de assuntos da categoria ' + getSelectedCategory
             "
-            tabindex="0"
           >
             <a
               @keypress="selectedKna(item)"
@@ -111,11 +110,7 @@
             >
             <hr class="list-header-divider" />
           </div>
-          <div
-            ref="searchList"
-            aria-label="Lista de resultados da pesquisa"
-            tabindex="0"
-          >
+          <div ref="searchList" aria-label="Lista de resultados da pesquisa">
             <a
               @click="selectedKna(item)"
               v-for="item in searchData"
@@ -176,6 +171,11 @@ export default {
   },
   created() {
     this.categories = knaCatArray()
+    this.categories.sort(function(a, b) {
+      const x = a.description.toLowerCase()
+      const y = b.description.toLowerCase()
+      return x < y ? -1 : x > y ? 1 : 0
+    })
   },
   methods: {
     search() {
@@ -280,7 +280,7 @@ export default {
 <style scoped>
 .modal-card-title {
   margin: 5px 0;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 300;
 }
 

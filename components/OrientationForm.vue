@@ -213,6 +213,7 @@ export default {
     focus() {
       this.$refs.advisorName[0].focus()
     },
+
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },
@@ -227,15 +228,29 @@ export default {
         }
         if (this.$v[field].$each) {
           if (this.$v[field].$each.$invalid) {
+            // Só podemos adicionar no maximos 3 orientadores e/ou coorientadores
+            const numberOfPossibleInputs = 3
+            for (let i = 0; i < numberOfPossibleInputs; i++) {
+              if (this.$v[field].$each[i.toString()].$invalid) {
+                console.log(this.$v[field].$each[i.toString()])
+
+                if (this.$v[field].$each[i.toString()].advisorName.$invalid) {
+                  this.$refs.advisorName[i].focus()
+                  break
+                } else if (
+                  this.$v[field].$each[i.toString()].advisorGender.$invalid
+                ) {
+                  this.$refs.advisorGender[i].focus()
+                  break
+                }
+              }
+            }
             return false
           }
         }
       }
       return true
     }
-    // onChangeType(e) {
-    //   replace('form', { advisors: this.$data })
-    // }
   },
 
   validations: {
