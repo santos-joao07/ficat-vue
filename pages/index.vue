@@ -2,6 +2,7 @@
   <div>
     <b-image
       :src="require('@/assets/img/ficat-logo.png')"
+      alt="Logo do Ficat"
       class="app-logo"
     ></b-image>
     <Steps class="steps" />

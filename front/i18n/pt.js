@@ -16,10 +16,10 @@ export default {
     whosName: who => `Nome do ${who}`,
     whosSurname: who => `Sobrenome do ${who}`,
     nameTooltip:
-      'Digite seu prenome, nome e primeiro sobrenome, se houver. (Ex.:  João Ribeiro dos)',
+      'Digite seu prenome, nome e primeiro sobrenome, se houver. Lembre-se de utilizar letra maiúscula na primeira letra de nomes próprios.',
     surnameTooltip:
-      'Digite seu último sobrenome. Lembre-se de incluir sobrenomes compostos (Ex.: Castelo Branco) e agnomes (Ex.: Filho, Neto, Júnior, Segundo), caso tenha. (Ex.: Santos Filho)',
-    secondNameTooltip: 'Digite o nome do 2º autor, caso exista.',
+      'Digite seu último sobrenome. Lembre-se de incluir sobrenomes compostos (exemplo: Castelo Branco) e agnomes (exemplos: Filho, Neto, Júnior, Segundo), caso tenha.',
+    secondNameTooltip: 'Digite o nome do 2º autor.',
     secondSurnameTooltip: 'Digite o sobrenome do 2º autor.',
     institutionTooltip: 'Escreva o nome da instituição',
     facultyTooltip: 'Escreva o nome da faculdade',
@@ -34,7 +34,7 @@ export default {
     workData: 'Dados do Trabalho',
     workTitle: 'Título do trabalho',
     workTitleTooltip:
-      'Digite o título do trabalho. Lembre-se de usar letras maiúsculas somente na primeira palavra do título e em nomes próprios. O subtítulo deve ser digitado no campo seguinte, caso exista.',
+      'Digite o título do trabalho. Lembre-se de usar letra maiúscula somente na primeira letra da primeira palavra do título e na primeira letra de nomes próprios. O subtítulo deve ser digitado no campo seguinte, caso exista.',
     workSubtitle: 'Subtítulo do trabalho',
     workSubtitleTooltip:
       'Digite o subtítulo do trabalho iniciando com letra minúscula e utilizando letras maiúsculas somente para nomes próprios.',
@@ -44,7 +44,7 @@ export default {
     arabic: 'Arábicos',
     roman: 'Romanos',
     numberTypeTooltip:
-      'Digite a quantidade de folhas de seu trabalho. Deve informar o número de páginas pré-textuais em algarismos romanos, seguido por uma vírgula e pelo número de páginas textuais em algarismos arábicos (Ex.: xxi, 70); ou somente em algarismos arábicos com o total de páginas (Ex.: 70).',
+      'Digite a quantidade de folhas de seu trabalho. Deve informar o número de páginas pré-textuais em algarismos romanos, seguido por uma vírgula e pelo número de páginas textuais em algarismos arábicos; ou somente em algarismos arábicos com o total de páginas.',
     minValue: min => `Não pode ser menor que ${min}`,
     pictures: 'Ilustração',
     picturesTooltip:

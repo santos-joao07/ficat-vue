@@ -9,12 +9,12 @@
         >
           <div v-if="!isMobile()">
             <input-validation
-              ref="advisorName"
+              :ref="'advisorName-' + i"
               v-model.trim="kw.advisorName.$model"
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
               :tooltip-label="$tr('layout.advisorTooltip')"
-              :placeholder="'Ex.: ' + placeholderNames[i]"
+              :placeholder="'Exemplo: ' + placeholderNames[i]"
               :label="$tr('layout.advisorName')"
               field-name="advisorName"
               class="orientador-field"
@@ -47,7 +47,7 @@
               :validations="$options.validations.advisors.$each.advisorName"
               :v="kw"
               :tooltip-label="$tr('layout.nameTooltip', ['lowAdvisor'])"
-              :placeholder="'Ex.: ' + placeholderNames[i]"
+              :placeholder="'Exemplo: ' + placeholderNames[i]"
               :label="$tr('layout.advisorName')"
               field-name="advisorName"
               class="orientador-field"
@@ -126,14 +126,8 @@
             <WithTooltip :text="$tr('layout.addCoadvisor')">
               <b-button
                 :disabled="advisors.length > 2"
-                @click="
-                  advisors.push({
-                    advisorName: '',
-                    advisorGender: null,
-                    advisorTitle: 'doctor',
-                    advisorType: 'advisor'
-                  })
-                "
+                @click="addAdvisor"
+                aria-label="Adicionar mais um campo de orientador ou coorientador."
                 icon-right="plus"
                 class="btn"
                 type="is-success"
@@ -145,6 +139,7 @@
               <b-button
                 v-if="i > 0"
                 @click="advisors.splice(i, 1)"
+                aria-label="Remover um campo de orientador ou coorientador."
                 icon-right="minus"
                 class="btn"
                 type="is-danger"
@@ -193,10 +188,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.$refs.advisorName[0].focus()
-  },
-
   beforeCreate() {
     if (!recovery('form').advisors)
       replace('form', {
@@ -212,11 +203,25 @@ export default {
   },
 
   methods: {
+    addAdvisor() {
+      this.advisors.push({
+        advisorName: '',
+        advisorGender: null,
+        advisorTitle: 'doctor',
+        advisorType: 'advisor'
+      })
+      this.$nextTick(() => {
+        this.$refs['advisorName-' + (this.advisors.length - 1)][0].focus()
+      })
+    },
+    focus() {
+      this.$refs['advisorName-0'][0].focus()
+    },
+
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },
     checkNext() {
-      // const { coadvisorName } = this.$refs
       const { validations } = this.$options
       this.$v.$touch()
       for (const field in validations) {
@@ -226,15 +231,29 @@ export default {
         }
         if (this.$v[field].$each) {
           if (this.$v[field].$each.$invalid) {
+            // Só podemos adicionar no maximos 3 orientadores e/ou coorientadores
+            const numberOfPossibleInputs = 3
+            for (let i = 0; i < numberOfPossibleInputs; i++) {
+              if (this.$v[field].$each[i.toString()].$invalid) {
+                console.log(this.$v[field].$each[i.toString()])
+
+                if (this.$v[field].$each[i.toString()].advisorName.$invalid) {
+                  this.$refs.advisorName[i].focus()
+                  break
+                } else if (
+                  this.$v[field].$each[i.toString()].advisorGender.$invalid
+                ) {
+                  this.$refs.advisorGender[i].focus()
+                  break
+                }
+              }
+            }
             return false
           }
         }
       }
       return true
     }
-    // onChangeType(e) {
-    //   replace('form', { advisors: this.$data })
-    // }
   },
 
   validations: {

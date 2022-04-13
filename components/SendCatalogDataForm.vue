@@ -8,6 +8,7 @@
               <b-select
                 ref="font"
                 v-model="catalogFont"
+                :aria-label="$tr('layout.fontFamilyTooltip')"
                 placeholder="Font"
                 aria-placeholder="Font"
                 rounded
@@ -18,7 +19,7 @@
               </b-select>
             </WithTooltip>
           </b-field>
-          <b-field v-if="sendEmailCopy" class="email-input">
+          <b-field v-show="sendEmailCopy" class="email-input">
             <input-validation
               ref="email"
               v-model.trim="$v.email.$model"
@@ -39,7 +40,12 @@
           </b-field>
           <b-field class="email-box">
             <WithTooltip :text="$tr('layout.receiveEmailTooltip')">
-              <b-checkbox v-model="sendEmailCopy" class="email-checkbox">
+              <b-checkbox
+                :aria-label="$tr('layout.receiveEmailTooltip')"
+                @input="focusOnEmailInput"
+                v-model="sendEmailCopy"
+                class="email-checkbox"
+              >
                 {{ $tr('layout.sendCopyToEmail') }}
               </b-checkbox>
             </WithTooltip>
@@ -140,6 +146,16 @@ export default {
   },
 
   methods: {
+    focusOnEmailInput(value) {
+      if (value) {
+        this.$refs.email.focus()
+      }
+    },
+    focus() {
+      // console.log(this.$refs)
+      this.$refs.font.focus()
+    },
+
     isEmailValid() {
       const { validations } = this.$options
       this.$v.$touch()
