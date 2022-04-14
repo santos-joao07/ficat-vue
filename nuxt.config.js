@@ -6,7 +6,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'FICAT | Sistema De Geração Automática de Ficha Catalográfica',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -25,7 +25,8 @@ module.exports = {
       }
     ],
     htmlAttrs: {
-      class: 'htmlClass'
+      class: 'htmlClass',
+      lang: 'pt-BR'
     },
     bodyAttrs: {
       class: 'bodyClass'

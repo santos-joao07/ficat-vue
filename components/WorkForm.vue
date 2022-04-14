@@ -12,35 +12,29 @@
           <div class="input-float-wf">
             <input-validation
               ref="workTitle"
-              v-model="$v.workTitle.$model"
+              v-model.trim="$v.workTitle.$model"
               :validations="$options.validations.workTitle"
               :v="$v"
               :label="$tr('layout.workTitle')"
               :tooltip-label="$tr('layout.workTitleTooltip')"
               field-name="workTitle"
-              placeholder="Ex.: Redes sociais em bibliotecas universitárias"
+              placeholder="Exemplo: Redes sociais em bibliotecas universitárias"
             >
               <template #required>
                 {{ $tr('layout.required') }}
               </template>
-              <template #minLength="{ min }">
-                {{ $tr('layout.minLength', [min]) }}
-              </template>
             </input-validation>
             <input-validation
               ref="workSubtitle"
-              v-model="$v.workSubtitle.$model"
+              v-model.trim="$v.workSubtitle.$model"
               :validations="$options.validations.workSubtitle"
               :v="$v"
               :label="$tr('layout.workSubtitle')"
               :tooltip-label="$tr('layout.workSubtitleTooltip')"
               field-name="workSubtitle"
               type="text"
-              placeholder="Ex.: estudo exploratório"
+              placeholder="Exemplo: estudo exploratório"
             >
-              <template #minLength="{ min }">
-                {{ $tr('layout.minLength', [min]) }}
-              </template>
             </input-validation>
             <div class="columns">
               <div class="column is-4">
@@ -64,13 +58,13 @@
               <div class="column is-8">
                 <input-validation
                   ref="totalPages"
-                  v-model="$v.totalPages.$model"
+                  v-model.trim="$v.totalPages.$model"
                   :validations="$options.validations.totalPages"
                   :v="$v"
                   :label="$tr('layout.totalPages')"
                   :tooltip-label="$tr('layout.numberTypeTooltip')"
                   field-name="totalPages"
-                  placeholder="Ex.: xxi, 70"
+                  placeholder="Exemplo: xxi, 70"
                 >
                   <template #required>
                     {{ $tr('layout.required') }}
@@ -95,7 +89,7 @@
               <template #component>
                 <option value="nocolor">{{ $tr('layout.nocolor') }}</option>
                 <option value="color">{{ $tr('layout.color') }}</option>
-                <option value="bw">{{ $tr('layout.bw') }}</option>
+                <option value="pb">{{ $tr('layout.bw') }}</option>
               </template>
               <template #required>
                 {{ $tr('layout.required') }}
@@ -143,7 +137,7 @@
               @focus="showKaModal"
               use-component="b-autocomplete"
               field-name="knArea"
-              placeholder="Pesquisa por cdd ou descrição"
+              placeholder="Pesquisa por descrição"
             >
               <template #required>
                 {{ $tr('layout.required') }}
@@ -166,6 +160,7 @@
               :tooltip-label="$tr('layout.acdUnityTooltip')"
               @typing="getAcdUnities"
               @select="onSelectedAcdUnity"
+              aria-autocomplete="list"
               use-component="b-autocomplete"
               field-name="acdUnity"
               placeholder="Pesquisa por nome ou sigla"
@@ -181,12 +176,17 @@
                 :validations="$options.validations.course"
                 :v="$v"
                 :label="$tr('layout.course')"
-                :tooltip-label="$tr('layout.course')"
+                :tooltip-label="$tr('layout.courseTooltip')"
                 field-name="course"
                 use-component="b-select"
               >
                 <template #component>
-                  <option v-for="c in courses" :key="c.id" :value="'' + c.name">
+                  <option
+                    :aria-label="c.name"
+                    v-for="c in courses"
+                    :key="c.id"
+                    :value="'' + c.name"
+                  >
                     {{ c.name }}
                   </option>
                 </template>
@@ -204,7 +204,7 @@
 
 <script>
 import pDebounce from 'p-debounce'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
@@ -250,7 +250,9 @@ export default {
       }
     },
     workType() {
+      // limpa as variaveis de unidade academica e curso quando o tipo de curso for modificado.
       this.acdUnity = ''
+      this.course = ''
     }
   },
 
@@ -275,13 +277,15 @@ export default {
           selectedCourse: undefined,
           acdUnity: '',
           knArea: '',
-          testKnAreas: [],
           initialRef: 'workTitle'
         }
       })
   },
 
   methods: {
+    focus() {
+      this.$refs.workTitle.focus()
+    },
     selectedKna(kna) {
       this.selectedKnArea = kna
       this.knArea = kna.description
@@ -292,6 +296,7 @@ export default {
     },
     closeKaModal() {
       this.isKaModalActive = false
+      this.$refs.acdUnity.focus()
     },
 
     filterModels() {
@@ -403,12 +408,9 @@ export default {
 
   validations: {
     workTitle: {
-      required,
-      minLength: minLength(10)
+      required
     },
-    workSubtitle: {
-      minLength: minLength(10)
-    },
+    workSubtitle: {},
     totalPages: {
       required
     },

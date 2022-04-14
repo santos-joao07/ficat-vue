@@ -86,33 +86,7 @@
                       {{ $tr('layout.minLength', [min]) }}
                     </template>
                   </input-validation>
-                  <b-field>
-                    <WithTooltip :text="$tr('layout.talkFormUploadTooltip')">
-                      <b-upload v-model="files" multiple drag-drop>
-                        <div class="content has-text-centered">
-                          <p>
-                            <b-icon icon="upload" size="is-small"></b-icon>
-                          </p>
-                          <p>{{ $tr('layout.talkFormUpload') }}</p>
-                        </div>
-                      </b-upload>
-                    </WithTooltip>
-                  </b-field>
-                  <b-taglist>
-                    <template v-for="(file, i) in files">
-                      <b-tag
-                        v-if="file"
-                        :key="i"
-                        @close="files.splice(i, 1)"
-                        class="with-margin"
-                        attached
-                        closable
-                        aria-close-label="close tag"
-                      >
-                        {{ abbreviate(file.name) }}
-                      </b-tag>
-                    </template>
-                  </b-taglist>
+
                   <div class="flex-submit">
                     <WithTooltip :text="$tr('layout.solveCaptcha')">
                       <div style="margin:auto">
@@ -157,7 +131,6 @@ const defaultData = () => ({
   email: '',
   fone: '',
   msg: '',
-  files: [],
   touchedCaptcha: false,
   captchaHasError: false,
   captchaHasExpired: false,
@@ -213,9 +186,6 @@ export default {
       formData.append('email', this.email)
       formData.append('fone', this.fone)
       formData.append('msg', this.msg)
-      for (const f of this.files) {
-        formData.append('uploads', f, f.name)
-      }
       this.$axios
         .post('/api/send', formData, {
           headers: {
@@ -223,21 +193,14 @@ export default {
           }
         })
         .then(async res => {
-          this.$buefy.toast.open({
-            duration: 1000,
-            message: 'Message sucessfully sent!',
-            type: 'is-success'
-          })
+          this.toast()
           await this.resetState()
         })
         .catch(this.handle)
     },
 
-    abbreviate(filename) {
-      const grps = /^(.*)\.(.+)$/.exec(filename)
-      return filename.length < 10
-        ? filename
-        : filename.substring(0, 3) + '...' + (grps ? '.' + grps[2] : '')
+    toast() {
+      this.$buefy.toast.open('Mensagem enviada com sucesso')
     },
 
     async resetState() {
@@ -276,7 +239,7 @@ export default {
     msg: {
       required,
       minLength: minLength(20),
-      maxLength: maxLength(140)
+      maxLength: maxLength(240)
     }
   }
 }

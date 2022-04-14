@@ -8,7 +8,7 @@
       <template #brand>
         <b-navbar-item :to="{ path: '/' }" tag="router-link">
           <img
-            :src="require('@/assets/img/ficat-logo-white2.png')"
+            :src="require('@/assets/img/ficat-logo-white.png')"
             alt="Logo FICAT"
             class="logo-white"
           />
@@ -29,7 +29,7 @@
 
       <template slot="end">
         <b-navbar-item class="text-white" tag="nuxt-link" to="/login"
-          >LOG IN</b-navbar-item
+          >ADMIN</b-navbar-item
         >
         <b-navbar-item tag="div">
           <b-navbar-item
@@ -87,39 +87,7 @@ export default {
     }
   },
 
-  mounted() {
-    // Add init FB SDK function
-    const initSdk = document.createElement('script')
-    initSdk.innerHTML = `window.fbAsyncInit = function() {
-      FB.init({
-        appId: '197652141644385',
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v6.0'
-      })
-    }`
-
-    // Add FB SDK sources
-    const el = document.createElement('script')
-    el.async = true
-    el.defer = true
-    el.src = 'https://connect.facebook.net/en_US/sdk.js'
-
-    // Init fb messenger customer chat SDK
-    const chatSrc = document.createElement('script')
-    chatSrc.innerHTML = `(function(d, s, id) {
-      const fjs = d.getElementsByTagName(s)[0]
-      if (d.getElementById(id)) return
-      const js = d.createElement(s)
-      js.id = id
-      js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'
-      fjs.parentNode.insertBefore(js, fjs)
-    })(document, 'script', 'facebook-jssdk')`
-
-    document.body.insertBefore(chatSrc, document.body.firstChild)
-    document.body.insertBefore(el, document.body.firstChild)
-    document.body.insertBefore(initSdk, document.body.firstChild)
-  },
+  mounted() {},
 
   methods: {
     setLang(langKey) {

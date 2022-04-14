@@ -5,7 +5,7 @@
         <section class="section">
           <div class="centered-image">
             <figure class="ficat-logo is-inline-block">
-              <img src="~/assets/img/ficat-logo-nobg.png" alt="FICAT Logo" />
+              <img src="@/assets/img/ficat-logo.png" alt="FICAT Logo" />
               <!-- <h1>FICAT</h1> -->
             </figure>
           </div>
@@ -140,7 +140,7 @@ export default {
 }
 
 .ficat-logo {
-  width: 9rem;
+  width: 11rem;
   margin-bottom: 0.8em;
 }
 </style>

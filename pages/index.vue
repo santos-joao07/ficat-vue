@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-image
-      :src="require('@/assets/img/ficat-logo-nobg.png')"
+      :src="require('@/assets/img/ficat-logo.png')"
+      alt="Logo do Ficat"
       class="app-logo"
     ></b-image>
     <Steps class="steps" />
@@ -30,8 +31,8 @@ export default {
 }
 
 .app-logo {
-  width: 16%;
-  margin: 3.5em auto 2em;
+  width: 14rem;
+  margin: 3em auto 2em;
 }
 
 .steps {
@@ -66,6 +67,9 @@ a.dropdown-item {
 @media screen and (max-width: 900px) {
   .section {
     padding: 0;
+  }
+  .app-logo {
+    width: 12rem;
   }
 }
 </style>

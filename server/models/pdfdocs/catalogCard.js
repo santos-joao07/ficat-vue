@@ -90,27 +90,38 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
   ) {
     const advisor = advisorsArray[advisorIndex]
     const advisorGender = advisor.advisorGender === 'female' ? 1 : 0
+    let coadvisorGender
 
     if (advisor.advisorType === 'advisor') {
-      advisorsHeadersArray.push(
-        `<p class="ml advisor">Orientador(a): ${
-          title[advisor.advisorTitle][advisorGender]
-        }${advisor.advisorName}</p>`
-      )
+      if (advisorGender) {
+        advisorsHeadersArray.push(
+          `<p class="ml advisor">Orientadora: ${
+            title[advisor.advisorTitle][advisorGender]
+          }${advisor.advisorName}</p>`
+        )
+      } else {
+        advisorsHeadersArray.push(
+          `<p class="ml advisor">Orientador: ${
+            title[advisor.advisorTitle][advisorGender]
+          }${advisor.advisorName}</p>`
+        )
+      }
     } else {
-      const coadvisorGender = advisor.advisorGender === 'female' ? 1 : 0
+      coadvisorGender = advisorGender
       coadvisorsHeaderArray.push(
-        `${title[advisor.advisorTitle][coadvisorGender]}${
-          advisor.advisorName
-        }, ` // o final sempre vai ser ,\s
+        `${title[advisor.advisorTitle][advisorGender]}${advisor.advisorName}, ` // o final sempre vai ser ,\s
       )
     }
-  }
 
-  if (coadvisorsHeaderArray.length > 1) {
-    coadvisorsHeaderArray.unshift('Coorientadores: ')
-  } else {
-    coadvisorsHeaderArray.unshift('Coorientador(a): ')
+    if (advisorIndex === advisorsArray.length - 1) {
+      if (coadvisorsHeaderArray.length > 1) {
+        coadvisorsHeaderArray.unshift('Coorientadores: ')
+      } else if (coadvisorGender) {
+        coadvisorsHeaderArray.unshift('Coorientadora: ')
+      } else {
+        coadvisorsHeaderArray.unshift('Coorientador: ')
+      }
+    }
   }
 
   const advisorHeader = ''.concat(...advisorsHeadersArray)
@@ -123,7 +134,6 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
           .slice(0, -1)
       : ''
 
-  // const cotutorshipFemaleAdvisor = +!!cotutorship.isFemaleAdvisor
   const cotutorshipAdvisorGender =
     cotutorship.cotutorshipAdvisorGender === 'female' ? 1 : 0
 
@@ -135,7 +145,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
     } ${cotutorship.cotutorshipAdvisorName}`
   }
 
-  const fontSize = 10 // catalogFont === 'times' ? 9 : 10
+  const fontSize = catalogFont === 'times' ? '11px' : '10px'
 
   const withCotutorshipAdvisorHeader = cotutorshipHeader
     ? `<p class="ml">${cotutorshipHeader}</p>`
@@ -147,7 +157,7 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const workTypes = {
     thesis: 'Tese (Doutorado)',
-    dissertation: 'Dissertação',
+    dissertation: 'Dissertação (Mestrado)',
     tccExpert: 'TCC (Especialização)',
     tccGraduation: 'TCC (Graduação)'
   }
@@ -167,22 +177,21 @@ Gerada automaticamente pelo módulo Ficat, mediante os dados fornecidos pelo(a) 
 
   const workHeader =
     `${workTypes[work.workType]} - Universidade Federal do Pará, ${
-      academicDetailNames.programName
-    }` +
+      academicDetailNames.acdUnityName
+    }, ${academicDetailNames.programName}` +
     cotutorshipWorkHeader +
     localHeader
 
   let kws = ''
   for (const kn in keywords) {
-    kws += `${+kn + 1}. ${keywords[kn]} `
+    kws += `${+kn + 1}. ${keywords[kn]}. `
   }
   kws = kws.substring(0, kws.length - 1)
-  const keywordHeader = `${kws}. I. Título.`
+  const keywordHeader = `${kws} I. Título.`
 
   const templatePath = join(__dirname, 'catalogCard.html')
 
-  const fontFamily =
-    catalogFont === 'times' ? "'Nimbus Roman', serif" : "'Arimo', sans-serif"
+  const fontFamily = catalogFont === 'times' ? "'Tinos'" : "'Arimo'"
 
   // HTML model and script should always have same file name
   const htmlTemplate = readFileSync(templatePath, 'utf8')

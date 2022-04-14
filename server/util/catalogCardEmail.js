@@ -3,7 +3,8 @@ const nodemailer = require('nodemailer')
 const { google } = require('googleapis')
 const OAuth2 = google.auth.OAuth2
 
-const mailer = async function(emailAddres, pdfName, stream) {
+// emailAddress, pdfName, stream
+const mailer = async function(type, options) {
   const oauth2Client = new OAuth2(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
@@ -19,13 +20,6 @@ const mailer = async function(emailAddres, pdfName, stream) {
       if (err) {
         console.log('test')
         reject(new Error(err))
-        // fs.unlink('./assets/pdf_location/ficha.pdf', err => {
-        //   if (err) {
-        //     console.error(err)
-        //   } else {
-        //     console.log('cleared')
-        //   }
-        // })
       }
       resolve(token)
     })
@@ -44,26 +38,13 @@ const mailer = async function(emailAddres, pdfName, stream) {
     }
   })
 
-  await transporter.sendMail(
-    {
-      from: '"SEDEPTI" <sedepti.suporte@gmail.com>', // sender address
-      to: emailAddres, // list of receivers
-      subject: 'Ficha catalográfica - FICAT', // Subject line
-      text:
-        'Olá! Segue em anexo a cópia requisitada da sua ficha catalográfica.', // plain text body
-      // html: '<b>Hello world?</b>', // html body
-      attachments: [
-        {
-          filename: pdfName,
-          path: stream
-        }
-      ]
-    },
-    err => {
-      if (err) {
-        console.log(err)
-      }
-      console.log('before unlink')
+  transporter.sendMail(options, err => {
+    if (err) {
+      console.log(err)
+    }
+    console.log('before unlink')
+
+    if (type === 'indexCardCopy') {
       fs.unlink('./assets/pdf_location/ficha.pdf', err => {
         if (err) {
           console.error(err)
@@ -72,7 +53,7 @@ const mailer = async function(emailAddres, pdfName, stream) {
         }
       })
     }
-  )
+  })
 }
 
 module.exports = mailer

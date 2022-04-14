@@ -1,24 +1,52 @@
-# ficat-vue
+# FICAT - SISTEMA DE GERAÇÃO AUTOMATICA DE FICHAS CATALOGRÁFICAS
 
-> Nuxt-Vue.js Ficat version.
+> FICAT versão Nuxt.js (Vue <3).
 
-[![Build Status](https://travis-ci.org/Lakshamana/ficat-vue.svg?branch=master)](https://travis-ci.org/Lakshamana/ficat-vue)
+## Tecnologias Utilizadas
 
-## Build Setup
+- [Node.js](https://nodejs.org/en/)
+- [Vue.js 2](https://v2.vuejs.org/)
+- [Nuxt.js 2](https://nuxtjs.org/)
+- [Buefy](https://buefy.org/)
+- [MySQL 8](https://dev.mysql.com/doc/)
+- [Knex.js](http://knexjs.org/)
+
+## Requisitos
+
+- Instalar Node
+
+    **Versão: 10**
+
+    Nota: Use o nvm!
+
+- Instalar MySQL
+
+    **Versão: 8**
+
+## Configurações
+
+### Sobre banco de dados
+
+- Criar database com o nome da sua preferência
+
+- Criar um usuario com permissões para alterar a database que você criou
+
+- Colocar as credenciais de database e usuário no arquivo de ambiente
+  
+### Sobre rodar o projeto
 
 ``` bash
-# install dependencies
+# instala as dependencias do projeto
 $ npm install
 
-# serve with hot reload at localhost:3000
+# roda o projeto em http://localhost:3000
 $ npm run dev
 
-# build for production and launch server
+# Cria build para produção e roda servidor
 $ npm run build
 $ npm run start
 
-# generate static project
+# Gera projeto estatico (para nginx / apache2 etc)
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

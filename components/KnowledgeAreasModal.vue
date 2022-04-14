@@ -1,124 +1,144 @@
 <template>
-  <b-modal @close="closeModal" v-model="isKaModalActive" has-modal-card>
+  <b-modal
+    @close="closeModal"
+    v-model="isKaModalActive"
+    :aria-modal="true"
+    aria-role="dialog"
+    aria-label="Selecione a área de conhecimento"
+    has-modal-card
+  >
     <div class="modal-card" style="height: 90vh">
       <header class="modal-card-head">
-        <p class="subtitle is-4">
+        <h1 class="modal-card-title app-modal-title">
           SELECIONE A <span class="title-bold">ÁREA DE CONHECIMENTO</span>
-        </p>
+        </h1>
+        <button
+          @click="$emit('catClosed')"
+          aria-label="Sair"
+          type="button"
+          class="delete"
+        ></button>
       </header>
-      <section
-        ref="modalContent"
-        v-if="mode === 'menu'"
-        class="modal-card-body"
-      >
-        <!-- searchbox -->
-        <b-field
-          class="searchbox"
-          message="Pesquise sua área de conhecimento"
-          grouped
-        >
-          <b-input
-            v-model="term"
-            placeholder="Ex.: Aprendizagem de Máquina"
-            type="search"
-            expanded
-          ></b-input>
-          <p class="control">
-            <b-button @click="search" class="is-ficat">Pesquisar</b-button>
-          </p>
-        </b-field>
+      <section :aria-busy="busy" class="modal-card-body">
+        <div ref="modalContent" v-if="mode === 'menu'" class="">
+          <!-- searchbox -->
+          <b-field class="searchbox" grouped>
+            <b-input
+              @keydown.native.enter="search"
+              v-model="term"
+              placeholder="Digite o titulo da área de conhecimento a ser pesquisada ou selecione manualmente a seguir"
+              type="search"
+              expanded
+            ></b-input>
+            <p class="control">
+              <b-button @click="search" class="is-ficat">Pesquisar</b-button>
+            </p>
+          </b-field>
 
-        <!-- categories -->
-        <h1 class="category-title">CATEGORIAS</h1>
-        <hr class="category-divider" />
-        <div class="category-list">
-          <a
-            @click="getCategoryList(category)"
-            v-for="category of categories"
-            :key="categories.indexOf(category)"
-            class="list-item"
-            link
+          <!-- categories -->
+          <h2 class="category-title">LISTA DE CATEGORIAS</h2>
+          <hr class="category-divider" />
+          <div
+            aria-role="list"
+            aria-label="Lista de categorias"
+            class="category-list"
           >
-            <b-icon icon="plus" size="is-small"></b-icon>
-            {{ category.description }}
-          </a>
+            <a
+              @keypress.enter="getCategoryList(category)"
+              @click="getCategoryList(category)"
+              v-for="category of categories"
+              :key="categories.indexOf(category)"
+              tabindex="0"
+              class="list-item"
+            >
+              <b-icon icon="plus" size="is-small"></b-icon>
+              {{ category.description }}
+            </a>
+          </div>
         </div>
-      </section>
-      <section
-        ref="modalContent"
-        v-if="mode === 'list'"
-        class="modal-card-body"
-      >
-        <div class="list-header">
-          <a @click="goToMenu"
-            ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+        <div ref="modalContent" v-if="mode === 'list'" class="">
+          <div class="list-header">
+            <a
+              @keypress.enter="goToMenu"
+              @click="goToMenu"
+              aria-label="Voltar para a lista de categorias"
+              role="button"
+              tabindex="0"
+              ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+            >
+            <hr class="list-header-divider" />
+            <p class="list-category">
+              CATEGORIA:
+              <span style="font-weight: 500">{{ getSelectedCategory }}</span>
+            </p>
+          </div>
+          <div
+            ref="knaList"
+            :aria-label="
+              'Lista de assuntos da categoria ' + getSelectedCategory
+            "
           >
-          <hr class="list-header-divider" />
-          <p class="list-category">
-            CATEGORIA:
-            <span style="font-weight: 500">{{ getSelectedCategory }}</span>
-          </p>
-        </div>
-        <div ref="knaList">
-          <a
-            @click="selectedKna(item)"
-            v-for="item in categoryData"
-            :key="item.id"
-            class="list-item"
-            link
+            <a
+              @keypress="selectedKna(item)"
+              @click="selectedKna(item)"
+              v-for="item in categoryData"
+              :key="item.id"
+              tabindex="0"
+              class="list-item"
+              link
+            >
+              <b-icon icon="minus" size="is-small"></b-icon>
+              {{ item.description }}
+            </a>
+          </div>
+          <b-pagination
+            @change="handlePageChange"
+            :total="total"
+            :per-page="10"
+            v-model="currentPage"
           >
-            <b-icon icon="minus" size="is-small"></b-icon>
-            {{ item.description }}
-          </a>
+          </b-pagination>
         </div>
-        <b-pagination
-          @change="handlePageChange"
-          :total="total"
-          :per-page="10"
-          v-model="currentPage"
-        >
-        </b-pagination>
-      </section>
-      <section
-        ref="modalContent"
-        v-if="mode === 'search'"
-        class="modal-card-body"
-      >
-        <div class="list-header">
-          <a @click="goToMenu"
-            ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+        <div ref="modalContent" v-if="mode === 'search'" class="">
+          <div class="list-header">
+            <a
+              @keypress.enter="goToMenu"
+              @click="goToMenu"
+              role="button"
+              tabindex="0"
+              ><b-icon icon="arrow-left" size="is-small"></b-icon> VOLTAR</a
+            >
+            <hr class="list-header-divider" />
+          </div>
+          <div ref="searchList" aria-label="Lista de resultados da pesquisa">
+            <a
+              @click="selectedKna(item)"
+              v-for="item in searchData"
+              :key="item.id"
+              tabindex="0"
+              class="list-item"
+              link
+            >
+              <b-icon icon="minus" size="is-small"></b-icon>
+              {{ item.description }}
+            </a>
+          </div>
+          <b-pagination
+            @change="handlePageChange"
+            :total="total"
+            :per-page="10"
+            v-model="currentPage"
           >
-          <hr class="list-header-divider" />
+          </b-pagination>
         </div>
-        <div ref="searchList">
-          <a
-            @click="selectedKna(item)"
-            v-for="item in searchData"
-            :key="item.id"
-            class="list-item"
-            link
-          >
-            <b-icon icon="minus" size="is-small"></b-icon>
-            {{ item.description }}
-          </a>
-        </div>
-        <b-pagination
-          @change="handlePageChange"
-          :total="total"
-          :per-page="10"
-          v-model="currentPage"
-        >
-        </b-pagination>
       </section>
     </div>
   </b-modal>
 </template>
 <script>
-// import InputValidation from '~/components/InputValidation.js'
 import { knaCatArray } from '../server/util/knaCategories'
 
 export default {
-  // components: { ToggleList },
   props: {
     isKaModalActive: Boolean,
     selectedKna: {
@@ -130,7 +150,6 @@ export default {
   },
   data() {
     return {
-      // filterText: '',
       term: '',
       loadingComponent: null,
       searchData: [],
@@ -141,7 +160,8 @@ export default {
       isLoading: false,
       mode: 'menu',
       currentPage: 1,
-      total: 0
+      total: 0,
+      busy: true
     }
   },
   computed: {
@@ -151,6 +171,11 @@ export default {
   },
   created() {
     this.categories = knaCatArray()
+    this.categories.sort(function(a, b) {
+      const x = a.description.toLowerCase()
+      const y = b.description.toLowerCase()
+      return x < y ? -1 : x > y ? 1 : 0
+    })
   },
   methods: {
     search() {
@@ -243,6 +268,7 @@ export default {
         })
         .then(response => {
           this.categoryData = response.data
+          this.busy = false
         })
         .catch(error => {
           this.categoryData = error.data
@@ -254,7 +280,7 @@ export default {
 <style scoped>
 .modal-card-title {
   margin: 5px 0;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 300;
 }
 

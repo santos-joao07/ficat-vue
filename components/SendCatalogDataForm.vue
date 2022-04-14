@@ -8,6 +8,7 @@
               <b-select
                 ref="font"
                 v-model="catalogFont"
+                :aria-label="$tr('layout.fontFamilyTooltip')"
                 placeholder="Font"
                 aria-placeholder="Font"
                 rounded
@@ -18,10 +19,10 @@
               </b-select>
             </WithTooltip>
           </b-field>
-          <b-field v-if="sendEmailCopy" class="email-input">
+          <b-field v-show="sendEmailCopy" class="email-input">
             <input-validation
               ref="email"
-              v-model="$v.email.$model"
+              v-model.trim="$v.email.$model"
               :validations="$options.validations.email"
               :v="$v"
               :tooltip-label="
@@ -35,28 +36,28 @@
               <template #email>
                 {{ $tr('layout.email') }}
               </template>
-              <template #required>
-                {{ $tr('layout.required') }}
-              </template>
             </input-validation>
           </b-field>
           <b-field class="email-box">
             <WithTooltip :text="$tr('layout.receiveEmailTooltip')">
-              <b-checkbox v-model="sendEmailCopy" class="email-checkbox">
+              <b-checkbox
+                :aria-label="$tr('layout.receiveEmailTooltip')"
+                @input="focusOnEmailInput"
+                v-model="sendEmailCopy"
+                class="email-checkbox"
+              >
                 {{ $tr('layout.sendCopyToEmail') }}
               </b-checkbox>
             </WithTooltip>
           </b-field>
 
-          <div class="recaptcha-box">
+          <div>
             <WithTooltip :text="$tr('layout.solveCaptcha')">
-              <div style="margin:auto">
-                <recaptcha
-                  @success="onSuccess"
-                  @error="onSomeError('error')"
-                  @expired="onSomeError('exp')"
-                />
-              </div>
+              <recaptcha
+                @success="onSuccess"
+                @error="onSomeError('error')"
+                @expired="onSomeError('exp')"
+              />
             </WithTooltip>
           </div>
           <b-field>
@@ -79,7 +80,7 @@
 </template>
 
 <script>
-import { email, required } from 'vuelidate/lib/validators'
+import { email } from 'vuelidate/lib/validators'
 import Card from '~/components/Card'
 import WithTooltip from '~/components/WithTooltip'
 import helper from '~/mixins/helper'
@@ -145,6 +146,16 @@ export default {
   },
 
   methods: {
+    focusOnEmailInput(value) {
+      if (value) {
+        this.$refs.email.focus()
+      }
+    },
+    focus() {
+      // console.log(this.$refs)
+      this.$refs.font.focus()
+    },
+
     isEmailValid() {
       const { validations } = this.$options
       this.$v.$touch()
@@ -253,17 +264,15 @@ export default {
 
   validations: {
     email: {
-      email,
-      required
+      email
     }
   }
 }
 </script>
 <style scoped>
-.recaptcha-box {
+.g-recaptcha {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .email-input {

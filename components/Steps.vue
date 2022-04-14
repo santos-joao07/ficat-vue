@@ -1,69 +1,75 @@
 <template>
-  <section>
-    <b-steps
-      v-model="activeStep"
-      :rounded="isRounded"
-      :has-navigation="hasNavigation"
-      :label-position="labelPosition"
-      :mobile-mode="mobileMode"
-      type="is-ficat"
+  <b-steps
+    v-model="activeStep"
+    :rounded="isRounded"
+    :has-navigation="hasNavigation"
+    :label-position="labelPosition"
+    :mobile-mode="mobileMode"
+    type="is-ficat"
+  >
+    <b-step-item icon="account">
+      <AuthorshipForm ref="section-0" />
+    </b-step-item>
+
+    <b-step-item icon="book-multiple">
+      <WorkForm ref="section-1" />
+    </b-step-item>
+
+    <b-step-item icon="account-multiple">
+      <OrientationForm ref="section-2" />
+      <div class="advisor-footer">
+        <b-tooltip
+          class="is-ficat"
+          label="Ative essa opção caso a modalidade do seu curso seja interinstitucional"
+          multilined
+          size="is-medium"
+        >
+          <div class="cotutela-switch">
+            <p class="cotutela-switch-label">Interinstitucional</p>
+
+            <b-switch v-model="showCotutela"> </b-switch>
+          </div>
+        </b-tooltip>
+      </div>
+    </b-step-item>
+
+    <b-step-item v-if="showCotutela" icon="account-key">
+      <CotutorshipForm ref="section-3" />
+    </b-step-item>
+
+    <b-step-item icon="tag-multiple">
+      <KeywordForm :ref="sectionIndex.keyword" />
+    </b-step-item>
+
+    <b-step-item icon="check">
+      <SendCatalogDataForm :ref="sectionIndex.send" />
+    </b-step-item>
+
+    <template
+      slot="navigation"
+      v-if="customNavigation"
+      slot-scope="{ previous, next }"
     >
-      <b-step-item icon="account">
-        <AuthorshipForm ref="section-0" />
-      </b-step-item>
-
-      <b-step-item icon="book-multiple">
-        <WorkForm ref="section-1" />
-      </b-step-item>
-
-      <b-step-item icon="account-multiple">
-        <OrientationForm ref="section-2" />
-        <div class="cotutela-switch">
-          <p class="cotutela-switch-label">Interinstitucional</p>
-          <b-switch v-model="showCotutela"> </b-switch>
-        </div>
-      </b-step-item>
-
-      <b-step-item v-if="showCotutela" icon="account-key">
-        <CotutorshipForm ref="section-3" />
-      </b-step-item>
-
-      <b-step-item icon="tag-multiple">
-        <KeywordForm :ref="sectionIndex.keyword" />
-      </b-step-item>
-
-      <b-step-item icon="check">
-        <SendCatalogDataForm :ref="sectionIndex.send" />
-      </b-step-item>
-
-      <template
-        slot="navigation"
-        v-if="customNavigation"
-        slot-scope="{ previous, next }"
-      >
-        <div class="test">
-          <b-button
-            :disabled="previous.disabled"
-            @click.prevent="previous.action"
-            class="app-button"
-            icon-left="chevron-left"
-          >
-            Anterior
-          </b-button>
-          <b-button
-            :disabled="next.disabled"
-            @click.prevent="validate(next.action)"
-            class="app-button"
-            icon-right="chevron-right"
-          >
-            Próximo
-            <!-- <b-icon class="app-icon" icon="chevron-right" size="is-medium">
-            </b-icon> -->
-          </b-button>
-        </div>
-      </template>
-    </b-steps>
-  </section>
+      <div class="test">
+        <b-button
+          :disabled="previous.disabled"
+          @click.prevent="previous.action"
+          class="app-button"
+          icon-left="chevron-left"
+        >
+          Anterior
+        </b-button>
+        <b-button
+          :disabled="next.disabled"
+          @click.prevent="validate(next.action)"
+          class="app-button"
+          icon-right="chevron-right"
+        >
+          Próximo
+        </b-button>
+      </div>
+    </template>
+  </b-steps>
 </template>
 
 <script>
@@ -73,6 +79,8 @@ import OrientationForm from '~/components/OrientationForm'
 import KeywordForm from '~/components/KeywordForm'
 import SendCatalogDataForm from '~/components/SendCatalogDataForm'
 import CotutorshipForm from '~/components/CotutorshipForm'
+// import WithTooltip from '~/components/WithTooltip'
+
 export default {
   name: 'Steps',
   components: {
@@ -130,6 +138,7 @@ export default {
       const formSectionRef = 'section-' + this.activeStep
       if (this.$refs[formSectionRef].checkNext() === true) {
         nextAction()
+        this.$refs['section-' + (this.activeStep + 1)].focus()
       }
     }
   }
@@ -182,6 +191,11 @@ $link: $ficat;
 .app-icon {
   vertical-align: middle;
   color: white;
+}
+
+.advisor-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .cotutela-switch-label {

@@ -9,15 +9,17 @@
         >
           <div class="app-author-input">
             <input-validation
-              ref="authorName"
-              v-model="kw.authorName.$model"
+              :ref="'authorName-' + i"
+              v-model.trim="kw.authorName.$model"
               :label="$tr('layout.whosName', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorName"
               :v="kw"
               :tooltip-label="
-                $tr('layout.nameTooltip', [{ pt: 'author', en: 'lowAuthor' }])
+                $tr(
+                  +i === 0 ? 'layout.nameTooltip' : 'layout.secondNameTooltip'
+                )
               "
-              :placeholder="'Ex.: ' + placeholderNames[i][0]"
+              :placeholder="'Exemplo: ' + placeholderNames[i][0]"
               field-name="authorName"
               class="author-first-input"
             >
@@ -33,16 +35,18 @@
             </input-validation>
             <input-validation
               ref="authorSurname"
-              v-model="kw.authorSurname.$model"
+              v-model.trim="kw.authorSurname.$model"
               :label="$tr('layout.whosSurname', ['author']) + ' ' + (+i + 1)"
               :validations="$options.validations.authors.$each.authorSurname"
               :tooltip-label="
-                $tr('layout.surnameTooltip', [
-                  { pt: 'author', en: 'lowAuthor' }
-                ])
+                $tr(
+                  +i === 0
+                    ? 'layout.surnameTooltip'
+                    : 'layout.secondSurnameTooltip'
+                )
               "
               :v="kw"
-              :placeholder="'Ex.: ' + placeholderNames[i][1]"
+              :placeholder="'Exemplo: ' + placeholderNames[i][1]"
               field-name="authorSurname"
             >
               <template #required>
@@ -60,10 +64,11 @@
             <WithTooltip :text="$tr('layout.addAuthor')">
               <b-button
                 :disabled="authors.length > 1"
-                @click="authors.push({ authorName: '', authorSurname: '' })"
+                @click="addAuthor"
                 icon-right="plus"
                 class="btn"
                 type="is-success"
+                aria-label="Adicionar mais um campo de autor."
                 outlined
               >
               </b-button>
@@ -75,6 +80,7 @@
                 icon-right="minus"
                 class="btn"
                 type="is-danger"
+                aria-label="Remover um campo de autor."
                 outlined
               ></b-button>
             </WithTooltip>
@@ -87,7 +93,6 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
-// import helper from '~/mixins/helper'
 import { recovery, replace } from '~/front/persistence'
 import Card from '~/components/Card'
 import InputValidation from '~/components/InputValidation.js'
@@ -96,10 +101,11 @@ import WithTooltip from '~/components/WithTooltip'
 export default {
   name: 'AuthorshipForm',
   components: { Card, InputValidation, WithTooltip },
-  // mixins: [helper],
+
   data() {
     const { authors } = recovery('form')
     return {
+      aux: false,
       authors,
       placeholderNames: [
         ['Samantha Luíza Athayde', 'Silva'],
@@ -107,6 +113,7 @@ export default {
       ]
     }
   },
+
   watch: {
     $v: {
       deep: true,
@@ -117,7 +124,7 @@ export default {
   },
 
   mounted() {
-    this.$refs.authorName[0].focus()
+    this.$refs['authorName-0'][0].focus()
   },
 
   beforeCreate() {
@@ -132,6 +139,12 @@ export default {
       })
   },
   methods: {
+    addAuthor() {
+      this.authors.push({ authorName: '', authorSurname: '' })
+      this.$nextTick(() => {
+        this.$refs['authorName-' + (this.authors.length - 1)][0].focus()
+      })
+    },
     filterModels() {
       return Object.keys(this.$v).filter(k => !k.startsWith('$'))
     },
@@ -139,8 +152,6 @@ export default {
       const { authorName } = this.$refs
       this.$v.$touch()
       for (const i in authorName) {
-        // console.log(i, this.$refs.authorName[i])
-
         if (this.$v.authors.$each[i].$invalid) {
           this.$refs.authorName[i].focus()
           return false
@@ -170,15 +181,12 @@ export default {
 
 <style scoped>
 .input-float {
-  /* height: 100%; */
   display: flex;
-
   justify-content: space-around;
 }
 
 .app-author-input {
   display: flex;
-  /* flex-wrap: wrap; */
 }
 
 .author-first-input {
