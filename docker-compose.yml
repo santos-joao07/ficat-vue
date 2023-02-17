@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my-admin
+      MYSQL_DATABASE: ficat
+    ports:
+      - 3306:3306
+  ficat:
+    build: .
+    env_file: ./env/.env.production
+    container_name: ficat
+    hostname: ficat
+    ports:
+      - 3000:3000
+    depends_on:
+      - db

@@ -13,7 +13,7 @@ export default {
     author: 'autor',
     secondaryAuthor: 'segundo autor',
     authorshipData: 'Dados do Autor',
-    whosName: who => `Nome do ${who}`,
+    whosName: who => `Nome ${who}`,
     whosSurname: who => `Sobrenome do ${who}`,
     nameTooltip:
       'Digite seu prenome, nome e primeiro sobrenome, se houver. Lembre-se de utilizar letra maiúscula na primeira letra de nomes próprios.',

@@ -51,7 +51,7 @@
             </WithTooltip>
           </b-field>
 
-          <div>
+          <!-- <div>
             <WithTooltip :text="$tr('layout.solveCaptcha')">
               <recaptcha
                 @success="onSuccess"
@@ -59,11 +59,10 @@
                 @expired="onSomeError('exp')"
               />
             </WithTooltip>
-          </div>
+          </div> -->
           <b-field>
             <WithTooltip :text="$tr('layout.generateTooltip')">
               <b-button
-                :disabled="disabled"
                 class="is-success"
                 rounded
                 expanded

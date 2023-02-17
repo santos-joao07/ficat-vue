@@ -88,7 +88,7 @@
                   </input-validation>
 
                   <div class="flex-submit">
-                    <WithTooltip :text="$tr('layout.solveCaptcha')">
+                   <!--  <WithTooltip :text="$tr('layout.solveCaptcha')">
                       <div style="margin:auto">
                         <recaptcha
                           @success="onSuccess"
@@ -96,10 +96,10 @@
                           @expired="onSomeError('exp')"
                         />
                       </div>
-                    </WithTooltip>
+                    </WithTooltip> -->
                     <WithTooltip :text="$tr('layout.submitBtnTooltip')">
                       <b-button
-                        :disabled="disabled"
+                        :disabled="disable"
                         :loading="loading"
                         class="is-success"
                         rounded
