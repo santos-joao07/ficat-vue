@@ -1,2 +1,3 @@
 **/*.html
 mixins/detectMobileUser.js
+pages/talk.vue

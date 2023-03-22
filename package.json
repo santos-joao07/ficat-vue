@@ -21,6 +21,7 @@
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "migrate:prod": "cross-env NODE_ENV=production knex migrate:latest",
+    "migrate:dev": "cross-env NODE_ENV=development knex migrate:latest",
     "rollback": "knex migrate:up",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix"
   },
@@ -54,6 +55,7 @@
     "nuxt-fontawesome": "^0.4.0",
     "p-debounce": "^2.1.0",
     "pdfkit": "^0.10.0",
+    "sqlite3": "^5.1.6",
     "vue-cookies": "^1.5.13",
     "vuelidate": "^0.7.5"
   },
@@ -73,7 +75,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "node-sass": "^4.10.1",
     "nodemon": "^1.18.9",
-    "prettier": "^1.16.4",
+    "prettier": "^1.19.1",
     "sass-loader": "^10",
     "vue-jest": "^4.0.1"
   }
