@@ -26,7 +26,7 @@ const unityNames = [
 
 function generate(length = 1000) {
   return Array.from({ length }, (_, i) => ({
-    id: i,
+    id: ++i,
     type: types[rand(0, 4)],
     datetime: new Date(rand(2000, 2019), rand(0, 11), rand(1, 31))
       .toISOString()
