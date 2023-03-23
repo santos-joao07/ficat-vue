@@ -130,6 +130,7 @@ export default {
 .error {
   font-size: 0.9rem;
   color: red;
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
 }
 </style>

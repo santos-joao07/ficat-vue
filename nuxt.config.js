@@ -69,7 +69,7 @@ module.exports = {
 
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/recaptcha'
+    // '@nuxtjs/recaptcha'
   ],
   /*
    ** Axios module configuration
